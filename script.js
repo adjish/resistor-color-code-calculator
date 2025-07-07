@@ -1,10 +1,37 @@
 document.addEventListener("DOMContentLoaded", function() {
-  var c1 = -1, c2 = -1, c3 = -1, c4 = -1
+  var c1 = -1, c2 = -1, c3 = -1, multiplier = -1, tolerance = -1, ppm = -1, bands = 4;
 
+  document.getElementById('bands').addEventListener('change', bands_function);
   document.getElementById('first').addEventListener('change', function1);
   document.getElementById('second').addEventListener('change', function2);
   document.getElementById('third').addEventListener('change', function3);
-  document.getElementById('fourth').addEventListener('change', function4);
+  document.getElementById('multiplier').addEventListener('change', function4);
+  document.getElementById('tolerance').addEventListener('change', function5);
+  document.getElementById('ppm').addEventListener('change', function6);
+
+  function bands_function() {
+    bands = document.getElementById('bands').value.charAt(0);
+
+    if (bands == 4)
+    {
+      document.getElementById("third_band").style.display = "none";
+      document.getElementById("ppm_band").style.display = "none";
+    }
+
+    if (bands == 5)
+    {
+      document.getElementById("third_band").style.display = "unset";
+      document.getElementById("ppm_band").style.display = "none";
+    }
+
+    if (bands == 6)
+    {
+      document.getElementById("third_band").style.display = "unset";
+      document.getElementById("ppm_band").style.display = "unset";
+    }
+
+    f();
+  }
 
   function function1() {
     c1 = decode1(document.getElementById('first').value);
@@ -17,24 +44,59 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function function3() {
-    c3 = decode2(document.getElementById('third').value);
+    c3 = decode1(document.getElementById('third').value);
     f();
   }
 
   function function4() {
-    c4 = decode3(document.getElementById('fourth').value);
+    multiplier = decode2(document.getElementById('multiplier').value);
+    f();
+  }
+
+  function function5() {
+    tolerance = decode3(document.getElementById('tolerance').value);
+    f();
+  }
+
+  function function6() {
+    ppm = decode4(document.getElementById('ppm').value);
     f();
   }
 
   function f() {
-    if (c1 != -1 && c2 != -1 && c3 != -1 && c4 != -1)
+    if (c1 != -1 && c2 != -1 && multiplier != -1 && tolerance != -1)
     {
-      document.getElementById("text").textContent = (c1 + '' + c2) * Math.pow(10, c3 - 2) + "±" + c4 * 100 + "% Ohms";
+      if (bands == 4)
+      {
+        document.getElementById("text").textContent = (c1 + '' + c2) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms";
+      }
+      else
+      {
+        if (bands == 5 && c3 != -1)
+        {
+          document.getElementById("text").textContent = (c1 + '' + c2 + c3) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms";
+        }
+        else
+        {
+          if (bands == 6 && c3 != -1 && ppm != -1)
+          {
+            document.getElementById("text").textContent = (c1 + '' + c2 + c3) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms " + ppm + "ppm";
+          }
+          else
+          {
+            document.getElementById("text").textContent = "Fill all dropdowns to see the result";
+          }
+        }
+      }
+    }
+    else
+    {
+      document.getElementById("text").textContent = "Fill all dropdowns to see the result";
     }
   }
 
   function decode1(c) {
-    const colors = [
+    const colours = [
       'black',
       'brown',
       'red',
@@ -47,11 +109,11 @@ document.addEventListener("DOMContentLoaded", function() {
       'white'
     ];
 
-    return colors.indexOf(c);
+    return colours.indexOf(c);
   }
 
   function decode2(c) {
-    const colors = [
+    const colours = [
       'silver',
       'gold',
       'black',
@@ -66,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
       'white'
     ];
 
-    return colors.indexOf(c);
+    return colours.indexOf(c);
   }
 
   function decode3(c)
@@ -96,5 +158,33 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
     return values[tolerances.indexOf(c)];
+  }
+
+  function decode4(c) {
+    const ppm = [
+      "black",
+      "brown",
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "violet",
+      "gray"
+    ];
+
+    const values = [
+      250,
+      100,
+      50,
+      15,
+      25,
+      20,
+      10,
+      5,
+      1
+    ];
+
+    return values[ppm.indexOf(c)];
   }
 });

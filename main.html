@@ -7,9 +7,17 @@
   <body>
     <script src="script.js"></script>
 
-    <label for="first">First band:</label>
+    <label for="bands">Number of bands:</label>
+    <select name="bands" id="bands">
+      <option value="4" selected>4 bands</option>
+      <option value="5">5 bands</option>
+      <option value="6">6 bands</option>
+    </select>
+
+    <br/>
+    <label for="first">First band colour:</label>
     <select name="first" id="first">
-      <option value="" hidden selected>Pick a choice!</option>
+      <option value="" hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
       <option value="red">Red</option>
@@ -23,9 +31,9 @@
     </select>
 
     <br/>
-    <label for="second">Second band:</label>
+    <label for="second">Second band colour:</label>
     <select name="second" id="second">
-      <option value="" hidden selected>Pick a choice!</option>
+      <option value="" hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
       <option value="red">Red</option>
@@ -39,9 +47,27 @@
     </select>
     <br/>
 
-    <label for="third">Third band (multiplier):</label>
-    <select name="third" id="third">
-      <option value="" hidden selected>Pick a choice!</option>
+    <div id="third_band" style="display: none;">
+      <label for="third">Third band colour:</label>
+      <select name="third" id="third">
+        <option value="" hidden selected>Select a colour</option>
+        <option value="black">Black</option>
+        <option value="brown">Brown</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="violet">Violet</option>
+        <option value="gray">Gray</option>
+        <option value="white">White</option>
+      </select>
+      <br/>
+    </div>
+
+    <label for="multiplier">Multiplier band:</label>
+    <select name="multiplier" id="multiplier">
+      <option value="" hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
       <option value="red">Red</option>
@@ -53,11 +79,11 @@
       <option value="gray">Gray</option>
       <option value="white">White</option>
     </select>
-
     <br/>
-    <label for="fourth">Fourth band (tolerance):</label>
-    <select name="fourth" id="fourth">
-      <option value="" hidden selected>Pick a choice!</option>
+
+    <label for="tolerance">Tolerance band:</label>
+    <select name="tolerance" id="tolerance">
+      <option value="" hidden selected>Select a colour</option>
       <option value="silver">Silver</option>
       <option value="gold">Gold</option>
       <option value="brown">Brown</option>
@@ -67,7 +93,24 @@
       <option value="violet">Violet</option>
       <option value="none">None</option>
     </select>
+    <br/>
 
-    <p id="text"></p>
+    <div id="ppm_band" style="display: none;">
+      <label for="ppm">PPM:</label>
+      <select name="ppm" id="ppm">
+        <option value="" hidden selected>Select a colour</option>
+        <option value="black">Black</option>
+        <option value="brown">Brown</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="violet">Violet</option>
+        <option value="gray">Gray</option>
+      </select>
+    </div>
+
+    <p id="text">Fill all dropdowns to see the result</p>
   </body>
 </html>
