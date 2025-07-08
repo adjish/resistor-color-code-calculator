@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-  var c1 = -1, c2 = -1, c3 = -1, multiplier = -1, tolerance = -1, ppm = -1, bands = 4;
+  let c1, c2, c3, multiplier, tolerance, ppm, bands = 4;
 
   document.getElementById('bands').addEventListener('change', bands_function);
   document.getElementById('first').addEventListener('change', function1);
@@ -12,22 +12,18 @@ document.addEventListener("DOMContentLoaded", function() {
   function bands_function() {
     bands = document.getElementById('bands').value.charAt(0);
 
-    if (bands == 4)
-    {
-      document.getElementById("third_band").style.display = "none";
-      document.getElementById("ppm_band").style.display = "none";
-    }
-
-    if (bands == 5)
-    {
-      document.getElementById("third_band").style.display = "unset";
-      document.getElementById("ppm_band").style.display = "none";
-    }
-
-    if (bands == 6)
-    {
-      document.getElementById("third_band").style.display = "unset";
-      document.getElementById("ppm_band").style.display = "unset";
+    switch (bands) {
+      case "6":
+        document.getElementById("third_band").style.display = "unset";
+        document.getElementById("ppm_band").style.display = "unset";
+        break;
+      case "5":
+        document.getElementById("third_band").style.display = "unset";
+        document.getElementById("ppm_band").style.display = "none";
+        break;
+      default:
+        document.getElementById("third_band").style.display = "none";
+        document.getElementById("ppm_band").style.display = "none";
     }
 
     f();
@@ -64,34 +60,42 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function f() {
-    if (c1 != -1 && c2 != -1 && multiplier != -1 && tolerance != -1)
+    let resistance, result;
+
+    if (c1 != undefined && c2 != undefined && multiplier != undefined)
     {
-      if (bands == 4)
+      resistance = c1 + '' + c2;
+
+      if (bands >= 5)
       {
-        document.getElementById("text").textContent = (c1 + '' + c2) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms";
-      }
-      else
-      {
-        if (bands == 5 && c3 != -1)
+        if (c3 != undefined)
         {
-          document.getElementById("text").textContent = (c1 + '' + c2 + c3) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms";
+          resistance += '' + c3;
         }
         else
         {
-          if (bands == 6 && c3 != -1 && ppm != -1)
-          {
-            document.getElementById("text").textContent = (c1 + '' + c2 + c3) * Math.pow(10, multiplier - 2) + "±" + tolerance * 100 + "% Ohms " + ppm + "ppm";
-          }
-          else
-          {
-            document.getElementById("text").textContent = "Fill all dropdowns to see the result";
-          }
+          document.getElementById("text").textContent = "Fill all required dropdowns to see the result";
+          return;
         }
       }
+
+      result = resistance * Math.pow(10, multiplier)
+
+      if (tolerance != undefined)
+      {
+        result += "±" + tolerance * 100 + "% Ohms";
+      }
+
+      if (bands == 6 && ppm != undefined)
+      {
+        result += " " + ppm + "ppm";
+      }
+
+      document.getElementById("text").textContent = result;
     }
     else
     {
-      document.getElementById("text").textContent = "Fill all dropdowns to see the result";
+      document.getElementById("text").textContent = "Fill all required dropdowns to see the result";
     }
   }
 
@@ -114,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function decode2(c) {
     const colours = [
+      'pink',
       'silver',
       'gold',
       'black',
@@ -128,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
       'white'
     ];
 
-    return colours.indexOf(c);
+    return colours.indexOf(c) - 3;
   }
 
   function decode3(c)
