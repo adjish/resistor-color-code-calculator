@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('ppm').addEventListener('change', function6);
 
   function bands_function() {
-    bands = document.getElementById('bands').value.charAt(0);
+    bands = document.getElementById('bands').value;
 
     switch (bands) {
       case "6":
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function f() {
-    let resistance, result;
+    let resistance, result, result2, error, number;
 
     if (c1 != undefined && c2 != undefined && multiplier != undefined)
     {
@@ -79,16 +79,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       }
 
-      result = resistance * Math.pow(10, multiplier)
+      number = Math.round(resistance * Math.pow(10, multiplier))/1000;
 
       if (tolerance != undefined)
       {
-        result += "±" + tolerance * 100 + "% Ohms";
+        error = Math.round(tolerance * number * 10000000000)/10000000000;
+        result2 = number + "±" + error + " Ohms";
+        result = number + " Ohms " + tolerance * 100 + "%";
       }
 
       if (bands == 6 && ppm != undefined)
       {
         result += " " + ppm + "ppm";
+      }
+
+      if (result2 != undefined)
+      {
+        result += "\n" + result2 + "\n" + Math.round((number - error) * 10000000000)/10000000000 + " - " + Math.round((number + error) * 10000000000)/10000000000 + " Ohms";
       }
 
       document.getElementById("text").textContent = result;
@@ -109,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
       'green',
       'blue',
       'violet',
-      'gray',
+      'grey',
       'white'
     ];
 
@@ -129,11 +136,11 @@ document.addEventListener("DOMContentLoaded", function() {
       'green',
       'blue',
       'violet',
-      'gray',
+      'grey',
       'white'
     ];
 
-    return colours.indexOf(c) - 3;
+    return colours.indexOf(c);
   }
 
   function decode3(c)
@@ -175,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "green",
       "blue",
       "violet",
-      "gray"
+      "grey"
     ];
 
     const values = [
