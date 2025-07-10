@@ -1,25 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resistor Calculator</title>
   </head>
   <body>
     <script src="script.js"></script>
 
     <label for="bands">Number of bands:</label>
-    <br/>
+    <br />
     <select name="bands" id="bands">
       <option value="4" selected>4 bands</option>
       <option value="5">5 bands</option>
       <option value="6">6 bands</option>
     </select>
-    <br/>
+    <br />
 
-    <label for="first">First band colour:</label>
-    <br/>
-    <select name="first" id="first">
+    <label for="digit_0">First band colour:</label>
+    <br />
+    <select name="digit_0" id="digit_0">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
@@ -32,11 +32,11 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br/>
+    <br />
 
-    <label for="second">Second band colour:</label>
-    <br/>
-    <select name="second" id="second">
+    <label for="digit_1">Second band colour:</label>
+    <br />
+    <select name="digit_1" id="digit_1">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
@@ -49,12 +49,12 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br/>
+    <br />
 
-    <div id="third_band" style="display: none;">
-      <label for="third">Third band colour:</label>
-      <br/>
-      <select name="third" id="third">
+    <div id="third_band" style="display: none">
+      <label for="digit_2">Third band colour:</label>
+      <br />
+      <select name="digit_2" id="digit_2">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
         <option value="brown">Brown</option>
@@ -67,11 +67,11 @@
         <option value="grey">Grey</option>
         <option value="white">White</option>
       </select>
-      <br/>
+      <br />
     </div>
 
     <label for="multiplier">Multiplier band:</label>
-    <br/>
+    <br />
     <select name="multiplier" id="multiplier">
       <option hidden selected>Select a colour</option>
       <option value="pink">Pink</option>
@@ -88,10 +88,10 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br/>
+    <br />
 
     <label for="tolerance">Tolerance band:</label>
-    <br/>
+    <br />
     <select name="tolerance" id="tolerance">
       <option hidden selected>Select a colour</option>
       <option value="silver">Silver</option>
@@ -103,11 +103,11 @@
       <option value="violet">Violet</option>
       <option value="none">None</option>
     </select>
-    <br/>
+    <br />
 
-    <div id="ppm_band" style="display: none;">
+    <div id="ppm_band" style="display: none">
       <label for="ppm">PPM:</label>
-      <br/>
+      <br />
       <select name="ppm" id="ppm">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
@@ -120,9 +120,11 @@
         <option value="violet">Violet</option>
         <option value="grey">Grey</option>
       </select>
-      <br/>
+      <br />
     </div>
 
-    <p id="text" style="white-space: pre-line">Fill all required dropdowns to see the result</p>
+    <p id="text" style="white-space: pre-line">
+      Fill all required dropdowns to see the result
+    </p>
   </body>
 </html>
