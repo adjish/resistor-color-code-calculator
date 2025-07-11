@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resistor Calculator</title>
   </head>
-  <body>
+  <body style="line-height: 1.5">
     <script src="script.js"></script>
 
     <label for="bands">Number of bands:</label>
     <br />
     <select name="bands" id="bands">
+      <option value="3">3 bands</option>
       <option value="4" selected>4 bands</option>
       <option value="5">5 bands</option>
       <option value="6">6 bands</option>
     </select>
     <br />
 
-    <label for="digit_0">First band colour:</label>
+    <label for="digit_0">First band:</label>
     <br />
     <select name="digit_0" id="digit_0">
       <option hidden selected>Select a colour</option>
@@ -34,7 +35,7 @@
     </select>
     <br />
 
-    <label for="digit_1">Second band colour:</label>
+    <label for="digit_1">Second band:</label>
     <br />
     <select name="digit_1" id="digit_1">
       <option hidden selected>Select a colour</option>
@@ -52,7 +53,7 @@
     <br />
 
     <div id="third_band" style="display: none">
-      <label for="digit_2">Third band colour:</label>
+      <label for="digit_2">Third band:</label>
       <br />
       <select name="digit_2" id="digit_2">
         <option hidden selected>Select a colour</option>
@@ -90,20 +91,21 @@
     </select>
     <br />
 
-    <label for="tolerance">Tolerance band:</label>
-    <br />
-    <select name="tolerance" id="tolerance">
-      <option hidden selected>Select a colour</option>
-      <option value="silver">Silver</option>
-      <option value="gold">Gold</option>
-      <option value="brown">Brown</option>
-      <option value="red">Red</option>
-      <option value="green">Green</option>
-      <option value="blue">Blue</option>
-      <option value="violet">Violet</option>
-      <option value="none">None</option>
-    </select>
-    <br />
+    <div id="tolerance_band">
+      <label for="tolerance">Tolerance band:</label>
+      <br />
+      <select name="tolerance" id="tolerance">
+        <option hidden selected>Select a colour</option>
+        <option value="silver">Silver</option>
+        <option value="gold">Gold</option>
+        <option value="brown">Brown</option>
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="violet">Violet</option>
+      </select>
+      <br />
+    </div>
 
     <div id="ppm_band" style="display: none">
       <label for="ppm">PPM:</label>

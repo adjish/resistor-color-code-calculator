@@ -12,17 +12,23 @@ document.addEventListener("DOMContentLoaded", function () {
       case "6":
         document.getElementById("third_band").style.display = "unset";
         document.getElementById("ppm_band").style.display = "unset";
+        document.getElementById("tolerance_band").style.display = "unset";
         break;
       case "5":
         document.getElementById("third_band").style.display = "unset";
         document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tolerance_band").style.display = "unset";
+        break;
+      case "4":
+        document.getElementById("third_band").style.display = "none";
+        document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tolerance_band").style.display = "unset";
         break;
       default:
         document.getElementById("third_band").style.display = "none";
         document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tolerance_band").style.display = "none";
     }
-
-    f();
   });
 
   [0, 1, 2].forEach(function (n) {
@@ -45,8 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         digits[n] = colours.indexOf(
           document.getElementById("digit_" + n).value,
         );
-
-        f();
       });
   });
 
@@ -68,8 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     multiplier = colours.indexOf(document.getElementById("multiplier").value);
-
-    f();
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
@@ -82,15 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
       "grey",
       "gold",
       "silver",
-      "none",
     ];
 
-    const values = [0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005, 0.05, 0.1, 0.2];
+    const values = [0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005, 0.05, 0.1];
 
     tolerance =
       values[tolerances.indexOf(document.getElementById("tolerance").value)];
-
-    f();
   });
 
   document.getElementById("ppm").addEventListener("change", function () {
@@ -109,8 +108,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     ppm = values[ppms.indexOf(document.getElementById("ppm").value)];
+  });
 
-    f();
+  document.querySelectorAll("select").forEach((element) => {
+    element.addEventListener("change", f);
   });
 
   function f() {
@@ -135,6 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       result = number =
         Math.round(resistance * Math.pow(10, multiplier)) / 1000;
+
+      if (bands == 3) {
+        tolerance = 0.2;
+      }
 
       if (tolerance != undefined) {
         error = Math.round(tolerance * number * 10000000000) / 10000000000;
