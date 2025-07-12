@@ -118,14 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let resistance, result, result2, error, number;
 
     if (
-      digits[0] != undefined &&
-      digits[1] != undefined &&
-      multiplier != undefined
+      digits[0] !== undefined &&
+      digits[1] !== undefined &&
+      multiplier !== undefined
     ) {
       resistance = digits[0] + "" + digits[1];
 
       if (bands >= 5) {
-        if (digits[2] != undefined) {
+        if (digits[2] !== undefined) {
           resistance += "" + digits[2];
         } else {
           document.getElementById("text").textContent =
@@ -141,27 +141,28 @@ document.addEventListener("DOMContentLoaded", function () {
         tolerance = 0.2;
       }
 
-      if (tolerance != undefined) {
-        error = Math.round(tolerance * number * 10000000000) / 10000000000;
+      if (tolerance !== undefined) {
+        error = Math.round(tolerance * number * 1000000) / 1000000;
         result2 = number + "±" + error + " Ohms";
         result += " Ohms " + tolerance * 100 + "%";
       }
 
-      if (bands == 6 && ppm != undefined) {
+      if (bands == 6 && ppm !== undefined) {
         result += " " + ppm + "ppm";
       }
 
-      if (result2 != undefined) {
+      if (result2 !== undefined) {
         result +=
           "\n" +
           result2 +
           "\n" +
-          Math.round((number - error) * 10000000000) / 10000000000 +
+          Math.round((number - error) * 1000000) / 1000000 +
           "–" +
-          Math.round((number + error) * 10000000000) / 10000000000 +
+          Math.round((number + error) * 1000000) / 1000000 +
           " Ohms";
       }
 
+      document.getElementById("text").style.whiteSpace = "pre-line";
       document.getElementById("text").textContent = result;
     } else {
       document.getElementById("text").textContent =

@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resistor Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body style="line-height: 1.5">
     <script src="script.js"></script>
+
+    <h1>Resistor Calculator</h1>
 
     <label for="bands">Number of bands:</label>
     <br />
@@ -20,7 +23,7 @@
 
     <label for="digit_0">First band:</label>
     <br />
-    <select name="digit_0" id="digit_0">
+    <select name="digit_0" id="digit_0" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
@@ -37,7 +40,7 @@
 
     <label for="digit_1">Second band:</label>
     <br />
-    <select name="digit_1" id="digit_1">
+    <select name="digit_1" id="digit_1" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
       <option value="brown">Brown</option>
@@ -55,7 +58,7 @@
     <div id="third_band" style="display: none">
       <label for="digit_2">Third band:</label>
       <br />
-      <select name="digit_2" id="digit_2">
+      <select name="digit_2" id="digit_2" title="This field is mandatory">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
         <option value="brown">Brown</option>
@@ -73,7 +76,7 @@
 
     <label for="multiplier">Multiplier band:</label>
     <br />
-    <select name="multiplier" id="multiplier">
+    <select name="multiplier" id="multiplier" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="pink">Pink</option>
       <option value="silver">Silver</option>
@@ -94,7 +97,7 @@
     <div id="tolerance_band">
       <label for="tolerance">Tolerance band:</label>
       <br />
-      <select name="tolerance" id="tolerance">
+      <select name="tolerance" id="tolerance" title="This field is optional">
         <option hidden selected>Select a colour</option>
         <option value="silver">Silver</option>
         <option value="gold">Gold</option>
@@ -110,7 +113,7 @@
     <div id="ppm_band" style="display: none">
       <label for="ppm">PPM:</label>
       <br />
-      <select name="ppm" id="ppm">
+      <select name="ppm" id="ppm" title="This field is optional">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
         <option value="brown">Brown</option>
@@ -125,8 +128,6 @@
       <br />
     </div>
 
-    <p id="text" style="white-space: pre-line">
-      Fill all required dropdowns to see the result
-    </p>
+    <p id="text">Fill all required dropdowns to see the result</p>
   </body>
 </html>
