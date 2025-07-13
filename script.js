@@ -13,21 +13,33 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("third_band").style.display = "unset";
         document.getElementById("ppm_band").style.display = "unset";
         document.getElementById("tolerance_band").style.display = "unset";
+        document.getElementById("band_2").style.display = "inline-block";
+        document.getElementById("band_4").style.display = "inline-block";
+        document.getElementById("band_5").style.display = "inline-block";
         break;
       case "5":
         document.getElementById("third_band").style.display = "unset";
         document.getElementById("ppm_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "unset";
+        document.getElementById("band_2").style.display = "inline-block";
+        document.getElementById("band_4").style.display = "inline-block";
+        document.getElementById("band_5").style.display = "none";
         break;
       case "4":
         document.getElementById("third_band").style.display = "none";
         document.getElementById("ppm_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "unset";
+        document.getElementById("band_2").style.display = "none";
+        document.getElementById("band_4").style.display = "inline-block";
+        document.getElementById("band_5").style.display = "none";
         break;
       default:
         document.getElementById("third_band").style.display = "none";
         document.getElementById("ppm_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "none";
+        document.getElementById("band_2").style.display = "none";
+        document.getElementById("band_4").style.display = "none";
+        document.getElementById("band_5").style.display = "none";
     }
   });
 
@@ -51,6 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
         digits[n] = colours.indexOf(
           document.getElementById("digit_" + n).value,
         );
+
+        document.getElementById("band_" + n).style.backgroundColor =
+          document.getElementById("digit_" + n).value;
       });
   });
 
@@ -72,6 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     multiplier = colours.indexOf(document.getElementById("multiplier").value);
+
+    document.getElementById("band_3").style.backgroundColor =
+      document.getElementById("multiplier").value;
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
@@ -90,6 +108,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     tolerance =
       values[tolerances.indexOf(document.getElementById("tolerance").value)];
+
+    document.getElementById("band_4").style.backgroundColor =
+      document.getElementById("tolerance").value;
   });
 
   document.getElementById("ppm").addEventListener("change", function () {
@@ -108,6 +129,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     ppm = values[ppms.indexOf(document.getElementById("ppm").value)];
+
+    document.getElementById("band_5").style.backgroundColor =
+      document.getElementById("ppm").value;
   });
 
   document.querySelectorAll("select").forEach((element) => {
@@ -143,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (tolerance !== undefined) {
         error = Math.round(tolerance * number * 1000000) / 1000000;
-        result2 = number + "±" + error + " Ohms";
+        result2 = number + " ± " + error + " Ohms";
         result += " Ohms " + tolerance * 100 + "%";
       }
 
@@ -157,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
           result2 +
           "\n" +
           Math.round((number - error) * 1000000) / 1000000 +
-          "–" +
+          " – " +
           Math.round((number + error) * 1000000) / 1000000 +
           " Ohms";
       }

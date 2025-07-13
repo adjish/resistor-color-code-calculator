@@ -1,3 +1,19 @@
 select {
   width: 150px;
 }
+
+.short_band {
+  display: inline-block;
+  width: 8px;
+  height: 33px;
+  margin: 11px 0px;
+  /*background-color: rgba(255, 255, 255, 0);*/
+}
+
+.long_band {
+  display: inline-block;
+  width: 8px;
+  height: 41px;
+  margin: 7px 3px;
+  /*background-color: rgba(255, 255, 255, 0);*/
+}
