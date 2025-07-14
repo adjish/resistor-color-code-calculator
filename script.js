@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let digits = Array(3).fill(undefined),
     multiplier,
     tolerance,
-    ppm,
+    tcr,
     bands = 4;
 
   document.getElementById("bands").addEventListener("change", function () {
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     switch (bands) {
       case "6":
         document.getElementById("third_band").style.display = "unset";
-        document.getElementById("ppm_band").style.display = "unset";
+        document.getElementById("tcr_band").style.display = "unset";
         document.getElementById("tolerance_band").style.display = "unset";
         document.getElementById("band_2").style.display = "inline-block";
         document.getElementById("band_4").style.display = "inline-block";
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "5":
         document.getElementById("third_band").style.display = "unset";
-        document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tcr_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "unset";
         document.getElementById("band_2").style.display = "inline-block";
         document.getElementById("band_4").style.display = "inline-block";
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       case "4":
         document.getElementById("third_band").style.display = "none";
-        document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tcr_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "unset";
         document.getElementById("band_2").style.display = "none";
         document.getElementById("band_4").style.display = "inline-block";
@@ -35,11 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       default:
         document.getElementById("third_band").style.display = "none";
-        document.getElementById("ppm_band").style.display = "none";
+        document.getElementById("tcr_band").style.display = "none";
         document.getElementById("tolerance_band").style.display = "none";
         document.getElementById("band_2").style.display = "none";
         document.getElementById("band_4").style.display = "none";
         document.getElementById("band_5").style.display = "none";
+        tolerance = 0.2;
     }
   });
 
@@ -113,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("tolerance").value;
   });
 
-  document.getElementById("ppm").addEventListener("change", function () {
-    const ppms = [
+  document.getElementById("tcr").addEventListener("change", function () {
+    const tcr_colours = [
       "black",
       "brown",
       "red",
@@ -128,69 +129,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    ppm = values[ppms.indexOf(document.getElementById("ppm").value)];
+    tcr = values[tcr_colours.indexOf(document.getElementById("tcr").value)];
 
     document.getElementById("band_5").style.backgroundColor =
-      document.getElementById("ppm").value;
+      document.getElementById("tcr").value;
   });
 
   document.querySelectorAll("select").forEach((element) => {
-    element.addEventListener("change", f);
-  });
+    element.addEventListener(
+      "change",
 
-  function f() {
-    let resistance, result, result2, error, number;
+      function () {
+        let resistance, result, result2, error, number;
 
-    if (
-      digits[0] !== undefined &&
-      digits[1] !== undefined &&
-      multiplier !== undefined
-    ) {
-      resistance = digits[0] + "" + digits[1];
+        if (digits[0] !== undefined && digits[1] !== undefined) {
+          resistance = digits[0] + "" + digits[1];
 
-      if (bands >= 5) {
-        if (digits[2] !== undefined) {
-          resistance += "" + digits[2];
+          if (bands >= 5) {
+            if (digits[2] !== undefined) {
+              resistance += "" + digits[2];
+            } else {
+              document.getElementById("text").textContent =
+                "Fill all required dropdowns to see the result";
+              return;
+            }
+          }
+
+          if (multiplier === undefined) {
+            multiplier = 3;
+          }
+
+          number = Math.round(resistance * Math.pow(10, multiplier)) / 1000;
+
+          result = number + " Ohms";
+
+          if (tolerance !== undefined && number != 0) {
+            error = Math.round(tolerance * number * 1000000) / 1000000;
+            result2 = number + " ± " + error + " Ohms";
+            result += " " + tolerance * 100 + "%";
+          }
+
+          if (bands == 6 && tcr !== undefined) {
+            result += " " + tcr + "ppm/K";
+          }
+
+          if (result2 !== undefined) {
+            result +=
+              "\n" +
+              result2 +
+              "\n" +
+              Math.round((number - error) * 1000000) / 1000000 +
+              " – " +
+              Math.round((number + error) * 1000000) / 1000000 +
+              " Ohms";
+          }
+
+          document.getElementById("text").style.whiteSpace = "pre-line";
+          document.getElementById("text").textContent = result;
         } else {
           document.getElementById("text").textContent =
             "Fill all required dropdowns to see the result";
-          return;
         }
-      }
-
-      result = number =
-        Math.round(resistance * Math.pow(10, multiplier)) / 1000;
-
-      if (bands == 3) {
-        tolerance = 0.2;
-      }
-
-      if (tolerance !== undefined) {
-        error = Math.round(tolerance * number * 1000000) / 1000000;
-        result2 = number + " ± " + error + " Ohms";
-        result += " Ohms " + tolerance * 100 + "%";
-      }
-
-      if (bands == 6 && ppm !== undefined) {
-        result += " " + ppm + "ppm";
-      }
-
-      if (result2 !== undefined) {
-        result +=
-          "\n" +
-          result2 +
-          "\n" +
-          Math.round((number - error) * 1000000) / 1000000 +
-          " – " +
-          Math.round((number + error) * 1000000) / 1000000 +
-          " Ohms";
-      }
-
-      document.getElementById("text").style.whiteSpace = "pre-line";
-      document.getElementById("text").textContent = result;
-    } else {
-      document.getElementById("text").textContent =
-        "Fill all required dropdowns to see the result";
-    }
-  }
+      },
+    );
+  });
 });
