@@ -1,3 +1,19 @@
+function format(number) {
+  const suffixes = ["", "k", "M", "G"];
+
+  if (number >= 1000) {
+    return (
+      number /
+        Math.pow(10, 3 * Math.floor(Math.floor(Math.log10(number)) / 3)) +
+      " " +
+      suffixes[Math.floor(Math.floor(Math.log10(number)) / 3)] +
+      "Ω"
+    );
+  } else {
+    return number + " Ω";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   let digits = Array(3).fill(undefined),
     multiplier,
@@ -161,11 +177,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           number = Math.round(resistance * Math.pow(10, multiplier)) / 1000;
 
-          result = number + " Ohms";
+          result = format(number);
 
           if (tolerance !== undefined && number != 0) {
             error = Math.round(tolerance * number * 1000000) / 1000000;
-            result2 = number + " ± " + error + " Ohms";
+            result2 = format(number) + " ± " + format(error);
             result += " " + tolerance * 100 + "%";
           }
 
@@ -178,10 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
               "\n" +
               result2 +
               "\n" +
-              Math.round((number - error) * 1000000) / 1000000 +
+              format(Math.round((number - error) * 1000000) / 1000000) +
               " – " +
-              Math.round((number + error) * 1000000) / 1000000 +
-              " Ohms";
+              format(Math.round((number + error) * 1000000) / 1000000);
           }
 
           document.getElementById("text").style.whiteSpace = "pre-line";
