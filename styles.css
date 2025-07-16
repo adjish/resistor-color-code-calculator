@@ -1,9 +1,10 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
 }
 
 select {
-  width: 150px;
+  width: 120px;
 }
 
 .short_band {
@@ -11,7 +12,6 @@ select {
   width: 8px;
   height: 33px;
   margin: 11px 0px;
-  /*background-color: rgba(255, 255, 255, 0);*/
 }
 
 .long_band {
@@ -19,5 +19,15 @@ select {
   width: 8px;
   height: 41px;
   margin: 7px 3px;
-  /*background-color: rgba(255, 255, 255, 0);*/
+}
+
+td {
+  padding: 0;
+}
+
+table {
+  border-spacing: 0;
+  width: 300px;
+  background-image: url("images/resistor.svg");
+  background-size: cover;
 }

@@ -4,7 +4,7 @@ function format(number) {
   if (number >= 1000) {
     return (
       number /
-        Math.pow(10, 3 * Math.floor(Math.floor(Math.log10(number)) / 3)) +
+      Math.pow(10, 3 * Math.floor(Math.floor(Math.log10(number)) / 3)) +
       " " +
       suffixes[Math.floor(Math.floor(Math.log10(number)) / 3)] +
       "Ω"
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         digits[n] = colours.indexOf(
-          document.getElementById("digit_" + n).value,
+          document.getElementById("digit_" + n).value
         );
 
         document.getElementById("band_" + n).style.backgroundColor =
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
               resistance += "" + digits[2];
             } else {
               document.getElementById("text").textContent =
-                "Fill all required dropdowns to see the result";
+                "Fill all required dropdowns to see the result.";
               return;
             }
           }
@@ -203,9 +203,9 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("text").textContent = result;
         } else {
           document.getElementById("text").textContent =
-            "Fill all required dropdowns to see the result";
+            "Fill all required dropdowns to see the result.";
         }
-      },
+      }
     );
   });
 });

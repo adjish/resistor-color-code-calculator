@@ -1,28 +1,28 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resistor Calculator</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css">
   </head>
-  <body style="line-height: 1.5">
+  <body>
     <script src="script.js"></script>
 
     <h1>Resistor Calculator</h1>
 
     <label for="bands">Number of bands:</label>
-    <br />
+    <br>
     <select name="bands" id="bands">
       <option value="3">3 bands</option>
       <option value="4" selected>4 bands</option>
       <option value="5">5 bands</option>
       <option value="6">6 bands</option>
     </select>
-    <br />
+    <br>
 
     <label for="digit_0">First band:</label>
-    <br />
+    <br>
     <select name="digit_0" id="digit_0" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
@@ -36,10 +36,10 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br />
+    <br>
 
     <label for="digit_1">Second band:</label>
-    <br />
+    <br>
     <select name="digit_1" id="digit_1" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="black">Black</option>
@@ -53,11 +53,11 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br />
+    <br>
 
     <div id="third_band" style="display: none">
       <label for="digit_2">Third band:</label>
-      <br />
+      <br>
       <select name="digit_2" id="digit_2" title="This field is mandatory">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
@@ -71,11 +71,11 @@
         <option value="grey">Grey</option>
         <option value="white">White</option>
       </select>
-      <br />
+      <br>
     </div>
 
     <label for="multiplier">Multiplier band:</label>
-    <br />
+    <br>
     <select name="multiplier" id="multiplier" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
       <option value="pink">Pink</option>
@@ -92,11 +92,11 @@
       <option value="grey">Grey</option>
       <option value="white">White</option>
     </select>
-    <br />
+    <br>
 
     <div id="tolerance_band">
       <label for="tolerance">Tolerance band:</label>
-      <br />
+      <br>
       <select name="tolerance" id="tolerance" title="This field is optional">
         <option hidden selected>Select a colour</option>
         <option value="silver">Silver</option>
@@ -107,12 +107,12 @@
         <option value="blue">Blue</option>
         <option value="violet">Violet</option>
       </select>
-      <br />
+      <br>
     </div>
 
     <div id="tcr_band" style="display: none">
       <label for="tcr">PPM:</label>
-      <br />
+      <br>
       <select name="tcr" id="tcr" title="This field is optional">
         <option hidden selected>Select a colour</option>
         <option value="black">Black</option>
@@ -125,32 +125,24 @@
         <option value="violet">Violet</option>
         <option value="grey">Grey</option>
       </select>
-      <br />
+      <br>
     </div>
 
-    <p id="text">Fill all required dropdowns to see the result</p>
+    <p id="text">Fill all required dropdowns to see the result.</p>
 
-    <table
-      width="300"
-      cellpadding="0"
-      cellspacing="0"
-      background="images/resistor.svg"
-      style="background-size: cover"
-    >
-      <tbody>
-        <tr>
-          <td height="61">
-            <div style="width: 78px; display: inline-block"></div>
-            <div class="long_band" id="band_0"></div>
-            <div class="short_band" id="band_1"></div>
-            <div class="short_band" id="band_2"></div>
-            <div class="short_band" id="band_3"></div>
-            <div style="width: 42px; display: inline-block"></div>
-            <div class="short_band" id="band_4"></div>
-            <div class="long_band" id="band_5"></div>
-          </td>
-        </tr>
-      </tbody>
+    <table>
+      <tr>
+        <td>
+          <div style="width: 78px; display: inline-block"></div>
+          <div class="long_band" id="band_0"></div>
+          <div class="short_band" id="band_1"></div>
+          <div class="short_band" id="band_2"></div>
+          <div class="short_band" id="band_3"></div>
+          <div style="width: 46px; display: inline-block"></div>
+          <div class="short_band" id="band_4"></div>
+          <div class="long_band" id="band_5"></div>
+        </td>
+      </tr>
     </table>
   </body>
 </html>
