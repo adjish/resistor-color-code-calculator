@@ -1,12 +1,13 @@
 function format(number) {
   const suffixes = ["", "k", "M", "G"];
+  let index = Math.floor(Math.floor(Math.log10(number)) / 3);
 
   if (number >= 1000) {
     return (
       number /
-      Math.pow(10, 3 * Math.floor(Math.floor(Math.log10(number)) / 3)) +
+      Math.pow(10, 3 * index) +
       " " +
-      suffixes[Math.floor(Math.floor(Math.log10(number)) / 3)] +
+      suffixes[index] +
       "Ω"
     );
   } else {
@@ -64,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .getElementById("digit_" + n)
       .addEventListener("change", function () {
+        let color = document.getElementById("digit_" + n).value;
+
         const colours = [
           "black",
           "brown",
@@ -78,15 +81,26 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         digits[n] = colours.indexOf(
-          document.getElementById("digit_" + n).value
+          color
         );
 
-        document.getElementById("band_" + n).style.backgroundColor =
-          document.getElementById("digit_" + n).value;
+        document.getElementById("band_" + n).style.backgroundColor = color;
+        document.getElementById("digit_" + n).style.backgroundColor = color;
+
+        if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+        {
+          document.getElementById("digit_" + n).style.color = "white";
+        }
+        else
+        {
+          document.getElementById("digit_" + n).style.color = "black";
+        }
       });
   });
 
   document.getElementById("multiplier").addEventListener("change", function () {
+    let color = document.getElementById("multiplier").value;
+
     const colours = [
       "pink",
       "silver",
@@ -103,13 +117,24 @@ document.addEventListener("DOMContentLoaded", function () {
       "white",
     ];
 
-    multiplier = colours.indexOf(document.getElementById("multiplier").value);
+    multiplier = colours.indexOf(color);
 
-    document.getElementById("band_3").style.backgroundColor =
-      document.getElementById("multiplier").value;
+    document.getElementById("band_3").style.backgroundColor = color;
+    document.getElementById("multiplier").style.backgroundColor = color;
+
+    if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+    {
+      document.getElementById("multiplier").style.color = "white";
+    }
+    else
+    {
+      document.getElementById("multiplier").style.color = "black";
+    }
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
+    let color = document.getElementById("tolerance").value;
+
     const tolerances = [
       "brown",
       "red",
@@ -124,13 +149,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const values = [0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005, 0.05, 0.1];
 
     tolerance =
-      values[tolerances.indexOf(document.getElementById("tolerance").value)];
+      values[tolerances.indexOf(color)];
 
-    document.getElementById("band_4").style.backgroundColor =
-      document.getElementById("tolerance").value;
+    document.getElementById("band_4").style.backgroundColor = color;
+    document.getElementById("tolerance").style.backgroundColor = color;
+
+    if (color == "brown" || color == "green" || color == "blue")
+    {
+      document.getElementById("tolerance").style.color = "white";
+    }
+    else
+    {
+      document.getElementById("tolerance").style.color = "black";
+    }
   });
 
   document.getElementById("tcr").addEventListener("change", function () {
+    let color = document.getElementById("tcr").value;
+
     const tcr_colours = [
       "black",
       "brown",
@@ -145,10 +181,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    tcr = values[tcr_colours.indexOf(document.getElementById("tcr").value)];
+    tcr = values[tcr_colours.indexOf(color)];
 
-    document.getElementById("band_5").style.backgroundColor =
-      document.getElementById("tcr").value;
+    document.getElementById("band_5").style.backgroundColor = color;
+    document.getElementById("tcr").style.backgroundColor = color;
+
+    if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+    {
+      document.getElementById("tcr").style.color = "white";
+    }
+    else
+    {
+      document.getElementById("tcr").style.color = "black";
+    }
   });
 
   document.querySelectorAll("select").forEach((element) => {
