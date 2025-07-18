@@ -16,49 +16,38 @@ function format(number) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  let digits = Array(3).fill(undefined),
+  let digits = new Array(3),
     multiplier,
     tolerance,
     tcr,
     bands = 4;
 
   document.getElementById("bands").addEventListener("change", function () {
+    let values = new Array(6);
+
     bands = document.getElementById("bands").value;
 
     switch (bands) {
       case "6":
-        document.getElementById("third_band").style.display = "unset";
-        document.getElementById("tcr_band").style.display = "unset";
-        document.getElementById("tolerance_band").style.display = "unset";
-        document.getElementById("band_2").style.display = "inline-block";
-        document.getElementById("band_4").style.display = "inline-block";
-        document.getElementById("band_5").style.display = "inline-block";
+        values = ["unset", "unset", "unset", "inline-block", "inline-block", "inline-block"]
         break;
       case "5":
-        document.getElementById("third_band").style.display = "unset";
-        document.getElementById("tcr_band").style.display = "none";
-        document.getElementById("tolerance_band").style.display = "unset";
-        document.getElementById("band_2").style.display = "inline-block";
-        document.getElementById("band_4").style.display = "inline-block";
-        document.getElementById("band_5").style.display = "none";
+        values = ["unset", "none", "unset", "inline-block", "inline-block", "none"]
         break;
       case "4":
-        document.getElementById("third_band").style.display = "none";
-        document.getElementById("tcr_band").style.display = "none";
-        document.getElementById("tolerance_band").style.display = "unset";
-        document.getElementById("band_2").style.display = "none";
-        document.getElementById("band_4").style.display = "inline-block";
-        document.getElementById("band_5").style.display = "none";
+        values = ["none", "none", "unset", "none", "inline-block", "none"]
         break;
       default:
-        document.getElementById("third_band").style.display = "none";
-        document.getElementById("tcr_band").style.display = "none";
-        document.getElementById("tolerance_band").style.display = "none";
-        document.getElementById("band_2").style.display = "none";
-        document.getElementById("band_4").style.display = "none";
-        document.getElementById("band_5").style.display = "none";
+        values = ["none", "none", "none", "none", "none", "none"]
         tolerance = 0.2;
     }
+
+    document.getElementById("third_band").style.display = values[0];
+    document.getElementById("tcr_band").style.display = values[1];
+    document.getElementById("tolerance_band").style.display = values[2];
+    document.getElementById("band_2").style.display = values[3];
+    document.getElementById("band_4").style.display = values[4];
+    document.getElementById("band_5").style.display = values[5];
   });
 
   [0, 1, 2].forEach(function (n) {
@@ -87,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("band_" + n).style.backgroundColor = color;
         document.getElementById("digit_" + n).style.backgroundColor = color;
 
-        if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+        if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
         {
           document.getElementById("digit_" + n).style.color = "white";
         }
@@ -122,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_3").style.backgroundColor = color;
     document.getElementById("multiplier").style.backgroundColor = color;
 
-    if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+    if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
     {
       document.getElementById("multiplier").style.color = "white";
     }
@@ -154,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_4").style.backgroundColor = color;
     document.getElementById("tolerance").style.backgroundColor = color;
 
-    if (color == "brown" || color == "green" || color == "blue")
+    if (color === "brown" || color === "green" || color === "blue")
     {
       document.getElementById("tolerance").style.color = "white";
     }
@@ -186,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_5").style.backgroundColor = color;
     document.getElementById("tcr").style.backgroundColor = color;
 
-    if (color == "black" || color == "brown" || color == "green" || color == "blue" || color == "grey")
+    if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
     {
       document.getElementById("tcr").style.color = "white";
     }
