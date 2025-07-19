@@ -16,6 +16,8 @@ function format(number) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  const dark_colours = ["black", "brown", "red", "green", "blue", "grey"];
+
   let digits = new Array(3),
     multiplier,
     tolerance,
@@ -75,15 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("band_" + n).style.backgroundColor = color;
         document.getElementById("digit_" + n).style.backgroundColor = color;
-
-        if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
-        {
-          document.getElementById("digit_" + n).style.color = "white";
-        }
-        else
-        {
-          document.getElementById("digit_" + n).style.color = "black";
-        }
+        document.getElementById("digit_" + n).style.color = dark_colours.includes(color) ? "white" : "black";
       });
   });
 
@@ -110,15 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("band_3").style.backgroundColor = color;
     document.getElementById("multiplier").style.backgroundColor = color;
-
-    if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
-    {
-      document.getElementById("multiplier").style.color = "white";
-    }
-    else
-    {
-      document.getElementById("multiplier").style.color = "black";
-    }
+    document.getElementById("multiplier").style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
@@ -142,15 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("band_4").style.backgroundColor = color;
     document.getElementById("tolerance").style.backgroundColor = color;
-
-    if (color === "brown" || color === "green" || color === "blue")
-    {
-      document.getElementById("tolerance").style.color = "white";
-    }
-    else
-    {
-      document.getElementById("tolerance").style.color = "black";
-    }
+    document.getElementById("tolerance").style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.getElementById("tcr").addEventListener("change", function () {
@@ -174,15 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("band_5").style.backgroundColor = color;
     document.getElementById("tcr").style.backgroundColor = color;
-
-    if (color === "black" || color === "brown" || color === "green" || color === "blue" || color === "grey")
-    {
-      document.getElementById("tcr").style.color = "white";
-    }
-    else
-    {
-      document.getElementById("tcr").style.color = "black";
-    }
+    document.getElementById("tcr").style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.querySelectorAll("select").forEach((element) => {
