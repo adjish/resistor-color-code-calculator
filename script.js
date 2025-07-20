@@ -1,5 +1,5 @@
 function format(number) {
-  const suffixes = ["", "k", "M", "G"];
+  const suffixes = ["", "k", "M", "G", "T"];
   let index = Math.floor(Math.floor(Math.log10(number)) / 3);
 
   if (number >= 1000) {
@@ -16,7 +16,7 @@ function format(number) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const dark_colours = ["black", "brown", "red", "green", "blue", "grey"];
+  const dark_colours = ["Black", "Brown", "Red", "Green", "Blue", "Grey"];
 
   let digits = new Array(3),
     multiplier,
@@ -56,103 +56,56 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .getElementById("digit_" + n)
       .addEventListener("change", function () {
-        let color = document.getElementById("digit_" + n).value;
+        let element = document.getElementById("digit_" + n);
+        let index = element.selectedIndex;
+        let color = element.options[index].text;
 
-        const colours = [
-          "black",
-          "brown",
-          "red",
-          "orange",
-          "yellow",
-          "green",
-          "blue",
-          "violet",
-          "grey",
-          "white",
-        ];
-
-        digits[n] = colours.indexOf(
-          color
-        );
+        digits[n] = index - 1;
 
         document.getElementById("band_" + n).style.backgroundColor = color;
-        document.getElementById("digit_" + n).style.backgroundColor = color;
-        document.getElementById("digit_" + n).style.color = dark_colours.includes(color) ? "white" : "black";
+        element.style.backgroundColor = color;
+        element.style.color = dark_colours.includes(color) ? "white" : "black";
       });
   });
 
   document.getElementById("multiplier").addEventListener("change", function () {
-    let color = document.getElementById("multiplier").value;
+    let element = document.getElementById("multiplier");
+    let index = element.selectedIndex;
+    let color = element.options[index].text;
 
-    const colours = [
-      "pink",
-      "silver",
-      "gold",
-      "black",
-      "brown",
-      "red",
-      "orange",
-      "yellow",
-      "green",
-      "blue",
-      "violet",
-      "grey",
-      "white",
-    ];
-
-    multiplier = colours.indexOf(color);
+    multiplier = index - 1;
 
     document.getElementById("band_3").style.backgroundColor = color;
-    document.getElementById("multiplier").style.backgroundColor = color;
-    document.getElementById("multiplier").style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
-    let color = document.getElementById("tolerance").value;
+    const values = [0.10, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
 
-    const tolerances = [
-      "brown",
-      "red",
-      "green",
-      "blue",
-      "violet",
-      "grey",
-      "gold",
-      "silver",
-    ];
+    let element = document.getElementById("tolerance");
+    let index = element.selectedIndex;
+    let color = element.options[index].text;
 
-    const values = [0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005, 0.05, 0.1];
-
-    tolerance =
-      values[tolerances.indexOf(color)];
+    tolerance = values[index - 1];
 
     document.getElementById("band_4").style.backgroundColor = color;
-    document.getElementById("tolerance").style.backgroundColor = color;
-    document.getElementById("tolerance").style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.getElementById("tcr").addEventListener("change", function () {
-    let color = document.getElementById("tcr").value;
-
-    const tcr_colours = [
-      "black",
-      "brown",
-      "red",
-      "orange",
-      "yellow",
-      "green",
-      "blue",
-      "violet",
-      "grey",
-    ];
-
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    tcr = values[tcr_colours.indexOf(color)];
+    let element = document.getElementById("tcr");
+    let index = element.selectedIndex;
+    let color = element.options[index].text;
+
+    tcr = values[index - 1];
 
     document.getElementById("band_5").style.backgroundColor = color;
-    document.getElementById("tcr").style.backgroundColor = color;
-    document.getElementById("tcr").style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
   document.querySelectorAll("select").forEach((element) => {
