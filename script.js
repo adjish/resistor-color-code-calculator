@@ -1,6 +1,6 @@
 function format(number) {
   const suffixes = ["", "k", "M", "G", "T"];
-  let index = Math.floor(Math.floor(Math.log10(number)) / 3);
+  let index = Math.floor(Math.log10(number) / 3);
 
   if (number >= 1000) {
     return (
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     multiplier,
     tolerance,
     tcr,
+    tolerance_backup,
     bands = 4;
 
   document.getElementById("bands").addEventListener("change", function () {
@@ -41,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
         break;
       default:
         values = ["none", "none", "none", "none", "none", "none"]
-        tolerance = 0.2;
     }
 
     document.getElementById("third_band").style.display = values[0];
@@ -136,6 +136,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
           result = format(number);
 
+          if (bands == 3)
+          {
+            tolerance_backup = tolerance;
+            tolerance = 0.2;
+          }
+
           if (tolerance !== undefined && number != 0) {
             error = Math.round(tolerance * number * 1000000) / 1000000;
             result2 = format(number) + " ± " + format(error);
@@ -161,6 +167,11 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           document.getElementById("text").textContent =
             "Fill all required dropdowns to see the result.";
+        }
+
+        if (bands == 3)
+        {
+          tolerance = tolerance_backup;
         }
       }
     );
