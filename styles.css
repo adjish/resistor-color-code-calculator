@@ -27,12 +27,13 @@ select {
   margin: 7px 3px;
 }
 
-td {
-  padding: 0;
+span
+{
+  color: red;
 }
 
-table {
-  border-spacing: 0;
+.test
+{
   width: 300px;
   background-image: url("images/resistor.svg");
   background-size: cover;

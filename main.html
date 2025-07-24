@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
     </select>
     <br>
 
-    <label for="digit_0">First band:</label>
+    <label for="digit_0">First band: <span>*</span></label>
     <br>
     <select name="digit_0" id="digit_0" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
@@ -38,7 +38,7 @@
     </select>
     <br>
 
-    <label for="digit_1">Second band:</label>
+    <label for="digit_1">Second band: <span>*</span></label>
     <br>
     <select name="digit_1" id="digit_1" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
@@ -56,7 +56,7 @@
     <br>
 
     <div id="third_band" style="display: none">
-      <label for="digit_2">Third band:</label>
+      <label for="digit_2">Third band: <span>*</span></label>
       <br>
       <select name="digit_2" id="digit_2" title="This field is mandatory">
         <option hidden selected>Select a colour</option>
@@ -74,7 +74,7 @@
       <br>
     </div>
 
-    <label for="multiplier">Multiplier band:</label>
+    <label for="multiplier">Multiplier band: <span>*</span></label>
     <br>
     <select name="multiplier" id="multiplier" title="This field is mandatory">
       <option hidden selected>Select a colour</option>
@@ -131,19 +131,15 @@
 
     <p id="text">Fill all required dropdowns to see the result.</p>
 
-    <table>
-      <tr>
-        <td>
-          <div style="width: 78px; display: inline-block"></div>
-          <div class="long_band" id="band_0"></div>
-          <div class="short_band" id="band_1"></div>
-          <div class="short_band" id="band_2"></div>
-          <div class="short_band" id="band_3"></div>
-          <div style="width: 46px; display: inline-block"></div>
-          <div class="short_band" id="band_4"></div>
-          <div class="long_band" id="band_5"></div>
-        </td>
-      </tr>
-    </table>
+    <div class="test">
+      <div style="width: 78px; display: inline-block"></div>
+      <div class="long_band" id="band_0"></div>
+      <div class="short_band" id="band_1"></div>
+      <div class="short_band" id="band_2"></div>
+      <div class="short_band" id="band_3"></div>
+      <div style="width: 46px; display: inline-block"></div>
+      <div class="short_band" id="band_4"></div>
+      <div class="long_band" id="band_5"></div>
+    </div>
   </body>
 </html>

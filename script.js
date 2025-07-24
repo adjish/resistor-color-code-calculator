@@ -4,8 +4,7 @@ function format(number) {
 
   if (number >= 1000) {
     return (
-      number /
-      Math.pow(10, 3 * index) +
+      Math.round( number / Math.pow(10, 3 * index) * 1000000) / 1000000 +
       " " +
       suffixes[index] +
       "Ω"
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
             multiplier = 3;
           }
 
-          number = Math.round(resistance * Math.pow(10, multiplier)) / 1000;
+          number = resistance * Math.pow(10, multiplier - 3);
 
           result = format(number);
 
@@ -143,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           if (tolerance !== undefined && number != 0) {
-            error = Math.round(tolerance * number * 1000000) / 1000000;
+            error = tolerance * number;
             result2 = format(number) + " ± " + format(error);
             result += " " + tolerance * 100 + "%";
           }
@@ -157,9 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
               "\n" +
               result2 +
               "\n" +
-              format(Math.round((number - error) * 1000000) / 1000000) +
+              format(number - error) +
               " – " +
-              format(Math.round((number + error) * 1000000) / 1000000);
+              format(number + error);
           }
 
           document.getElementById("text").style.whiteSpace = "pre-line";
