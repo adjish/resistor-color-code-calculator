@@ -1,16 +1,16 @@
 function format(number) {
-  const suffixes = ["", "k", "M", "G", "T"];
-  let index = Math.floor(Math.log10(number) / 3);
-
   if (number >= 1000) {
+    const suffixes = ["", "k", "M", "G", "T"];
+    let index = Math.floor(Math.log10(number) / 3);
+
     return (
-      Math.round( number / Math.pow(10, 3 * index) * 1000000) / 1000000 +
+      Math.round(number / Math.pow(10, 3 * index - 6)) / 1000000 +
       " " +
       suffixes[index] +
       "Ω"
     );
   } else {
-    return number + " Ω";
+    return Math.round(number * 10000000) / 10000000 + " Ω";
   }
 }
 
@@ -31,16 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     switch (bands) {
       case "6":
-        values = ["unset", "unset", "unset", "inline-block", "inline-block", "inline-block"]
+        values = ["unset", "unset", "unset", "inline-block", "inline-block", "inline-block"];
         break;
       case "5":
-        values = ["unset", "none", "unset", "inline-block", "inline-block", "none"]
+        values = ["unset", "none", "unset", "inline-block", "inline-block", "none"];
         break;
       case "4":
-        values = ["none", "none", "unset", "none", "inline-block", "none"]
+        values = ["none", "none", "unset", "none", "inline-block", "none"];
         break;
       default:
-        values = ["none", "none", "none", "none", "none", "none"]
+        values = ["none", "none", "none", "none", "none", "none"];
     }
 
     document.getElementById("third_band").style.display = values[0];
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
-    const values = [0.10, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
+    const values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
 
     let element = document.getElementById("tolerance");
     let index = element.selectedIndex;
@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     let element = document.getElementById("tcr");
+    let text = document.getElementById("text");
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
@@ -121,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (digits[2] !== undefined) {
               resistance += "" + digits[2];
             } else {
-              document.getElementById("text").textContent =
+              text.textContent =
                 "Fill all required dropdowns to see the result.";
               return;
             }
@@ -135,8 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           result = format(number);
 
-          if (bands == 3)
-          {
+          if (bands == 3) {
             tolerance_backup = tolerance;
             tolerance = 0.2;
           }
@@ -161,15 +161,13 @@ document.addEventListener("DOMContentLoaded", function () {
               format(number + error);
           }
 
-          document.getElementById("text").style.whiteSpace = "pre-line";
-          document.getElementById("text").textContent = result;
+          text.textContent = result;
         } else {
-          document.getElementById("text").textContent =
+          text.textContent =
             "Fill all required dropdowns to see the result.";
         }
 
-        if (bands == 3)
-        {
+        if (bands == 3) {
           tolerance = tolerance_backup;
         }
       }
