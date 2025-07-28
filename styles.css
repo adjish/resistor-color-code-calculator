@@ -37,4 +37,5 @@ span
   width: 300px;
   background-image: url("images/resistor.svg");
   background-size: cover;
+  user-select: none;
 }

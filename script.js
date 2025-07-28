@@ -122,8 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (digits[2] !== undefined) {
               resistance += "" + digits[2];
             } else {
-              text.textContent =
-                "Fill all required dropdowns to see the result.";
+              text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
               return;
             }
           }
@@ -163,8 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           text.textContent = result;
         } else {
-          text.textContent =
-            "Fill all required dropdowns to see the result.";
+          text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
         }
 
         if (bands == 3) {
