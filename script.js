@@ -1,17 +1,18 @@
 function format(number) {
-  if (number >= 1000) {
-    const suffixes = ["", "k", "M", "G", "T"];
-    let index = Math.floor(Math.log10(number) / 3);
-
-    return (
-      Math.round(number / Math.pow(10, 3 * index - 6)) / 1000000 +
-      " " +
-      suffixes[index] +
-      "Ω"
-    );
-  } else {
-    return Math.round(number * 10000000) / 10000000 + " Ω";
+  if (number === 0)
+  {
+    return "0 Ω";
   }
+
+  const suffixes = ["µ", "m", "", "k", "M", "G", "T"];
+  let index = Math.floor(Math.log10(number) / 3);
+
+  return (
+    Math.round(number / Math.pow(10, 3 * index - 6)) / 1000000 +
+    " " +
+    suffixes[index + 2] +
+    "Ω"
+  );
 }
 
 document.addEventListener("DOMContentLoaded", function () {
