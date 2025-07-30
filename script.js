@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", function () {
     tolerance_backup,
     bands = 4;
 
+  document.getElementById("reset_button").addEventListener("click", function () {
+    window.location.assign(window.location.href);
+  });
+
   document.getElementById("bands").addEventListener("change", function () {
     let values = new Array(6);
 
