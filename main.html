@@ -23,7 +23,7 @@
 
     <label for="digit_0">First band: <span>*</span></label>
     <br>
-    <select name="digit_0" id="digit_0" title="This field is mandatory">
+    <select name="digit_0" id="digit_0" title="This field is mandatory" aria-label="Select first resistor color band">
       <option hidden selected>Select a colour</option>
       <option>Black</option>
       <option>Brown</option>
@@ -40,7 +40,7 @@
 
     <label for="digit_1">Second band: <span>*</span></label>
     <br>
-    <select name="digit_1" id="digit_1" title="This field is mandatory">
+    <select name="digit_1" id="digit_1" title="This field is mandatory" aria-label="Select second resistor color band">
       <option hidden selected>Select a colour</option>
       <option>Black</option>
       <option>Brown</option>
@@ -58,7 +58,7 @@
     <div id="third_band" style="display: none">
       <label for="digit_2">Third band: <span>*</span></label>
       <br>
-      <select name="digit_2" id="digit_2" title="This field is mandatory">
+      <select name="digit_2" id="digit_2" title="This field is mandatory" aria-label="Select third resistor color band">
         <option hidden selected>Select a colour</option>
         <option>Black</option>
         <option>Brown</option>
@@ -76,7 +76,7 @@
 
     <label for="multiplier">Multiplier band: <span>*</span></label>
     <br>
-    <select name="multiplier" id="multiplier" title="This field is mandatory">
+    <select name="multiplier" id="multiplier" title="This field is mandatory" aria-label="Select multiplier color band">
       <option hidden selected>Select a colour</option>
       <option>Pink</option>
       <option>Silver</option>
@@ -97,7 +97,7 @@
     <div id="tolerance_band">
       <label for="tolerance">Tolerance band:</label>
       <br>
-      <select name="tolerance" id="tolerance" title="This field is optional">
+      <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
         <option hidden selected>Select a colour</option>
         <option>Silver</option>
         <option>Gold</option>
@@ -114,7 +114,7 @@
     <div id="tcr_band" style="display: none">
       <label for="tcr">PPM:</label>
       <br>
-      <select name="tcr" id="tcr" title="This field is optional">
+      <select name="tcr" id="tcr" title="This field is optional" aria-label="Choose temperature coefficient band">
         <option hidden selected>Select a colour</option>
         <option>Black</option>
         <option>Brown</option>
@@ -132,17 +132,17 @@
     <br>
     <button type="button" id="reset_button">Reset all</button>
 
-    <p id="text" style="white-space: pre-line">Fill all required (<span>*</span>) dropdowns to see the result.</p>
+    <p id="text" aria-live="polite"  style="white-space: pre-line">Fill all required (<span>*</span>) dropdowns to see the result.</p>
 
     <div class="test">
       <div style="width: 78px; display: inline-block"></div>
       <div class="long_band" id="band_0"></div>
       <div class="short_band" id="band_1"></div>
-      <div class="short_band" id="band_2"></div>
+      <div class="short_band" id="band_2" style="display: none"></div>
       <div class="short_band" id="band_3"></div>
-      <div style="width: 46px; display: inline-block"></div>
+      <div style="width: 38px; display: inline-block"></div>
       <div class="short_band" id="band_4"></div>
-      <div class="long_band" id="band_5"></div>
+      <div class="long_band" id="band_5" style="display: none"></div>
     </div>
   </body>
 </html>

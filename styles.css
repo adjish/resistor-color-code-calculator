@@ -16,15 +16,17 @@ select {
 .short_band {
   display: inline-block;
   width: 8px;
-  height: 33px;
+  height: 32px;
   margin: 11px 0px;
+  border: 1px solid black;
 }
 
 .long_band {
   display: inline-block;
   width: 8px;
-  height: 41px;
+  height: 40px;
   margin: 7px 3px;
+  border: 1px solid black;
 }
 
 span
