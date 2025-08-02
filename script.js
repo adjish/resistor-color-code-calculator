@@ -69,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("band_" + n).style.backgroundColor = color;
         element.style.backgroundColor = color;
         element.style.color = dark_colours.includes(color) ? "white" : "black";
+        element.style.borderColor = "";
       });
   });
 
@@ -82,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_3").style.backgroundColor = color;
     element.style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.borderColor = "";
   });
 
   document.getElementById("tolerance").addEventListener("change", function () {
