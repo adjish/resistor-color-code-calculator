@@ -134,6 +134,8 @@
 
     <p id="text" aria-live="polite"  style="white-space: pre-line">Fill all required (<span>*</span>) dropdowns to see the result.</p>
 
+    <button id="copy_button" onclick="navigator.clipboard.writeText(document.getElementById('text').textContent)" style="display: none;">Copy Result</button>
+
     <div class="test">
       <div style="width: 78px; display: inline-block"></div>
       <div class="long_band" id="band_0"></div>

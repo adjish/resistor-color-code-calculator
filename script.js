@@ -125,11 +125,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (digits[0] !== undefined && digits[1] !== undefined) {
           resistance = digits[0] + "" + digits[1];
 
+          document.getElementById("copy_button").style.display = "unset";
+
           if (bands >= 5) {
             if (digits[2] !== undefined) {
               resistance += "" + digits[2];
             } else {
               text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
+              document.getElementById("copy_button").style.display = "none";
               return;
             }
           }
