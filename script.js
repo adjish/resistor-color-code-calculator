@@ -122,24 +122,19 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
         let resistance, result, result2, error, number;
 
-        if (digits[0] !== undefined && digits[1] !== undefined) {
+        if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined) {
           resistance = digits[0] + "" + digits[1];
-
-          document.getElementById("copy_button").style.display = "unset";
 
           if (bands >= 5) {
             if (digits[2] !== undefined) {
               resistance += "" + digits[2];
             } else {
               text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-              document.getElementById("copy_button").style.display = "none";
               return;
             }
           }
 
-          if (multiplier === undefined) {
-            multiplier = 3;
-          }
+          document.getElementById("copy_button").style.display = "unset";
 
           number = resistance * Math.pow(10, multiplier - 3);
 
