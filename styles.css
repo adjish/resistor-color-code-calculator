@@ -67,7 +67,7 @@ select, button
     background-color: #0d1117;
   }
 
-  select, button {
+  select, button, input {
     color: #c9d1d9;
     background-color: #0d1117;
   }

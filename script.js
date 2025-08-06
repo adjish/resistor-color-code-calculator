@@ -140,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           result = format(number);
 
+          document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
+
           if (bands == 3) {
             tolerance_backup = tolerance;
             tolerance = 0.2;
