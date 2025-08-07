@@ -178,4 +178,60 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
   });
+
+  document.getElementById("resistance_input").addEventListener("change", function () {
+    let resistance = document.getElementById("resistance_input").value.trim();
+    let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
+
+    if ((bands <= 4 && (resistance_string.length < 2 || resistance_string.replace(/0+$/, "").length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_string.replace(/0+$/, "").length > 3)))
+    {
+      return;
+    }
+
+    digits[0] = resistance_string[0];
+    digits[1] = resistance_string[1];
+
+    if (bands >= 5)
+    {
+      digits[2] = resistance_string[2];
+    }
+
+    const colours = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"];
+    const multipliers = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Gold", "Silver"];
+
+
+    let element = document.getElementById("digit_0");
+    let color = colours[digits[0]];
+    element.value = color;
+    element.style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.borderColor = "";
+    document.getElementById("band_0").style.backgroundColor = color;
+
+    element = document.getElementById("digit_1");
+    color = colours[digits[1]];
+    element.value = color;
+    element.style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.borderColor = "";
+    document.getElementById("band_1").style.backgroundColor = color;
+
+    element = document.getElementById("multiplier");
+
+    if (bands >= 5)
+    {
+      document.getElementById("digit_2").value = colours[digits[2]];
+      color = multipliers[Math.floor(Math.log10(resistance)) - 2];
+    }
+    else
+    {
+      color = multipliers[Math.floor(Math.log10(resistance)) - 1];
+    }
+
+    element.value = color;
+    element.style.backgroundColor = color;
+    document.getElementById("band_3").style.backgroundColor = color;
+    element.style.color = dark_colours.includes(color) ? "white" : "black";
+    element.style.borderColor = "";
+  });
 });
