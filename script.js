@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let resistance = document.getElementById("resistance_input").value.trim();
     let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
 
-    if ((bands <= 4 && (resistance_string.length < 2 || resistance_string.replace(/0+$/, "").length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_string.replace(/0+$/, "").length > 3)))
+    if (isNaN(resistance) || (bands <= 4 && (resistance_string.length < 2 || resistance_string.replace(/0+$/, "").length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_string.replace(/0+$/, "").length > 3)))
     {
       return;
     }
@@ -191,13 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
     digits[0] = resistance_string[0];
     digits[1] = resistance_string[1];
 
-    if (bands >= 5)
-    {
-      digits[2] = resistance_string[2];
-    }
-
-    const colours = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White"];
-    const multipliers = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Gold", "Silver"];
+    const colours = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Grey", "White"];
+    const multipliers = ["Pink", "Silver", "Gold"].concat(colours);
 
 
     let element = document.getElementById("digit_0");
@@ -216,18 +211,24 @@ document.addEventListener("DOMContentLoaded", function () {
     element.style.borderColor = "";
     document.getElementById("band_1").style.backgroundColor = color;
 
-    element = document.getElementById("multiplier");
-
     if (bands >= 5)
     {
-      document.getElementById("digit_2").value = colours[digits[2]];
-      color = multipliers[Math.floor(Math.log10(resistance)) - 2];
+      element = document.getElementById("digit_2");
+      digits[2] = resistance_string[2];
+      color = colours[digits[2]];
+      element.style.backgroundColor = color;
+      element.style.color = dark_colours.includes(color) ? "white" : "black";
+      element.style.borderColor = "";
+      element.value = color;
+      document.getElementById("band_2").style.backgroundColor = color;
+      color = multipliers[Math.floor(Math.log10(resistance)) + 1];
     }
     else
     {
-      color = multipliers[Math.floor(Math.log10(resistance)) - 1];
+      color = multipliers[Math.floor(Math.log10(resistance)) + 2];
     }
 
+    element = document.getElementById("multiplier");
     element.value = color;
     element.style.backgroundColor = color;
     document.getElementById("band_3").style.backgroundColor = color;
