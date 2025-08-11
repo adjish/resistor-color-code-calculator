@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_2").style.display = values[3];
     document.getElementById("band_4").style.display = values[4];
     document.getElementById("band_5").style.display = values[5];
+    document.getElementById("resistance_input").value = "";
   });
 
   [0, 1, 2].forEach(function (n) {
@@ -141,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
           result = format(number);
 
           document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
+          document.getElementById("resistance_input").style.borderColor = "";
 
           if (bands == 3) {
             tolerance_backup = tolerance;
@@ -179,54 +181,45 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 
-  document.getElementById("resistance_input").addEventListener("change", function () {
+  document.getElementById("resistance_input").addEventListener("input", function () {
     let resistance = document.getElementById("resistance_input").value.trim();
     let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
 
     if (isNaN(resistance) || (bands <= 4 && (resistance_string.length < 2 || resistance_string.replace(/0+$/, "").length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_string.replace(/0+$/, "").length > 3)))
     {
+      document.getElementById("error").style.display = "unset";
+      document.getElementById("resistance_input").style.borderColor = "red";
       return;
     }
-
-    digits[0] = resistance_string[0];
-    digits[1] = resistance_string[1];
 
     const colours = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Grey", "White"];
     const multipliers = ["Pink", "Silver", "Gold"].concat(colours);
 
+    let element, color, limit = (bands >= 5 ? 2 : 1);
 
-    let element = document.getElementById("digit_0");
-    let color = colours[digits[0]];
-    element.value = color;
-    element.style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.style.borderColor = "";
-    document.getElementById("band_0").style.backgroundColor = color;
-
-    element = document.getElementById("digit_1");
-    color = colours[digits[1]];
-    element.value = color;
-    element.style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.style.borderColor = "";
-    document.getElementById("band_1").style.backgroundColor = color;
-
-    if (bands >= 5)
+    for (let i = 0; i <= limit; ++i)
     {
-      element = document.getElementById("digit_2");
-      digits[2] = resistance_string[2];
-      color = colours[digits[2]];
+      element = document.getElementById("digit_" + i);
+      digits[i] = resistance_string[i];
+      color = colours[digits[i]];
+      element.value = color;
       element.style.backgroundColor = color;
       element.style.color = dark_colours.includes(color) ? "white" : "black";
       element.style.borderColor = "";
-      element.value = color;
-      document.getElementById("band_2").style.backgroundColor = color;
-      color = multipliers[Math.floor(Math.log10(resistance)) + 1];
+      document.getElementById("band_" + i).style.backgroundColor = color;
     }
-    else
+
+    color = multipliers[Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2)];
+
+    if (color === undefined)
     {
-      color = multipliers[Math.floor(Math.log10(resistance)) + 2];
+      document.getElementById("error").style.display = "unset";
+      document.getElementById("resistance_input").style.borderColor = "red";
+      return;
     }
+
+    document.getElementById("error").style.display = "none";
+    document.getElementById("resistance_input").style.borderColor = "";
 
     element = document.getElementById("multiplier");
     element.value = color;

@@ -8,11 +8,11 @@ h1 {
   margin-top: 0;
 }
 
-select {
+select, input {
   width: 120px;
 }
 
-span
+span, input
 {
   color: red;
 }
