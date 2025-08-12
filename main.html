@@ -130,14 +130,14 @@
     </div>
 
     <br>
-    <input type="text" id="resistance_input" style="border-color: red;">
+    <input type="text" id="resistance_input">
     <i id="error" style="display: none; margin-left: 10px;">Invalid number</i>
 
     <br>
     <br>
     <button type="button" id="reset_button">Reset all</button>
 
-    <p id="text" aria-live="polite"  style="white-space: pre-line">Fill all required (<span>*</span>) dropdowns to see the result.</p>
+    <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span>*</span>) dropdowns to see the result.</p>
 
     <button id="copy_button" onclick="navigator.clipboard.writeText(document.getElementById('text').textContent)" style="display: none;">Copy Result</button>
 

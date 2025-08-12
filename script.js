@@ -123,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
         let resistance, result, result2, error, number;
 
+        text.style.fontStyle = "normal";
+
         if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined) {
           resistance = digits[0] + "" + digits[1];
 
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (digits[2] !== undefined) {
               resistance += "" + digits[2];
             } else {
+              text.style.fontStyle = "italic";
               text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
               return;
             }
@@ -171,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           text.textContent = result;
         } else {
+          text.style.fontStyle = "italic";
           text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
         }
 
