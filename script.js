@@ -116,72 +116,72 @@ document.addEventListener("DOMContentLoaded", function () {
     element.style.color = dark_colours.includes(color) ? "white" : "black";
   });
 
-  document.querySelectorAll("select").forEach((element) => {
-    element.addEventListener(
-      "change",
+  function update_result () {
+    let resistance, result, result2, error, number;
 
-      function () {
-        let resistance, result, result2, error, number;
+    text.style.fontStyle = "normal";
 
-        text.style.fontStyle = "normal";
+    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined) {
+      resistance = digits[0] + "" + digits[1];
 
-        if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined) {
-          resistance = digits[0] + "" + digits[1];
-
-          if (bands >= 5) {
-            if (digits[2] !== undefined) {
-              resistance += "" + digits[2];
-            } else {
-              text.style.fontStyle = "italic";
-              text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-              return;
-            }
-          }
-
-          document.getElementById("copy_button").style.display = "unset";
-
-          number = resistance * Math.pow(10, multiplier - 3);
-
-          result = format(number);
-
-          document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
-          document.getElementById("resistance_input").style.borderColor = "";
-
-          if (bands == 3) {
-            tolerance_backup = tolerance;
-            tolerance = 0.2;
-          }
-
-          if (tolerance !== undefined && number != 0) {
-            error = tolerance * number;
-            result2 = format(number) + " ± " + format(error);
-            result += " " + tolerance * 100 + "%";
-          }
-
-          if (bands == 6 && tcr !== undefined) {
-            result += " " + tcr + "ppm/K";
-          }
-
-          if (result2 !== undefined) {
-            result +=
-              "\n" +
-              result2 +
-              "\n" +
-              format(number - error) +
-              " – " +
-              format(number + error);
-          }
-
-          text.textContent = result;
+      if (bands >= 5) {
+        if (digits[2] !== undefined) {
+          resistance += "" + digits[2];
         } else {
           text.style.fontStyle = "italic";
           text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-        }
-
-        if (bands == 3) {
-          tolerance = tolerance_backup;
+          return;
         }
       }
+
+      document.getElementById("copy_button").style.display = "unset";
+
+      number = resistance * Math.pow(10, multiplier - 3);
+
+      result = format(resistance * Math.pow(10, multiplier));
+
+      document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
+      document.getElementById("resistance_input").style.borderColor = "";
+
+      if (bands == 3) {
+        tolerance_backup = tolerance;
+        tolerance = 0.2;
+      }
+
+      if (tolerance !== undefined && number != 0) {
+        error = tolerance * number;
+        result2 = format(number) + " ± " + format(error);
+        result += " " + tolerance * 100 + "%";
+      }
+
+      if (bands == 6 && tcr !== undefined) {
+        result += " " + tcr + "ppm/K";
+      }
+
+      if (result2 !== undefined) {
+        result +=
+          "\n" +
+          result2 +
+          "\n" +
+          format(number - error) +
+          " – " +
+          format(number + error);
+      }
+
+      text.textContent = result;
+    } else {
+      text.style.fontStyle = "italic";
+      text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
+    }
+
+    if (bands == 3) {
+      tolerance = tolerance_backup;
+    }
+  }
+
+  document.querySelectorAll("select").forEach((element) => {
+    element.addEventListener(
+      "change", update_result
     );
   });
 
@@ -213,7 +213,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("band_" + i).style.backgroundColor = color;
     }
 
-    color = multipliers[Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2)];
+    multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
+    color = multipliers[multiplier];
 
     if (color === undefined)
     {
@@ -231,5 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_3").style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
     element.style.borderColor = "";
+
+    update_result();
   });
 });
