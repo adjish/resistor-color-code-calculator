@@ -10,6 +10,7 @@ h1 {
 
 select, input {
   width: 120px;
+  box-sizing: border-box;
 }
 
 span, input
@@ -47,7 +48,7 @@ select, button
 }
 
 @media (max-width: 600px) {
-  select, button {
+  select, button, input {
     width: 100%;
   }
 
