@@ -23,6 +23,10 @@ select, button
   background-color: white;
 }
 
+input {
+  color: black;
+}
+
 .short_band {
   display: inline-block;
   width: 8px;

@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       number = resistance * Math.pow(10, multiplier - 3);
 
-      result = format(resistance * Math.pow(10, multiplier));
+      result = format(number);
 
       document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
       document.getElementById("resistance_input").style.borderColor = "";
