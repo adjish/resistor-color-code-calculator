@@ -77,3 +77,9 @@ input {
     background-color: #0d1117;
   }
 }
+
+@media print {
+  .test {
+    print-color-adjust: exact;
+  }
+}
