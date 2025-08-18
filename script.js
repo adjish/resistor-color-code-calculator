@@ -8,7 +8,7 @@ function format(number) {
   let index = Math.floor(Math.log10(number) / 3);
 
   return (
-    Math.round(number / Math.pow(10, 3 * index - 6)) / 1000000 +
+    Math.round(number / 10 ** (3 * index - 6)) / 1000000 +
     " " +
     suffixes[index + 2] +
     "Ω"
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       document.getElementById("copy_button").style.display = "unset";
 
-      number = resistance * Math.pow(10, multiplier - 3);
+      number = resistance * 10 ** (multiplier - 3);
 
       result = format(number);
 
@@ -188,8 +188,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("resistance_input").addEventListener("input", function () {
     let resistance = document.getElementById("resistance_input").value.trim();
     let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
+    let resistance_length = resistance_string.replace(/0+$/, "").length;
 
-    if (isNaN(resistance) || (bands <= 4 && (resistance_string.length < 2 || resistance_string.replace(/0+$/, "").length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_string.replace(/0+$/, "").length > 3)))
+    if (isNaN(resistance) || (bands <= 4 && (resistance_string.length < 2 || resistance_length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_length > 3)))
     {
       document.getElementById("error").style.display = "unset";
       document.getElementById("resistance_input").style.borderColor = "red";

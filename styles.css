@@ -43,7 +43,7 @@ input {
   border: 1px solid black;
 }
 
-.test
+.graphics
 {
   width: 300px;
   background-image: url("images/resistor.svg");
@@ -56,7 +56,7 @@ input {
     width: 100%;
   }
 
-  .test {
+  .graphics {
     margin: 0 auto;
   }
 
@@ -79,7 +79,7 @@ input {
 }
 
 @media print {
-  .test {
+  .graphics {
     print-color-adjust: exact;
   }
 }
