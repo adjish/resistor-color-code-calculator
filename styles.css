@@ -49,6 +49,7 @@ input {
   background-image: url("images/resistor.svg");
   background-size: cover;
   user-select: none;
+  margin-top: 1em;
 }
 
 @media (max-width: 600px) {
@@ -57,7 +58,7 @@ input {
   }
 
   .graphics {
-    margin: 0 auto;
+    margin: 1em auto;
   }
 
   h1, #text
