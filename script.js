@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tolerance,
     tcr,
     tolerance_backup,
+    tolerance_mode,
     bands = 4;
 
   document.getElementById("reset_button").addEventListener("click", function () {
@@ -87,19 +88,35 @@ document.addEventListener("DOMContentLoaded", function () {
     element.style.borderColor = "";
   });
 
-  document.getElementById("tolerance").addEventListener("change", function () {
-    const values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
+  function update_tolerance () {
+    let values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
+
+    if (tolerance_mode == "New")
+    {
+      values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
+    }
 
     let element = document.getElementById("tolerance");
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
-    tolerance = values[index - 1];
+    if (tolerance_mode != undefined)
+    {
+      tolerance = values[index];
+    }
+    else
+    {
+      tolerance = values[index - 1];
+    }
 
     document.getElementById("band_4").style.backgroundColor = color;
     element.style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
-  });
+  }
+
+  document.getElementById("tolerance").addEventListener("change",
+    update_tolerance
+  );
 
   document.getElementById("tcr").addEventListener("change", function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
@@ -114,6 +131,38 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_5").style.backgroundColor = color;
     element.style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
+  });
+
+  document.getElementById("tolerance_mode").addEventListener("change", function () {
+    const radios = document.getElementsByName("mode");
+
+    for (const radio of radios) {
+      if (radio.checked) {
+        tolerance_mode = radio.value;
+        break;
+      }
+    }
+
+    const select = document.getElementById("tolerance");
+
+    select.innerHTML = "";
+
+    if (tolerance_mode == "New")
+    {
+      options_list = ["Silver", "Gold", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Grey"];
+    }
+    else
+    {
+      options_list = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
+    }
+
+    options_list.forEach(text => {
+      const option = document.createElement('option');
+      option.text = text;
+      select.appendChild(option);
+    });
+
+    update_tolerance();
   });
 
   function update_result () {

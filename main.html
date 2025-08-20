@@ -96,6 +96,18 @@
 
     <div id="tolerance_band">
       <label for="tolerance">Tolerance band:</label>
+
+      <form id="tolerance_mode">
+        <br>
+        <label>
+          <input type="radio" name="mode" value="Legacy" checked>
+          Legacy
+        </label>
+        <label>
+          <input type="radio" name="mode" value="New">
+          New
+        </label>
+      </form>
       <br>
       <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
         <option hidden selected>Select a colour</option>
