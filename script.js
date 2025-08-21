@@ -100,14 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
-    if (tolerance_mode != undefined)
-    {
-      tolerance = values[index];
-    }
-    else
-    {
-      tolerance = values[index - 1];
-    }
+    tolerance = values[index - 1];
 
     document.getElementById("band_4").style.backgroundColor = color;
     element.style.backgroundColor = color;
@@ -134,6 +127,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
+    let options_list = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
+    let element = document.getElementById("tolerance");
+    let index;
+
     const radios = document.getElementsByName("mode");
 
     for (const radio of radios) {
@@ -145,16 +142,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const select = document.getElementById("tolerance");
 
-    select.innerHTML = "";
-
     if (tolerance_mode == "New")
     {
-      options_list = ["Silver", "Gold", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Grey"];
+      options_list.splice(4, 0, "Orange", "Yellow");
     }
-    else
-    {
-      options_list = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
-    }
+
+    index = options_list.indexOf(element.value) + 1;
+
+    select.innerHTML = "";
+
+    const default_option = document.createElement('option');
+    default_option.text = "Select a colour";
+    default_option.hidden = true;
+    select.appendChild(default_option);
 
     options_list.forEach(text => {
       const option = document.createElement('option');
@@ -162,7 +162,20 @@ document.addEventListener("DOMContentLoaded", function () {
       select.appendChild(option);
     });
 
-    update_tolerance();
+    element.selectedIndex = index;
+
+    if (index == 0)
+    {
+      tolerance = undefined;
+      element.style.backgroundColor = "";
+      element.style.color = "";
+    }
+    else
+    {
+      update_tolerance();
+    }
+
+    update_result();
   });
 
   function update_result () {
