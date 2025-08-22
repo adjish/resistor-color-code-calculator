@@ -52,6 +52,11 @@ input {
   margin-top: 1em;
 }
 
+.spacer
+{
+  height: 1em;
+}
+
 @media (max-width: 600px) {
   select, button, input {
     width: 100%;
