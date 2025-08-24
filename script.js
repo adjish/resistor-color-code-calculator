@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("band_" + n).style.backgroundColor = color;
         element.style.backgroundColor = color;
         element.style.color = dark_colours.includes(color) ? "white" : "black";
-        element.style.borderColor = "";
+        element.classList.remove('mandatory');
       });
   });
 
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("band_3").style.backgroundColor = color;
     element.style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.style.borderColor = "";
+    element.classList.remove('mandatory');
   });
 
   function update_tolerance () {
@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
       element.value = color;
       element.style.backgroundColor = color;
       element.style.color = dark_colours.includes(color) ? "white" : "black";
-      element.style.borderColor = "";
+      element.classList.remove('mandatory');
       document.getElementById("band_" + i).style.backgroundColor = color;
     }
 
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
     element.style.backgroundColor = color;
     document.getElementById("band_3").style.backgroundColor = color;
     element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.style.borderColor = "";
+    element.classList.remove('mandatory');
 
     update_result();
   });
