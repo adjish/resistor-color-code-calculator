@@ -156,6 +156,7 @@
     <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span>*</span>) dropdowns to see the result.</p>
 
     <button id="copy_button" onclick="navigator.clipboard.writeText(document.getElementById('text').textContent)" style="display: none;">Copy Result</button>
+    <div class="spacer"></div>
 
     <div class="graphics">
       <div style="width: 78px; display: inline-block"></div>
@@ -164,8 +165,8 @@
       <div class="short_band" id="band_2" style="display: none"></div>
       <div class="short_band" id="band_3"></div>
       <div style="width: 38px; display: inline-block"></div>
-      <div class="short_band" id="band_4"></div>
-      <div class="long_band" id="band_5" style="display: none"></div>
+      <div class="short_band" id="band_tolerance"></div>
+      <div class="long_band" id="band_tcr" style="display: none"></div>
     </div>
   </body>
 </html>

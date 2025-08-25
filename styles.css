@@ -23,20 +23,20 @@ button {
   background-color: white;
 }
 
-.short_band {
+.short_band, .long_band {
   display: inline-block;
   width: 8px;
-  height: 32px;
-  margin: 11px 0px;
   border: 1px solid black;
 }
 
+.short_band {
+  height: 32px;
+  margin: 11px 0px;
+}
+
 .long_band {
-  display: inline-block;
-  width: 8px;
   height: 40px;
   margin: 7px 3px;
-  border: 1px solid black;
 }
 
 .graphics {
@@ -44,7 +44,6 @@ button {
   background-image: url("images/resistor.svg");
   background-size: cover;
   user-select: none;
-  margin-top: 1em;
 }
 
 .spacer {

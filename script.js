@@ -15,9 +15,13 @@ function format(number) {
   );
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const dark_colours = ["Black", "Brown", "Red", "Green", "Blue", "Grey"];
+function changeColor(element, color) {
+  element.style.backgroundColor = color;
+  element.style.color = ["Black", "Brown", "Red", "Green", "Blue", "Grey"].includes(color) ? "white" : "black";
+  element.classList.remove('mandatory');
+}
 
+document.addEventListener("DOMContentLoaded", function () {
   let digits = new Array(3),
     multiplier,
     tolerance,
@@ -53,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("tcr_band").style.display = values[1];
     document.getElementById("tolerance_band").style.display = values[2];
     document.getElementById("band_2").style.display = values[3];
-    document.getElementById("band_4").style.display = values[4];
-    document.getElementById("band_5").style.display = values[5];
+    document.getElementById("band_tolerance").style.display = values[4];
+    document.getElementById("band_tcr").style.display = values[5];
     document.getElementById("resistance_input").value = "";
   });
 
@@ -69,9 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
         digits[n] = index - 1;
 
         document.getElementById("band_" + n).style.backgroundColor = color;
-        element.style.backgroundColor = color;
-        element.style.color = dark_colours.includes(color) ? "white" : "black";
-        element.classList.remove('mandatory');
+
+        changeColor(element, color);
       });
   });
 
@@ -83,9 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
     multiplier = index - 1;
 
     document.getElementById("band_3").style.backgroundColor = color;
-    element.style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.classList.remove('mandatory');
+
+    changeColor(element, color);
   });
 
   function update_tolerance () {
@@ -102,9 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     tolerance = values[index - 1];
 
-    document.getElementById("band_4").style.backgroundColor = color;
-    element.style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
+    document.getElementById("band_tolerance").style.backgroundColor = color;
+
+    changeColor(element, color);
   }
 
   document.getElementById("tolerance").addEventListener("change",
@@ -121,9 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     tcr = values[index - 1];
 
-    document.getElementById("band_5").style.backgroundColor = color;
-    element.style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
+    document.getElementById("band_tcr").style.backgroundColor = color;
+
+    changeColor(element, color);
   });
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
@@ -205,8 +207,9 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
       document.getElementById("resistance_input").style.borderColor = "";
 
+      tolerance_backup = tolerance;
+
       if (bands == 3) {
-        tolerance_backup = tolerance;
         tolerance = 0.2;
       }
 
@@ -231,13 +234,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       text.textContent = result;
+
+      tolerance = tolerance_backup;
     } else {
       text.style.fontStyle = "italic";
       text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-    }
-
-    if (bands == 3) {
-      tolerance = tolerance_backup;
     }
   }
 
@@ -270,9 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
       digits[i] = resistance_string[i];
       color = colours[digits[i]];
       element.value = color;
-      element.style.backgroundColor = color;
-      element.style.color = dark_colours.includes(color) ? "white" : "black";
-      element.classList.remove('mandatory');
+      changeColor(element, color);
       document.getElementById("band_" + i).style.backgroundColor = color;
     }
 
@@ -291,10 +290,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     element = document.getElementById("multiplier");
     element.value = color;
-    element.style.backgroundColor = color;
     document.getElementById("band_3").style.backgroundColor = color;
-    element.style.color = dark_colours.includes(color) ? "white" : "black";
-    element.classList.remove('mandatory');
+
+    changeColor(element, color);
 
     update_result();
   });
