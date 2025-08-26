@@ -185,17 +185,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     text.style.fontStyle = "normal";
 
-    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined) {
+    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined && (bands < 5 || digits[2] !== undefined)) {
       resistance = digits[0] + "" + digits[1];
 
       if (bands >= 5) {
-        if (digits[2] !== undefined) {
-          resistance += "" + digits[2];
-        } else {
-          text.style.fontStyle = "italic";
-          text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-          return;
-        }
+        resistance += "" + digits[2];
       }
 
       document.getElementById("copy_button").style.display = "unset";
@@ -213,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tolerance = 0.2;
       }
 
-      if (tolerance !== undefined && number != 0) {
+      if (tolerance !== undefined && number) {
         error = tolerance * number;
         result2 = format(number) + " ± " + format(error);
         result += " " + tolerance * 100 + "%";
@@ -239,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       text.style.fontStyle = "italic";
       text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
+      document.getElementById("copy_button").style.display = "none";
     }
   }
 
