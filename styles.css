@@ -57,7 +57,7 @@ button {
 @media (max-width: 600px) {
   select,
   button,
-  input {
+  input[type="text"] {
     width: 100%;
   }
 
