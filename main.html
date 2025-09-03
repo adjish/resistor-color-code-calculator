@@ -149,11 +149,18 @@
     <input type="text" id="resistance_input">
     <i id="error" style="display: none; margin-left: 10px;">Invalid number</i>
 
-    <br>
     <div class="spacer"></div>
     <button type="button" id="reset_button">Reset all</button>
 
     <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span>*</span>) dropdowns to see the result.</p>
+
+    <div id="checkbox" style="display: none;">
+      <label>
+        <input type="checkbox" id="same_unit_checkbox">
+        Consistent units
+      </label>
+      <div class="spacer"></div>
+    </div>
 
     <div id="copy_button" style="display: none;">
       <button onclick="navigator.clipboard.writeText(document.getElementById('text').textContent)">Copy Result</button>

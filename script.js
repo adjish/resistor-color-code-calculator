@@ -1,11 +1,15 @@
-function format(number) {
+function format(number, index) {
   if (number === 0)
   {
     return "0 Ω";
   }
 
   const suffixes = ["µ", "m", "", "k", "M", "G", "T"];
-  let index = Math.floor(Math.log10(number) / 3);
+
+  if (index === undefined)
+  {
+    index = Math.floor(Math.log10(number) / 3);
+  }
 
   return (
     Math.round(number / 10 ** (3 * index - 6)) / 1000000 +
@@ -28,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tcr,
     tolerance_backup,
     tolerance_mode,
+    same_unit = false,
     bands = 4;
 
   document.getElementById("reset_button").addEventListener("click", function () {
@@ -181,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function update_result () {
-    let resistance, result, result2, error, number;
+    let resistance, result, result2, error, number, index;
 
     text.style.fontStyle = "normal";
 
@@ -203,14 +208,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
       tolerance_backup = tolerance;
 
+      if (same_unit)
+      {
+        index = Math.floor(Math.log10(number) / 3);
+      }
+
       if (bands == 3) {
         tolerance = 0.2;
       }
 
       if (tolerance !== undefined && number) {
+        document.getElementById("checkbox").style.display = "unset";
         error = tolerance * number;
-        result2 = format(number) + " ± " + format(error);
+        result2 = format(number, index) + " ± " + format(error, index);
         result += " " + tolerance * 100 + "%";
+      }
+      else
+      {
+        document.getElementById("checkbox").style.display = "none";
       }
 
       if (bands == 6 && tcr !== undefined) {
@@ -222,9 +237,9 @@ document.addEventListener("DOMContentLoaded", function () {
           "\n" +
           result2 +
           "\n" +
-          format(number - error) +
+          format(number - error, index) +
           " – " +
-          format(number + error);
+          format(number + error, index);
       }
 
       text.textContent = result;
@@ -234,6 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
       text.style.fontStyle = "italic";
       text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
       document.getElementById("copy_button").style.display = "none";
+      document.getElementById("checkbox").style.display = "none";
     }
   }
 
@@ -289,6 +305,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     changeColor(element, color);
 
+    update_result();
+  });
+
+  document.getElementById("same_unit_checkbox").addEventListener("change", function () {
+    same_unit = document.getElementById("same_unit_checkbox").checked;
     update_result();
   });
 });
