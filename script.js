@@ -21,7 +21,8 @@ function format(number, index) {
 
 function changeColor(element, color) {
   element.style.backgroundColor = color;
-  element.style.color = ["Black", "Brown", "Red", "Green", "Blue", "Grey"].includes(color) ? "white" : "black";
+  element.style.color = ["Black", "Brown", "Red", "Green", "Blue", "Grey"].includes(color) ?
+    "white" : "black";
   element.classList.remove('mandatory');
 }
 
@@ -190,7 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     text.style.fontStyle = "normal";
 
-    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined && (bands < 5 || digits[2] !== undefined)) {
+    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined &&
+      (bands < 5 || digits[2] !== undefined)) {
       resistance = digits[0] + "" + digits[1];
 
       if (bands >= 5) {
@@ -264,7 +266,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
     let resistance_length = resistance_string.replace(/0+$/, "").length;
 
-    if (isNaN(resistance) || (bands <= 4 && (resistance_string.length < 2 || resistance_length > 2)) || (bands >= 5 && (resistance_string.length < 3 || resistance_length > 3)))
+    if (isNaN(resistance) || resistance < 0 ||
+      (bands <= 4 && (resistance_string.length < 2 || resistance_length > 2)) ||
+      (bands >= 5 && (resistance_string.length < 3 || resistance_length > 3)))
     {
       document.getElementById("error").style.display = "unset";
       document.getElementById("resistance_input").style.borderColor = "red";
