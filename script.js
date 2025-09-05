@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
     multiplier,
     tolerance,
     tcr,
-    tolerance_backup,
-    tolerance_mode,
-    same_unit = false,
+    toleranceBackup,
+    toleranceMode,
+    sameUnit = false,
     bands = 4;
 
   document.getElementById("reset_button").addEventListener("click", function () {
@@ -96,10 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
     changeColor(element, color);
   });
 
-  function update_tolerance () {
+  function updateTolerance () {
     let values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
 
-    if (tolerance_mode == "New")
+    if (toleranceMode === "New")
     {
       values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
     }
@@ -116,14 +116,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById("tolerance").addEventListener("change",
-    update_tolerance
+    updateTolerance
   );
 
   document.getElementById("tcr").addEventListener("change", function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     let element = document.getElementById("tcr");
-    let text = document.getElementById("text");
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
@@ -135,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
-    let options_list = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
+    let optionsList = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
     let element = document.getElementById("tolerance");
     let index;
 
@@ -143,28 +142,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (const radio of radios) {
       if (radio.checked) {
-        tolerance_mode = radio.value;
+        toleranceMode = radio.value;
         break;
       }
     }
 
     const select = document.getElementById("tolerance");
 
-    if (tolerance_mode == "New")
+    if (toleranceMode === "New")
     {
-      options_list.splice(4, 0, "Orange", "Yellow");
+      optionsList.splice(4, 0, "Orange", "Yellow");
     }
 
-    index = options_list.indexOf(element.value) + 1;
+    index = optionsList.indexOf(element.value) + 1;
 
     select.innerHTML = "";
 
-    const default_option = document.createElement('option');
-    default_option.text = "Select a colour";
-    default_option.hidden = true;
-    select.appendChild(default_option);
+    const defaultOption = document.createElement('option');
+    defaultOption.text = "Select a colour";
+    defaultOption.hidden = true;
+    select.appendChild(defaultOption);
 
-    options_list.forEach(text => {
+    optionsList.forEach(text => {
       const option = document.createElement('option');
       option.text = text;
       select.appendChild(option);
@@ -172,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     element.selectedIndex = index;
 
-    if (index == 0)
+    if (index === 0)
     {
       tolerance = undefined;
       element.style.backgroundColor = "";
@@ -180,14 +179,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     else
     {
-      update_tolerance();
+      updateTolerance();
     }
 
-    update_result();
+    updateResult();
   });
 
-  function update_result () {
+  function updateResult () {
     let resistance, result, result2, error, number, index;
+    let text = document.getElementById("text");
 
     text.style.fontStyle = "normal";
 
@@ -208,14 +208,14 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
       document.getElementById("resistance_input").style.borderColor = "";
 
-      tolerance_backup = tolerance;
+      toleranceBackup = tolerance;
 
-      if (same_unit)
+      if (sameUnit)
       {
         index = Math.floor(Math.log10(number) / 3);
       }
 
-      if (bands == 3) {
+      if (bands === 3) {
         tolerance = 0.2;
       }
 
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("checkbox").style.display = "none";
       }
 
-      if (bands == 6 && tcr !== undefined) {
+      if (bands === 6 && tcr !== undefined) {
         result += " " + tcr + "ppm/K";
       }
 
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       text.textContent = result;
 
-      tolerance = tolerance_backup;
+      tolerance = toleranceBackup;
     } else {
       text.style.fontStyle = "italic";
       text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
@@ -257,18 +257,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll("select").forEach((element) => {
     element.addEventListener(
-      "change", update_result
+      "change", updateResult
     );
   });
 
   document.getElementById("resistance_input").addEventListener("input", function () {
     let resistance = document.getElementById("resistance_input").value.trim();
-    let resistance_string = String(resistance).replace(/\./g, "").replace(/^0+/, '');
-    let resistance_length = resistance_string.replace(/0+$/, "").length;
+    let resistanceString = String(resistance).replace(/\./g, "").replace(/^0+/, '');
+    let resistanceLength = resistanceString.replace(/0+$/, "").length;
 
-    if (isNaN(resistance) || resistance < 0 ||
-      (bands <= 4 && (resistance_string.length < 2 || resistance_length > 2)) ||
-      (bands >= 5 && (resistance_string.length < 3 || resistance_length > 3)))
+    if (!Number.isFinite(Number(resistance)) || resistance < 0 ||
+      (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
+      (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3)))
     {
       document.getElementById("error").style.display = "unset";
       document.getElementById("resistance_input").style.borderColor = "red";
@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i <= limit; ++i)
     {
       element = document.getElementById("digit_" + i);
-      digits[i] = resistance_string[i];
+      digits[i] = resistanceString[i];
       color = colours[digits[i]];
       element.value = color;
       changeColor(element, color);
@@ -309,11 +309,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     changeColor(element, color);
 
-    update_result();
+    updateResult();
   });
 
   document.getElementById("same_unit_checkbox").addEventListener("change", function () {
-    same_unit = document.getElementById("same_unit_checkbox").checked;
-    update_result();
+    sameUnit = document.getElementById("same_unit_checkbox").checked;
+    updateResult();
   });
 });
