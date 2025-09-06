@@ -1,4 +1,4 @@
-function format(number, index) {
+function format (number, index) {
   if (number === 0)
   {
     return "0 Ω";
@@ -19,7 +19,7 @@ function format(number, index) {
   );
 }
 
-function changeColor(element, color) {
+function changeColor (element, color) {
   element.style.backgroundColor = color;
   element.style.color = ["Black", "Brown", "Red", "Green", "Blue", "Grey"].includes(color) ?
     "white" : "black";
@@ -133,58 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     changeColor(element, color);
   });
 
-  document.getElementById("tolerance_mode").addEventListener("change", function () {
-    let optionsList = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
-    let element = document.getElementById("tolerance");
-    let index;
-
-    const radios = document.getElementsByName("mode");
-
-    for (const radio of radios) {
-      if (radio.checked) {
-        toleranceMode = radio.value;
-        break;
-      }
-    }
-
-    const select = document.getElementById("tolerance");
-
-    if (toleranceMode === "New")
-    {
-      optionsList.splice(4, 0, "Orange", "Yellow");
-    }
-
-    index = optionsList.indexOf(element.value) + 1;
-
-    select.innerHTML = "";
-
-    const defaultOption = document.createElement('option');
-    defaultOption.text = "Select a colour";
-    defaultOption.hidden = true;
-    select.appendChild(defaultOption);
-
-    optionsList.forEach(text => {
-      const option = document.createElement('option');
-      option.text = text;
-      select.appendChild(option);
-    });
-
-    element.selectedIndex = index;
-
-    if (index === 0)
-    {
-      tolerance = undefined;
-      element.style.backgroundColor = "";
-      element.style.color = "";
-    }
-    else
-    {
-      updateTolerance();
-    }
-
-    updateResult();
-  });
-
   function updateResult () {
     let resistance, result, result2, error, number, index;
     let text = document.getElementById("text");
@@ -254,6 +202,58 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("checkbox").style.display = "none";
     }
   }
+
+  document.getElementById("tolerance_mode").addEventListener("change", function () {
+    let optionsList = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
+    let element = document.getElementById("tolerance");
+    let index;
+
+    const radios = document.getElementsByName("mode");
+
+    for (const radio of radios) {
+      if (radio.checked) {
+        toleranceMode = radio.value;
+        break;
+      }
+    }
+
+    const select = document.getElementById("tolerance");
+
+    if (toleranceMode === "New")
+    {
+      optionsList.splice(4, 0, "Orange", "Yellow");
+    }
+
+    index = optionsList.indexOf(element.value) + 1;
+
+    select.innerHTML = "";
+
+    const defaultOption = document.createElement('option');
+    defaultOption.text = "Select a colour";
+    defaultOption.hidden = true;
+    select.appendChild(defaultOption);
+
+    optionsList.forEach(text => {
+      const option = document.createElement('option');
+      option.text = text;
+      select.appendChild(option);
+    });
+
+    element.selectedIndex = index;
+
+    if (index === 0)
+    {
+      tolerance = undefined;
+      element.style.backgroundColor = "";
+      element.style.color = "";
+    }
+    else
+    {
+      updateTolerance();
+    }
+
+    updateResult();
+  });
 
   document.querySelectorAll("select").forEach((element) => {
     element.addEventListener(
