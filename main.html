@@ -58,7 +58,7 @@
     <br>
     <div class="spacer"></div>
 
-    <div id="third_band" style="display: none">
+    <div id="third_band" class="hidden">
       <label for="digit_2">Third band: <span>*</span></label>
       <br>
       <select name="digit_2" id="digit_2" class="mandatory" title="This field is mandatory" aria-label="Select third resistor color band">
@@ -127,7 +127,7 @@
       <div class="spacer"></div>
     </div>
 
-    <div id="tcr_band" style="display: none">
+    <div id="tcr_band" class="hidden">
       <label for="tcr">PPM:</label>
       <br>
       <select name="tcr" id="tcr" title="This field is optional" aria-label="Choose temperature coefficient band">
@@ -147,14 +147,14 @@
     </div>
 
     <input type="text" id="resistance_input">
-    <i id="error" style="display: none; margin-left: 10px;">Invalid number</i>
+    <i id="error" class="hidden" style="margin-left: 10px;">Invalid number</i>
 
     <div class="spacer"></div>
     <button type="button" id="reset_button">Reset all</button>
 
     <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span>*</span>) dropdowns to see the result.</p>
 
-    <div id="checkbox" style="display: none;">
+    <div id="checkbox" class="hidden">
       <label>
         <input type="checkbox" id="same_unit_checkbox">
         Consistent units
@@ -162,7 +162,7 @@
       <div class="spacer"></div>
     </div>
 
-    <div id="copy_button" style="display: none;">
+    <div id="copy_button" class="hidden">
       <button onclick="navigator.clipboard.writeText(document.getElementById('text').textContent)">Copy Result</button>
       <div class="spacer"></div>
     </div>
@@ -171,11 +171,11 @@
       <div style="width: 78px; display: inline-block"></div>
       <div class="long_band" id="band_0"></div>
       <div class="short_band" id="band_1"></div>
-      <div class="short_band" id="band_2" style="display: none"></div>
+      <div class="short_band" id="band_2" class="hidden"></div>
       <div class="short_band" id="band_3"></div>
       <div style="width: 38px; display: inline-block"></div>
       <div class="short_band" id="band_tolerance"></div>
-      <div class="long_band" id="band_tcr" style="display: none"></div>
+      <div class="long_band" id="band_tcr" class="hidden"></div>
     </div>
   </body>
 </html>

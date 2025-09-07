@@ -1,0 +1,7 @@
+= Resistor Calculator
+
+Web-based tool to calculate the resistance value of resistors based on their color bands.
+
+== Credits
+
+The https://github.com/adjish/resistor-color-code-calculator/blob/main/images/resistor.svg[image] of the resistor used in this project is a modified version this original https://openclipart.org/detail/281032/resistor-colour-chart-improved[image].
