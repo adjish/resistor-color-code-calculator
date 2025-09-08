@@ -83,6 +83,12 @@ button {
     color: #c9d1d9;
     background-color: #0d1117;
   }
+
+  select,
+  button,
+  input {
+    border: 1px solid;
+  }
 }
 
 @media print {
