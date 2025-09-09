@@ -23,6 +23,12 @@ button {
   background-color: white;
 }
 
+select,
+button,
+input {
+  border: 1px solid black;
+}
+
 .short_band, .long_band {
   display: inline-block;
   width: 8px;
@@ -80,14 +86,14 @@ button {
   select,
   button,
   input {
-    color: #c9d1d9;
-    background-color: #0d1117;
+    color: white;
+    background-color: black;
   }
 
   select,
   button,
   input {
-    border: 1px solid;
+    border-color: white;
   }
 }
 
