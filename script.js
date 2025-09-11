@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tcr,
     toleranceBackup,
     toleranceMode,
+    modeBackup,
     sameUnit = false,
     bands = 4;
 
@@ -226,6 +227,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     index = optionsList.indexOf(element.value) + 1;
 
+    if (index === 0 && element.selectedIndex !== 0 && modeBackup === undefined)
+    {
+      modeBackup = element.selectedIndex;
+    }
+
     select.innerHTML = "";
 
     const defaultOption = document.createElement('option');
@@ -243,6 +249,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (index === 0)
     {
+      if (toleranceMode == "New" && modeBackup != undefined)
+      {
+        element.selectedIndex = modeBackup;
+        modeBackup = undefined;
+        updateTolerance();
+        updateResult();
+        return;
+      }
+
       tolerance = undefined;
       element.style.backgroundColor = "";
       element.style.color = "";
