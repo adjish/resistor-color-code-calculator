@@ -202,6 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("copy_button").style.display = "none";
       document.getElementById("checkbox").style.display = "none";
     }
+
+    document.getElementById("confirm_copy").style.display = "none";
   }
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
@@ -331,4 +333,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sameUnit = document.getElementById("same_unit_checkbox").checked;
     updateResult();
   });
+});
+
+document.getElementById("copy_result").addEventListener("click", function () {
+  navigator.clipboard.writeText(document.getElementById('text').textContent);
+  document.getElementById("confirm_copy").style.display = "unset";
 });
