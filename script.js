@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     multiplier = index - 1;
 
+    document.getElementById("exponent").innerHTML = multiplier - 3;
     document.getElementById("band_3").style.backgroundColor = color;
 
     changeColor(element, color);
