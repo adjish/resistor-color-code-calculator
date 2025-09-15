@@ -68,6 +68,14 @@ input {
   margin-left: 10px;
 }
 
+#exponent {
+  width: 30px;
+  font-size: 0.6em;
+  vertical-align: super;
+  border: none;
+  width: 12px;
+}
+
 @media (max-width: 600px) {
   select,
   button,

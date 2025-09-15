@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     multiplier = index - 1;
 
-    document.getElementById("exponent").innerHTML = multiplier - 3;
     document.getElementById("band_3").style.backgroundColor = color;
 
     changeColor(element, color);
@@ -197,6 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
       text.textContent = result;
 
       tolerance = toleranceBackup;
+
+      document.getElementById("error_exponent").style.display = "none";
     } else {
       text.style.fontStyle = "italic";
       text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
@@ -205,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("confirm_copy").style.display = "none";
+    document.getElementById("exponent").value = multiplier - 3;
   }
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
@@ -334,9 +336,34 @@ document.addEventListener("DOMContentLoaded", function () {
     sameUnit = document.getElementById("same_unit_checkbox").checked;
     updateResult();
   });
-});
 
-document.getElementById("copy_result").addEventListener("click", function () {
-  navigator.clipboard.writeText(document.getElementById('text').textContent);
-  document.getElementById("confirm_copy").style.display = "unset";
+  document.getElementById("exponent").addEventListener("input", function () {
+    let element, exponent, exponent_string = document.getElementById("exponent").value.trim();
+
+    exponent = Number(exponent_string);
+
+    if (exponent_string.length === 0 || Number.isNaN(exponent) || !Number.isInteger(exponent) || exponent < -3 || exponent > 9)
+    {
+      document.getElementById("error_exponent").style.display = "unset";
+      document.getElementById("exponent").style.borderColor = "red";
+      return;
+    }
+
+    multiplier = Number(exponent) + 3;
+    element = document.getElementById("multiplier");
+    element.selectedIndex = multiplier + 1;
+    color = element.value;
+
+    document.getElementById("error_exponent").style.display = "none";
+    document.getElementById("band_3").style.backgroundColor = color;
+
+    changeColor(element, color);
+
+    updateResult();
+  });
+
+  document.getElementById("copy_result").addEventListener("click", function () {
+    navigator.clipboard.writeText(document.getElementById('text').textContent);
+    document.getElementById("confirm_copy").style.display = "unset";
+  });
 });

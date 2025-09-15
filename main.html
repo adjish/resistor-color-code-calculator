@@ -77,7 +77,6 @@
       <br>
       <div class="spacer"></div>
     </div>
-
     <label for="multiplier">Multiplier band: <span>*</span></label>
     <br>
     <select name="multiplier" id="multiplier" class="mandatory" title="This field is mandatory" aria-label="Select multiplier color band">
@@ -97,7 +96,11 @@
       <option>White</option>
     </select>
     <p style="display: inline;">×10</p>
-    <sup style="display: inline;" id="exponent">?</sup>
+    <sup style="display: inline;"><input id="exponent" type="text" value="?"></input>
+      <div id="error_exponent" class="hidden" style="margin-left: 5px; vertical-align: super;">
+        <i>Invalid number</i>
+      </div>
+    </sup>
     <br>
     <div class="spacer"></div>
 
