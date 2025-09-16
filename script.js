@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.getElementById("exponent").addEventListener("input", function () {
-    let element, exponent, exponent_string = document.getElementById("exponent").value.trim();
+    let element, color, exponent, exponent_string = document.getElementById("exponent").value.trim();
 
     exponent = Number(exponent_string);
 

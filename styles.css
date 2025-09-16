@@ -70,10 +70,11 @@ input {
 
 #exponent {
   width: 30px;
-  font-size: 0.6em;
+  font-size: 0.8em;
   vertical-align: super;
   border: none;
-  width: 12px;
+  width: 20px;
+  margin-left: -4px;
 }
 
 @media (max-width: 600px) {
