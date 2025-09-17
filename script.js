@@ -206,7 +206,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("confirm_copy").style.display = "none";
-    document.getElementById("exponent").value = multiplier - 3;
+
+    if (multiplier !== undefined)
+    {
+      document.getElementById("exponent").value = multiplier - 3;
+    }
   }
 
   document.getElementById("tolerance_mode").addEventListener("change", function () {
