@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("checkbox").style.display = "unset";
         error = tolerance * number;
         result2 = format(number, index) + " ± " + format(error, index);
-        result += " " + tolerance * 100 + "%";
+        result += " ± " + tolerance * 100 + "%";
       }
       else
       {
