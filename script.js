@@ -44,16 +44,16 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("bands").addEventListener("change", function () {
     let values = new Array(6);
 
-    bands = document.getElementById("bands").value;
+    bands = parseInt(document.getElementById("bands").value, 10);
 
     switch (bands) {
-      case "6":
+      case 6:
         values = ["unset", "unset", "unset", "inline-block", "inline-block", "inline-block"];
         break;
-      case "5":
+      case 5:
         values = ["unset", "none", "unset", "inline-block", "inline-block", "none"];
         break;
-      case "4":
+      case 4:
         values = ["none", "none", "unset", "none", "inline-block", "none"];
         break;
       default:
