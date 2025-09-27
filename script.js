@@ -1,10 +1,10 @@
 function format (number, index) {
   if (number === 0)
   {
-    return "0 Ω";
+    return '0 Ω';
   }
 
-  const suffixes = ["µ", "m", "", "k", "M", "G", "T"];
+  const suffixes = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
   if (index === undefined)
   {
@@ -12,21 +12,18 @@ function format (number, index) {
   }
 
   return (
-    Math.round(number / 10 ** (3 * index - 6)) / 1000000 +
-    " " +
-    suffixes[index + 2] +
-    "Ω"
+    `${Math.round(number / 10 ** (3 * index - 6)) / 1000000} ${suffixes[index + 2]}Ω`
   );
 }
 
 function changeColor (element, color) {
   element.style.backgroundColor = color;
-  element.style.color = ["Black", "Brown", "Red", "Green", "Blue", "Grey"].includes(color) ?
-    "white" : "black";
+  element.style.color = ['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey'].includes(color) ?
+    'white' : 'black';
   element.classList.remove('mandatory');
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
   let digits = new Array(3),
     multiplier,
     tolerance,
@@ -37,62 +34,62 @@ document.addEventListener("DOMContentLoaded", function () {
     sameUnit = false,
     bands = 4;
 
-  document.getElementById("reset_button").addEventListener("click", function () {
+  document.getElementById('reset_button').addEventListener('click', function () {
     window.location.assign(window.location.href);
   });
 
-  document.getElementById("bands").addEventListener("change", function () {
+  document.getElementById('bands').addEventListener('change', function () {
     let values = new Array(6);
 
-    bands = parseInt(document.getElementById("bands").value, 10);
+    bands = parseInt(document.getElementById('bands').value, 10);
 
     switch (bands) {
       case 6:
-        values = ["unset", "unset", "unset", "inline-block", "inline-block", "inline-block"];
+        values = ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block'];
         break;
       case 5:
-        values = ["unset", "none", "unset", "inline-block", "inline-block", "none"];
+        values = ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'];
         break;
       case 4:
-        values = ["none", "none", "unset", "none", "inline-block", "none"];
+        values = ['none', 'none', 'unset', 'none', 'inline-block', 'none'];
         break;
       default:
-        values = ["none", "none", "none", "none", "none", "none"];
+        values = ['none', 'none', 'none', 'none', 'none', 'none'];
     }
 
-    document.getElementById("third_band").style.display = values[0];
-    document.getElementById("tcr_band").style.display = values[1];
-    document.getElementById("tolerance_band").style.display = values[2];
-    document.getElementById("band_2").style.display = values[3];
-    document.getElementById("band_tolerance").style.display = values[4];
-    document.getElementById("band_tcr").style.display = values[5];
-    document.getElementById("resistance_input").value = "";
+    document.getElementById('third_band').style.display = values[0];
+    document.getElementById('tcr_band').style.display = values[1];
+    document.getElementById('tolerance_band').style.display = values[2];
+    document.getElementById('band_2').style.display = values[3];
+    document.getElementById('band_tolerance').style.display = values[4];
+    document.getElementById('band_tcr').style.display = values[5];
+    document.getElementById('resistance_input').value = '';
   });
 
   [0, 1, 2].forEach(function (n) {
     document
-      .getElementById("digit_" + n)
-      .addEventListener("change", function () {
-        let element = document.getElementById("digit_" + n);
+      .getElementById(`digit_${n}`)
+      .addEventListener('change', function () {
+        let element = document.getElementById(`digit_${n}`);
         let index = element.selectedIndex;
         let color = element.options[index].text;
 
         digits[n] = index - 1;
 
-        document.getElementById("band_" + n).style.backgroundColor = color;
+        document.getElementById(`band_${n}`).style.backgroundColor = color;
 
         changeColor(element, color);
       });
   });
 
-  document.getElementById("multiplier").addEventListener("change", function () {
-    let element = document.getElementById("multiplier");
+  document.getElementById('multiplier').addEventListener('change', function () {
+    let element = document.getElementById('multiplier');
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
     multiplier = index - 1;
 
-    document.getElementById("band_3").style.backgroundColor = color;
+    document.getElementById('band_3').style.backgroundColor = color;
 
     changeColor(element, color);
   });
@@ -100,62 +97,62 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateTolerance () {
     let values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
 
-    if (toleranceMode === "New")
+    if (toleranceMode === 'New')
     {
       values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
     }
 
-    let element = document.getElementById("tolerance");
+    let element = document.getElementById('tolerance');
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
     tolerance = values[index - 1];
 
-    document.getElementById("band_tolerance").style.backgroundColor = color;
+    document.getElementById('band_tolerance').style.backgroundColor = color;
 
     changeColor(element, color);
   }
 
-  document.getElementById("tolerance").addEventListener("change",
+  document.getElementById('tolerance').addEventListener('change',
     updateTolerance
   );
 
-  document.getElementById("tcr").addEventListener("change", function () {
+  document.getElementById('tcr').addEventListener('change', function () {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    let element = document.getElementById("tcr");
+    let element = document.getElementById('tcr');
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
     tcr = values[index - 1];
 
-    document.getElementById("band_tcr").style.backgroundColor = color;
+    document.getElementById('band_tcr').style.backgroundColor = color;
 
     changeColor(element, color);
   });
 
   function updateResult () {
     let resistance, result, result2, error, number, index;
-    let text = document.getElementById("text");
+    let text = document.getElementById('text');
 
-    text.style.fontStyle = "normal";
+    text.style.fontStyle = 'normal';
 
     if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined &&
       (bands < 5 || digits[2] !== undefined)) {
-      resistance = digits[0] + "" + digits[1];
+      resistance = `${digits[0]}${digits[1]}`;
 
       if (bands >= 5) {
-        resistance += "" + digits[2];
+        resistance += `${digits[2]}`;
       }
 
-      document.getElementById("copy_button").style.display = "unset";
+      document.getElementById('copy_button').style.display = 'unset';
 
       number = resistance * 10 ** (multiplier - 3);
 
       result = format(number);
 
-      document.getElementById("resistance_input").value = Math.round(number * 1000000) / 1000000;
-      document.getElementById("resistance_input").style.borderColor = "";
+      document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
+      document.getElementById('resistance_input').style.borderColor = '';
 
       toleranceBackup = tolerance;
 
@@ -169,56 +166,50 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (tolerance !== undefined && number) {
-        document.getElementById("checkbox").style.display = "unset";
+        document.getElementById('checkbox').style.display = 'unset';
         error = tolerance * number;
-        result2 = format(number, index) + " ± " + format(error, index);
-        result += " ± " + tolerance * 100 + "%";
+        result2 = `${format(number, index)} ± ${format(error, index)}`;
+        result += ` ± ${tolerance * 100}%`;
       }
       else
       {
-        document.getElementById("checkbox").style.display = "none";
+        document.getElementById('checkbox').style.display = 'none';
       }
 
       if (bands === 6 && tcr !== undefined) {
-        result += " " + tcr + "ppm/K";
+        result += ` ${tcr}ppm/K`;
       }
 
       if (result2 !== undefined) {
-        result +=
-          "\n" +
-          result2 +
-          "\n" +
-          format(number - error, index) +
-          " – " +
-          format(number + error, index);
+        result += `\n${result2}\n${format(number - error, index)} – ${format(number + error, index)}`;
       }
 
       text.textContent = result;
 
       tolerance = toleranceBackup;
 
-      document.getElementById("error_exponent").style.display = "none";
+      document.getElementById('error_exponent').style.display = 'none';
     } else {
-      text.style.fontStyle = "italic";
-      text.innerHTML = "Fill all required (<span>*</span>) dropdowns to see the result.";
-      document.getElementById("copy_button").style.display = "none";
-      document.getElementById("checkbox").style.display = "none";
+      text.style.fontStyle = 'italic';
+      text.innerHTML = 'Fill all required (<span>*</span>) dropdowns to see the result.';
+      document.getElementById('copy_button').style.display = 'none';
+      document.getElementById('checkbox').style.display = 'none';
     }
 
-    document.getElementById("confirm_copy").style.display = "none";
+    document.getElementById('confirm_copy').style.display = 'none';
 
     if (multiplier !== undefined)
     {
-      document.getElementById("exponent").value = multiplier - 3;
+      document.getElementById('exponent').value = multiplier - 3;
     }
   }
 
-  document.getElementById("tolerance_mode").addEventListener("change", function () {
-    let optionsList = ["Silver", "Gold", "Brown", "Red", "Green", "Blue", "Violet", "Grey"];
-    let element = document.getElementById("tolerance");
+  document.getElementById('tolerance_mode').addEventListener('change', function () {
+    let optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
+    let element = document.getElementById('tolerance');
     let index;
 
-    const radios = document.getElementsByName("mode");
+    const radios = document.getElementsByName('mode');
 
     for (const radio of radios) {
       if (radio.checked) {
@@ -227,11 +218,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    const select = document.getElementById("tolerance");
+    const select = document.getElementById('tolerance');
 
-    if (toleranceMode === "New")
+    if (toleranceMode === 'New')
     {
-      optionsList.splice(4, 0, "Orange", "Yellow");
+      optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
     index = optionsList.indexOf(element.value) + 1;
@@ -241,10 +232,10 @@ document.addEventListener("DOMContentLoaded", function () {
       modeBackup = element.selectedIndex;
     }
 
-    select.innerHTML = "";
+    select.innerHTML = '';
 
     const defaultOption = document.createElement('option');
-    defaultOption.text = "Select a colour";
+    defaultOption.text = 'Select a colour';
     defaultOption.hidden = true;
     select.appendChild(defaultOption);
 
@@ -258,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (index === 0)
     {
-      if (toleranceMode == "New" && modeBackup != undefined)
+      if (toleranceMode === 'New' && modeBackup !== undefined)
       {
         element.selectedIndex = modeBackup;
         modeBackup = undefined;
@@ -268,8 +259,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       tolerance = undefined;
-      element.style.backgroundColor = "";
-      element.style.color = "";
+      element.style.backgroundColor = '';
+      element.style.color = '';
     }
     else
     {
@@ -279,39 +270,39 @@ document.addEventListener("DOMContentLoaded", function () {
     updateResult();
   });
 
-  document.querySelectorAll("select").forEach((element) => {
+  document.querySelectorAll('select').forEach((element) => {
     element.addEventListener(
-      "change", updateResult
+      'change', updateResult
     );
   });
 
-  document.getElementById("resistance_input").addEventListener("input", function () {
-    let resistance = document.getElementById("resistance_input").value.trim();
-    let resistanceString = String(resistance).replace(/\./g, "").replace(/^0+/, '');
-    let resistanceLength = resistanceString.replace(/0+$/, "").length;
+  document.getElementById('resistance_input').addEventListener('input', function () {
+    let resistance = document.getElementById('resistance_input').value.trim();
+    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
+    let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
     if (!Number.isFinite(Number(resistance)) || resistance < 0 ||
       (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
       (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3)))
     {
-      document.getElementById("error").style.display = "unset";
-      document.getElementById("resistance_input").style.borderColor = "red";
+      document.getElementById('error').style.display = 'unset';
+      document.getElementById('resistance_input').style.borderColor = 'red';
       return;
     }
 
-    const colours = ["Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Grey", "White"];
-    const multipliers = ["Pink", "Silver", "Gold"].concat(colours);
+    const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
+    const multipliers = ['Pink', 'Silver', 'Gold'].concat(colours);
 
     let element, color, limit = (bands >= 5 ? 2 : 1);
 
     for (let i = 0; i <= limit; ++i)
     {
-      element = document.getElementById("digit_" + i);
+      element = document.getElementById(`digit_${i}`);
       digits[i] = resistanceString[i];
       color = colours[digits[i]];
       element.value = color;
       changeColor(element, color);
-      document.getElementById("band_" + i).style.backgroundColor = color;
+      document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
     multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
@@ -319,55 +310,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (color === undefined)
     {
-      document.getElementById("error").style.display = "unset";
-      document.getElementById("resistance_input").style.borderColor = "red";
+      document.getElementById('error').style.display = 'unset';
+      document.getElementById('resistance_input').style.borderColor = 'red';
       return;
     }
 
-    document.getElementById("error").style.display = "none";
-    document.getElementById("resistance_input").style.borderColor = "";
+    document.getElementById('error').style.display = 'none';
+    document.getElementById('resistance_input').style.borderColor = '';
 
-    element = document.getElementById("multiplier");
+    element = document.getElementById('multiplier');
     element.value = color;
-    document.getElementById("band_3").style.backgroundColor = color;
+    document.getElementById('band_3').style.backgroundColor = color;
 
     changeColor(element, color);
 
     updateResult();
   });
 
-  document.getElementById("same_unit_checkbox").addEventListener("change", function () {
-    sameUnit = document.getElementById("same_unit_checkbox").checked;
+  document.getElementById('same_unit_checkbox').addEventListener('change', function () {
+    sameUnit = document.getElementById('same_unit_checkbox').checked;
     updateResult();
   });
 
-  document.getElementById("exponent").addEventListener("input", function () {
-    let element, color, exponent, exponent_string = document.getElementById("exponent").value.trim();
+  document.getElementById('exponent').addEventListener('input', function () {
+    let element, color, exponent, exponent_string = document.getElementById('exponent').value.trim();
 
     exponent = Number(exponent_string);
 
     if (exponent_string.length === 0 || Number.isNaN(exponent) || !Number.isInteger(exponent) || exponent < -3 || exponent > 9)
     {
-      document.getElementById("error_exponent").style.display = "unset";
-      document.getElementById("exponent").style.borderColor = "red";
+      document.getElementById('error_exponent').style.display = 'unset';
+      document.getElementById('exponent').style.borderColor = 'red';
       return;
     }
 
     multiplier = Number(exponent) + 3;
-    element = document.getElementById("multiplier");
+    element = document.getElementById('multiplier');
     element.selectedIndex = multiplier + 1;
     color = element.value;
 
-    document.getElementById("error_exponent").style.display = "none";
-    document.getElementById("band_3").style.backgroundColor = color;
+    document.getElementById('error_exponent').style.display = 'none';
+    document.getElementById('band_3').style.backgroundColor = color;
 
     changeColor(element, color);
 
     updateResult();
   });
 
-  document.getElementById("copy_result").addEventListener("click", function () {
+  document.getElementById('copy_result').addEventListener('click', function () {
     navigator.clipboard.writeText(document.getElementById('text').textContent);
-    document.getElementById("confirm_copy").style.display = "unset";
+    document.getElementById('confirm_copy').style.display = 'unset';
   });
 });
