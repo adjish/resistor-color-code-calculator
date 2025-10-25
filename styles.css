@@ -32,16 +32,17 @@ input {
 .short_band, .long_band {
   display: inline-block;
   width: 8px;
-  border: 1px solid black;
+  border-left: 0.05em solid black;
+  border-right: 0.05em solid black;
 }
 
 .short_band {
-  height: 32px;
+  height: 33.2px;
   margin: 11px 0px;
 }
 
 .long_band {
-  height: 40px;
+  height: 41.2px;
   margin: 7px 3px;
 }
 
@@ -69,11 +70,10 @@ input {
 }
 
 #exponent {
-  width: 30px;
   font-size: 0.8em;
   vertical-align: super;
   border: none;
-  width: 20px;
+  width: 2ch;
   margin-left: -4px;
 }
 

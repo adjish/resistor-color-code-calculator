@@ -361,4 +361,8 @@ document.addEventListener('DOMContentLoaded', function () {
     navigator.clipboard.writeText(document.getElementById('text').textContent);
     document.getElementById('confirm_copy').style.display = 'unset';
   });
+
+  document.getElementById('exponent').addEventListener('input', () => {
+    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length + 1}ch`;
+  });
 });
