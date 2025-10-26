@@ -363,6 +363,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('exponent').addEventListener('input', () => {
-    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length + 1}ch`;
+    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
   });
 });

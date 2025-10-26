@@ -96,8 +96,8 @@
       <option>White</option>
     </select>
     <p style="display: inline;">×10</p>
-    <sup style="display: inline;"><input id="exponent" type="text" value="?"></input>
-      <div id="error_exponent" class="hidden" style="margin-left: 5px; vertical-align: super;">
+    <sup style="display: inline;"><input id="exponent" type="text" placeholder="?"></input>
+      <div id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
         <i>Invalid input</i>
       </div>
     </sup>
@@ -151,7 +151,9 @@
       <div class="spacer"></div>
     </div>
 
-    <input type="text" id="resistance_input">
+    <label for="resistance_input">Resistance (Ω):</label>
+    <br>
+    <input type="text" id="resistance_input" inputmode="decimal">
     <i id="error" class="hidden message">Invalid input</i>
 
     <div class="spacer"></div>
