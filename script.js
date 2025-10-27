@@ -23,7 +23,7 @@ function changeColor (element, color) {
   element.classList.remove('mandatory');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   let digits = new Array(3),
     multiplier,
     tolerance,
@@ -34,11 +34,11 @@ document.addEventListener('DOMContentLoaded', function () {
     sameUnit = false,
     bands = 4;
 
-  document.getElementById('reset_button').addEventListener('click', function () {
+  document.getElementById('reset_button').addEventListener('click', () => {
     window.location.assign(window.location.href);
   });
 
-  document.getElementById('bands').addEventListener('change', function () {
+  document.getElementById('bands').addEventListener('change', () => {
     let values = new Array(6);
 
     bands = parseInt(document.getElementById('bands').value, 10);
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
   [0, 1, 2].forEach(function (n) {
     document
       .getElementById(`digit_${n}`)
-      .addEventListener('change', function () {
+      .addEventListener('change', () => {
         let element = document.getElementById(`digit_${n}`);
         let index = element.selectedIndex;
         let color = element.options[index].text;
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
-  document.getElementById('multiplier').addEventListener('change', function () {
+  document.getElementById('multiplier').addEventListener('change', () => {
     let element = document.getElementById('multiplier');
     let index = element.selectedIndex;
     let color = element.options[index].text;
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTolerance
   );
 
-  document.getElementById('tcr').addEventListener('change', function () {
+  document.getElementById('tcr').addEventListener('change', () => {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     let element = document.getElementById('tcr');
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  document.getElementById('tolerance_mode').addEventListener('change', function () {
+  document.getElementById('tolerance_mode').addEventListener('change', () => {
     let optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
     let element = document.getElementById('tolerance');
     let index;
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   });
 
-  document.getElementById('resistance_input').addEventListener('input', function () {
+  document.getElementById('resistance_input').addEventListener('input', () => {
     let resistance = document.getElementById('resistance_input').value.trim();
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
@@ -327,12 +327,12 @@ document.addEventListener('DOMContentLoaded', function () {
     updateResult();
   });
 
-  document.getElementById('same_unit_checkbox').addEventListener('change', function () {
+  document.getElementById('same_unit_checkbox').addEventListener('change', () => {
     sameUnit = document.getElementById('same_unit_checkbox').checked;
     updateResult();
   });
 
-  document.getElementById('exponent').addEventListener('input', function () {
+  document.getElementById('exponent').addEventListener('input', () => {
     let element, color, exponent, exponent_string = document.getElementById('exponent').value.trim();
 
     exponent = Number(exponent_string);
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateResult();
   });
 
-  document.getElementById('copy_result').addEventListener('click', function () {
+  document.getElementById('copy_result').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('text').textContent);
     document.getElementById('confirm_copy').style.display = 'unset';
   });
