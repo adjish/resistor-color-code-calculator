@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tolerance = toleranceBackup;
 
       document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('exponent').style.borderStyle = 'none';
     } else {
       text.style.fontStyle = 'italic';
       text.innerHTML = 'Fill all required (<span>*</span>) dropdowns to see the result.';
@@ -201,6 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (multiplier !== undefined)
     {
       document.getElementById('exponent').value = multiplier - 3;
+      document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('exponent').style.borderStyle = 'none';
+      document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
     }
   }
 
@@ -335,12 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('exponent').addEventListener('input', () => {
     let element, color, exponent, exponent_string = document.getElementById('exponent').value.trim();
 
+    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
+
     exponent = Number(exponent_string);
 
     if (exponent_string.length === 0 || Number.isNaN(exponent) || !Number.isInteger(exponent) || exponent < -3 || exponent > 9)
     {
       document.getElementById('error_exponent').style.display = 'unset';
-      document.getElementById('exponent').style.borderColor = 'red';
+      document.getElementById('exponent').style.border = '1px solid red';
       return;
     }
 
@@ -350,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     color = element.value;
 
     document.getElementById('error_exponent').style.display = 'none';
+    document.getElementById('exponent').style.borderStyle = 'none';
     document.getElementById('band_3').style.backgroundColor = color;
 
     changeColor(element, color);
@@ -360,9 +367,5 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('copy_result').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('text').textContent);
     document.getElementById('confirm_copy').style.display = 'unset';
-  });
-
-  document.getElementById('exponent').addEventListener('input', () => {
-    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
   });
 });
