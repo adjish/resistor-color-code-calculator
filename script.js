@@ -285,6 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
+    if (Number(resistance) >= 0.01 && resistanceString.length < 3)
+    {
+      resistanceString = resistanceString + "00";
+    }
+
     if (!Number.isFinite(Number(resistance)) || resistance < 0 ||
       (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
       (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3)))
