@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toleranceMode,
     modeBackup,
     sameUnit = false,
+    resistanceFromTextInput = false,
     bands = 4;
 
   document.getElementById('reset_button').addEventListener('click', () => {
@@ -151,8 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       result = format(number);
 
-      document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
-      document.getElementById('resistance_input').style.borderColor = '';
+      if (!resistanceFromTextInput)
+      {
+        document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
+        document.getElementById('resistance_input').style.borderColor = '';
+      }
+
+      resistanceFromTextInput = false;
 
       toleranceBackup = tolerance;
 
@@ -285,7 +291,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
-    if (Number(resistance) >= 0.01 && resistanceString.length < 3)
+    if (Number(resistance) >= 0.01 && bands <= 4 && resistanceString.length < 2)
+    {
+      resistanceString = resistanceString + "0";
+    }
+
+    if (Number(resistance) >= 0.1 && bands >= 5 && resistanceString.length < 3)
     {
       resistanceString = resistanceString + "00";
     }
@@ -298,6 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
     }
+
+    resistanceFromTextInput = true;
 
     const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
     const multipliers = ['Pink', 'Silver', 'Gold'].concat(colours);
