@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`band_${n}`).style.backgroundColor = color;
 
         changeColor(element, color);
+
+        resistanceFromTextInput = false;
       });
   });
 
@@ -93,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_3').style.backgroundColor = color;
 
     changeColor(element, color);
+
+    resistanceFromTextInput = false;
   });
 
   function updateTolerance () {
@@ -157,8 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
         document.getElementById('resistance_input').style.borderColor = '';
       }
-
-      resistanceFromTextInput = false;
 
       toleranceBackup = tolerance;
 
@@ -380,6 +382,8 @@ document.addEventListener('DOMContentLoaded', () => {
     changeColor(element, color);
 
     updateResult();
+
+    resistanceFromTextInput = false;
   });
 
   document.getElementById('copy_result').addEventListener('click', () => {
