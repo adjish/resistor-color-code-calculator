@@ -14,7 +14,7 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
-span {
+.asterisk {
   color: red;
 }
 

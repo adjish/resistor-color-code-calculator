@@ -22,7 +22,7 @@
     <br>
     <div class="spacer"></div>
 
-    <label for="digit_0">First band: <span>*</span></label>
+    <label for="digit_0">First band: <span class="asterisk">*</span></label>
     <br>
     <select name="digit_0" id="digit_0" class="mandatory" title="This field is mandatory" aria-label="Select first resistor color band">
       <option hidden selected>Select a colour</option>
@@ -40,7 +40,7 @@
     <br>
     <div class="spacer"></div>
 
-    <label for="digit_1">Second band: <span>*</span></label>
+    <label for="digit_1">Second band: <span class="asterisk">*</span></label>
     <br>
     <select name="digit_1" id="digit_1" class="mandatory" title="This field is mandatory" aria-label="Select second resistor color band">
       <option hidden selected>Select a colour</option>
@@ -59,7 +59,7 @@
     <div class="spacer"></div>
 
     <div id="third_band" class="hidden">
-      <label for="digit_2">Third band: <span>*</span></label>
+      <label for="digit_2">Third band: <span class="asterisk">*</span></label>
       <br>
       <select name="digit_2" id="digit_2" class="mandatory" title="This field is mandatory" aria-label="Select third resistor color band">
         <option hidden selected>Select a colour</option>
@@ -77,7 +77,7 @@
       <br>
       <div class="spacer"></div>
     </div>
-    <label for="multiplier">Multiplier band: <span>*</span></label>
+    <label for="multiplier">Multiplier band: <span class="asterisk">*</span></label>
     <br>
     <select name="multiplier" id="multiplier" class="mandatory" title="This field is mandatory" aria-label="Select multiplier color band">
       <option hidden selected>Select a colour</option>
@@ -96,10 +96,10 @@
       <option>White</option>
     </select>
     <p style="display: inline;">×10</p>
-    <sup style="display: inline;"><input id="exponent" type="text" placeholder="?"></input>
-      <div id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
+    <sup style="display: inline;"><input id="exponent" type="text" placeholder="?">
+      <span id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
         <i>Invalid input</i>
-      </div>
+      </span>
     </sup>
     <br>
     <div class="spacer"></div>
@@ -159,7 +159,7 @@
     <div class="spacer"></div>
     <button type="button" id="reset_button">Reset all</button>
 
-    <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span>*</span>) dropdowns to see the result.</p>
+    <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
 
     <div id="checkbox" class="hidden">
       <label>
