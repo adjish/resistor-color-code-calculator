@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('exponent').value = multiplier - 3;
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
-      document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
+      document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
     }
   }
 
@@ -357,33 +357,32 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('exponent').addEventListener('input', () => {
-    let element, color, exponent, exponent_string = document.getElementById('exponent').value.trim();
+    let element, color, exponent = Number(document.getElementById('exponent').value);
 
-    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 1 : 2}ch`;
+    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
 
-    exponent = Number(exponent_string);
+    if (document.getElementById('exponent').checkValidity())
+    {
+      multiplier = Number(exponent) + 3;
+      element = document.getElementById('multiplier');
+      element.selectedIndex = multiplier + 1;
+      color = element.value;
 
-    if (exponent_string.length === 0 || Number.isNaN(exponent) || !Number.isInteger(exponent) || exponent < -3 || exponent > 9)
+      document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('exponent').style.borderStyle = 'none';
+      document.getElementById('band_3').style.backgroundColor = color;
+
+      changeColor(element, color);
+
+      updateResult();
+
+      resistanceFromTextInput = false;
+    }
+    else
     {
       document.getElementById('error_exponent').style.display = 'unset';
       document.getElementById('exponent').style.border = '1px solid red';
-      return;
     }
-
-    multiplier = Number(exponent) + 3;
-    element = document.getElementById('multiplier');
-    element.selectedIndex = multiplier + 1;
-    color = element.value;
-
-    document.getElementById('error_exponent').style.display = 'none';
-    document.getElementById('exponent').style.borderStyle = 'none';
-    document.getElementById('band_3').style.backgroundColor = color;
-
-    changeColor(element, color);
-
-    updateResult();
-
-    resistanceFromTextInput = false;
   });
 
   document.getElementById('copy_result').addEventListener('click', () => {
