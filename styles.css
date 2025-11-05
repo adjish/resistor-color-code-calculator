@@ -125,7 +125,7 @@ input {
   flex: 1;
 }
 
-@media (max-height: 500px) {
+@media (max-height: 500px) and (min-width: 600px) {
   .container {
     flex-direction: row;
   }
