@@ -156,7 +156,7 @@
 
       <label for="resistance_input">Resistance (Ω):</label>
       <br>
-      <input type="text" id="resistance_input" inputmode="decimal">
+      <input type="text" id="resistance_input" inputmode="decimal" pattern="^\d+(\.\d+)?$|^\.\d+$">
       <i id="error" class="hidden message">Invalid input</i>
 
       <div class="spacer"></div>

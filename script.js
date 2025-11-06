@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resistanceString = resistanceString + "00";
     }
 
-    if (!Number.isFinite(Number(resistance)) || resistance < 0 ||
+    if (!document.getElementById('resistance_input').checkValidity() ||
       (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
       (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3)))
     {
