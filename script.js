@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
         document.getElementById('resistance_input').style.borderColor = '';
+        document.getElementById('error').style.display = 'none';
       }
 
       toleranceBackup = tolerance;
@@ -295,12 +296,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (Number(resistance) >= 0.01 && bands <= 4 && resistanceString.length < 2)
     {
-      resistanceString = resistanceString + "0";
+      resistanceString += "0";
     }
 
     if (Number(resistance) >= 0.1 && bands >= 5 && resistanceString.length < 3)
     {
-      resistanceString = resistanceString + "00";
+      resistanceString += "00";
     }
 
     if (!document.getElementById('resistance_input').checkValidity() ||
