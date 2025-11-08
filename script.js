@@ -1,13 +1,11 @@
-function format (number, index) {
-  if (number === 0)
-  {
+function format(number, index) {
+  if (number === 0) {
     return '0 Ω';
   }
 
   const suffixes = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
-  if (index === undefined)
-  {
+  if (index === undefined) {
     index = Math.floor(Math.log10(number) / 3);
   }
 
@@ -16,7 +14,7 @@ function format (number, index) {
   );
 }
 
-function changeColor (element, color) {
+function changeColor(element, color) {
   element.style.backgroundColor = color;
   element.style.color = ['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey'].includes(color) ?
     'white' : 'black';
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resistance_input').value = '';
   });
 
-  [0, 1, 2].forEach(function (n) {
+  [0, 1, 2].forEach(function(n) {
     document
       .getElementById(`digit_${n}`)
       .addEventListener('change', () => {
@@ -99,11 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false;
   });
 
-  function updateTolerance () {
+  function updateTolerance() {
     let values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
 
-    if (toleranceMode === 'New')
-    {
+    if (toleranceMode === 'New') {
       values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
     }
 
@@ -136,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeColor(element, color);
   });
 
-  function updateResult () {
+  function updateResult() {
     let resistance, result, result2, error, number, index;
     let text = document.getElementById('text');
 
@@ -156,8 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       result = format(number);
 
-      if (!resistanceFromTextInput)
-      {
+      if (!resistanceFromTextInput) {
         document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
         document.getElementById('resistance_input').style.borderColor = '';
         document.getElementById('error').style.display = 'none';
@@ -165,8 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       toleranceBackup = tolerance;
 
-      if (sameUnit)
-      {
+      if (sameUnit) {
         index = Math.floor(Math.log10(number) / 3);
       }
 
@@ -179,9 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         error = tolerance * number;
         result2 = `${format(number, index)} ± ${format(error, index)}`;
         result += ` ± ${tolerance * 100}%`;
-      }
-      else
-      {
+      } else {
         document.getElementById('checkbox').style.display = 'none';
       }
 
@@ -208,8 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('confirm_copy').style.display = 'none';
 
-    if (multiplier !== undefined)
-    {
+    if (multiplier !== undefined) {
       document.getElementById('exponent').value = multiplier - 3;
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
@@ -222,26 +214,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let element = document.getElementById('tolerance');
     let index;
 
-    const radios = document.getElementsByName('mode');
-
-    for (const radio of radios) {
-      if (radio.checked) {
-        toleranceMode = radio.value;
-        break;
-      }
-    }
+    toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
     const select = document.getElementById('tolerance');
 
-    if (toleranceMode === 'New')
-    {
+    if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
     index = optionsList.indexOf(element.value) + 1;
 
-    if (index === 0 && element.selectedIndex !== 0 && modeBackup === undefined)
-    {
+    if (index === 0 && element.selectedIndex !== 0 && modeBackup === undefined) {
       modeBackup = element.selectedIndex;
     }
 
@@ -260,10 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     element.selectedIndex = index;
 
-    if (index === 0)
-    {
-      if (toleranceMode === 'New' && modeBackup !== undefined)
-      {
+    if (index === 0) {
+      if (toleranceMode === 'New' && modeBackup !== undefined) {
         element.selectedIndex = modeBackup;
         modeBackup = undefined;
         updateTolerance();
@@ -274,9 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tolerance = undefined;
       element.style.backgroundColor = '';
       element.style.color = '';
-    }
-    else
-    {
+    } else {
       updateTolerance();
     }
 
@@ -294,20 +273,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
-    if (Number(resistance) >= 0.01 && bands <= 4 && resistanceString.length < 2)
-    {
+    if (Number(resistance) >= 0.01 && bands <= 4 && resistanceString.length < 2) {
       resistanceString += "0";
     }
 
-    if (Number(resistance) >= 0.1 && bands >= 5 && resistanceString.length < 3)
-    {
+    if (Number(resistance) >= 0.1 && bands >= 5 && resistanceString.length < 3) {
       resistanceString += "00";
     }
 
     if (!document.getElementById('resistance_input').checkValidity() ||
       (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
-      (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3)))
-    {
+      (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3))) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
@@ -320,8 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let element, color, limit = (bands >= 5 ? 2 : 1);
 
-    for (let i = 0; i <= limit; ++i)
-    {
+    for (let i = 0; i <= limit; ++i) {
       element = document.getElementById(`digit_${i}`);
       digits[i] = resistanceString[i];
       color = colours[digits[i]];
@@ -333,8 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
     color = multipliers[multiplier];
 
-    if (color === undefined)
-    {
+    if (color === undefined) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
@@ -362,8 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
 
-    if (document.getElementById('exponent').checkValidity())
-    {
+    if (document.getElementById('exponent').checkValidity()) {
       multiplier = Number(exponent) + 3;
       element = document.getElementById('multiplier');
       element.selectedIndex = multiplier + 1;
@@ -378,9 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateResult();
 
       resistanceFromTextInput = false;
-    }
-    else
-    {
+    } else {
       document.getElementById('error_exponent').style.display = 'unset';
       document.getElementById('exponent').style.border = '1px solid red';
     }

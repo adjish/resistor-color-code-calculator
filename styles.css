@@ -29,7 +29,8 @@ input {
   border: 1px solid black;
 }
 
-.short_band, .long_band {
+.short_band,
+.long_band {
   display: inline-block;
   width: 8px;
   border-left: 0.05em solid black;
