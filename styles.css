@@ -35,23 +35,26 @@ input {
   width: 8px;
   border-left: 0.05em solid black;
   border-right: 0.05em solid black;
+  position: absolute;
 }
 
 .short_band {
-  height: 32.9px;
-  margin: 11px 0px;
+  height: 16.5%;
+  margin-top: 11px;
 }
 
 .long_band {
-  height: 41.1px;
-  margin: 7px 3px;
+  height: 20.5%;
+  margin-top: 7px;
 }
 
 .graphics {
   width: 300px;
+  height: 200px;
   background-image: url("images/resistor.svg");
   background-size: cover;
   user-select: none;
+  position: relative;
 }
 
 .spacer {
