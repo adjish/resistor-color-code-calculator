@@ -29,6 +29,17 @@ input {
   border: 1px solid black;
 }
 
+noscript {
+  display: block;
+  background-color: #ffdddd;
+  color: #a00;
+  border: 1px solid #a00;
+  padding: 15px;
+  margin: 20px;
+  position: fixed;
+  bottom: 0px;
+}
+
 .short_band,
 .long_band {
   display: inline-block;
