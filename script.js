@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tolerance').style.display = values[4];
     document.getElementById('band_tcr').style.display = values[5];
     document.getElementById('resistance_input').value = '';
+
+    resistanceFromTextInput = false;
   });
 
   [0, 1, 2].forEach(function(n) {
