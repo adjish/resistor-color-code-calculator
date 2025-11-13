@@ -271,21 +271,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('resistance_input').addEventListener('input', () => {
+    let element, color, limit = (bands >= 5 ? 2 : 1);
     let resistance = document.getElementById('resistance_input').value.trim();
-    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '');
+    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(1 + limit, "0");
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
-    if (Number(resistance) >= 0.01 && bands <= 4 && resistanceString.length < 2) {
-      resistanceString += "0";
-    }
-
-    if (Number(resistance) >= 0.1 && bands >= 5 && resistanceString.length < 3) {
-      resistanceString += "00";
-    }
-
     if (!document.getElementById('resistance_input').checkValidity() ||
-      (bands <= 4 && (resistanceString.length < 2 || resistanceLength > 2)) ||
-      (bands >= 5 && (resistanceString.length < 3 || resistanceLength > 3))) {
+      (resistanceLength > (1 + limit))) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
@@ -296,8 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
     const multipliers = ['Pink', 'Silver', 'Gold'].concat(colours);
 
-    let element, color, limit = (bands >= 5 ? 2 : 1);
-
     for (let i = 0; i <= limit; ++i) {
       element = document.getElementById(`digit_${i}`);
       digits[i] = resistanceString[i];
@@ -307,7 +297,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
-    multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
+    if (resistance > 0) {
+      multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
+    } else {
+      multiplier = 3;
+    }
+
     color = multipliers[multiplier];
 
     if (color === undefined) {
