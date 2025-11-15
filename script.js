@@ -276,6 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(1 + limit, "0");
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
+    document.getElementById('resistance_input').step = 0.001;
+
     if (!document.getElementById('resistance_input').checkValidity() ||
       (resistanceLength > (1 + limit))) {
       document.getElementById('error').style.display = 'unset';
@@ -311,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    document.getElementById('resistance_input').step = Math.pow(10, multiplier - 3);
     document.getElementById('error').style.display = 'none';
     document.getElementById('resistance_input').style.borderColor = '';
 
