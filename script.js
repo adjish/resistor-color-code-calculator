@@ -64,6 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tcr').style.display = values[5];
     document.getElementById('resistance_input').value = '';
 
+    if (bands >= 5) {
+      document.getElementById('resistance_input').max = 999000000000;
+    } else {
+      document.getElementById('resistance_input').max = 99000000000;
+    }
+
     resistanceFromTextInput = false;
   });
 
