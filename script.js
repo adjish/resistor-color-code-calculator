@@ -38,23 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('bands').addEventListener('change', () => {
-    let values = new Array(6);
-
     bands = parseInt(document.getElementById('bands').value, 10);
 
-    switch (bands) {
-      case 6:
-        values = ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block'];
-        break;
-      case 5:
-        values = ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'];
-        break;
-      case 4:
-        values = ['none', 'none', 'unset', 'none', 'inline-block', 'none'];
-        break;
-      default:
-        values = ['none', 'none', 'none', 'none', 'none', 'none'];
+    const visibilities = {
+      3: ['none', 'none', 'none', 'none', 'none', 'none'],
+      4: ['none', 'none', 'unset', 'none', 'inline-block', 'none'],
+      5: ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'],
+      6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
     }
+
+    let values = visibilities[bands];
 
     document.getElementById('third_band').style.display = values[0];
     document.getElementById('tcr_band').style.display = values[1];
