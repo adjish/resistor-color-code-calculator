@@ -279,8 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('resistance_input').step = 0.001;
 
-    if (!document.getElementById('resistance_input').checkValidity() ||
-      (resistanceLength > (1 + limit))) {
+    if ((!document.getElementById('resistance_input').checkValidity() ||
+      (resistanceLength > (1 + limit))) && resistance != 0) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
