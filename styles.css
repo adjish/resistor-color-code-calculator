@@ -96,7 +96,8 @@ noscript {
 @media (max-width: 600px) {
   select,
   button,
-  input[type="text"] {
+  input[type="text"],
+  #resistance_input {
     width: 100%;
   }
 
