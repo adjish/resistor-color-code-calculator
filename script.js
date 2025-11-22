@@ -278,9 +278,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
     document.getElementById('resistance_input').step = 0.001;
+    document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
 
     if ((!document.getElementById('resistance_input').checkValidity() ||
-      (resistanceLength > (1 + limit))) && resistance != 0) {
+        (resistanceLength > (1 + limit))) && resistance != 0) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
@@ -315,6 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('resistance_input').step = Math.pow(10, multiplier - 3);
+
+    if (Math.pow(10, multiplier - 3) > document.getElementById('resistance_input').min) {
+      document.getElementById('resistance_input').min = Math.pow(10, multiplier - 3);
+    }
+
     document.getElementById('error').style.display = 'none';
     document.getElementById('resistance_input').style.borderColor = '';
 
