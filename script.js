@@ -321,6 +321,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resistance_input').min = Math.pow(10, multiplier - 3);
     }
 
+    if (resistance == 0) {
+      document.getElementById('resistance_input').step = (bands >= 5 ? 0.1 : 0.01);
+      document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+    }
+
     document.getElementById('error').style.display = 'none';
     document.getElementById('resistance_input').style.borderColor = '';
 
