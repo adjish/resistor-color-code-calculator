@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
 
     if ((!document.getElementById('resistance_input').checkValidity() ||
-        (resistanceLength > (1 + limit))) && resistance != 0) {
+        (resistanceLength > (1 + limit))) && (!resistance.length || Number(resistance) !== 0)) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
