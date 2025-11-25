@@ -195,6 +195,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
+
+      document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+      document.getElementById('resistance_input').step = 10 ** (multiplier - 3);
+
+      if (10 ** (multiplier - 3) > document.getElementById('resistance_input').min) {
+        document.getElementById('resistance_input').min = 10 ** (multiplier - 3);
+      }
+
+      if (number === 0) {
+        document.getElementById('resistance_input').step = (bands >= 5 ? 0.1 : 0.01);
+        document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+      }
     } else {
       text.style.fontStyle = 'italic';
       text.innerHTML = 'Fill all required (<span>*</span>) dropdowns to see the result.';
@@ -280,8 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resistance_input').step = 0.001;
     document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
 
-    if ((!document.getElementById('resistance_input').checkValidity() ||
-        (resistanceLength > (1 + limit))) && (!resistance.length || Number(resistance) !== 0)) {
+    if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
+        (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
@@ -313,17 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = 'red';
       return;
-    }
-
-    document.getElementById('resistance_input').step = Math.pow(10, multiplier - 3);
-
-    if (Math.pow(10, multiplier - 3) > document.getElementById('resistance_input').min) {
-      document.getElementById('resistance_input').min = Math.pow(10, multiplier - 3);
-    }
-
-    if (resistance == 0) {
-      document.getElementById('resistance_input').step = (bands >= 5 ? 0.1 : 0.01);
-      document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
     }
 
     document.getElementById('error').style.display = 'none';
@@ -360,9 +361,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       changeColor(element, color);
 
-      updateResult();
-
       resistanceFromTextInput = false;
+
+      updateResult();
     } else {
       document.getElementById('error_exponent').style.display = 'unset';
       document.getElementById('exponent').style.border = '1px solid red';
