@@ -204,8 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (number === 0) {
-        document.getElementById('resistance_input').step = (bands >= 5 ? 0.1 : 0.01);
-        document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+        document.getElementById('resistance_input').step = document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
       }
     } else {
       text.style.fontStyle = 'italic';
