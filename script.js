@@ -1,3 +1,5 @@
+'use strict';
+
 function format(number, index) {
   if (number === 0) {
     return '0 Ω';
