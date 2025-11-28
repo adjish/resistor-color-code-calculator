@@ -85,6 +85,15 @@ noscript {
   margin-left: 10px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.box {
+  flex: 1;
+}
+
 #exponent {
   font-size: 0.8em;
   vertical-align: super;
@@ -93,7 +102,7 @@ noscript {
   margin-left: -0.4em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   select,
   button,
   input[type="text"],
@@ -133,16 +142,7 @@ noscript {
   }
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.box {
-  flex: 1;
-}
-
-@media (max-height: 500px) and (min-width: 600px) {
+@media (max-height: 500px) and (min-width: 501px) {
   .container {
     flex-direction: row;
   }
