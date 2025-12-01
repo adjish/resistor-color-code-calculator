@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       text.style.fontStyle = 'italic';
-      text.innerHTML = 'Fill all required (<span>*</span>) dropdowns to see the result.';
+      text.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
       document.getElementById('copy_button').style.display = 'none';
       document.getElementById('checkbox').style.display = 'none';
     }
