@@ -314,11 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
-    if (resistance > 0) {
-      multiplier = Math.floor(Math.log10(resistance)) + (bands >= 5 ? 1 : 2);
-    } else {
-      multiplier = 3;
-    }
+    multiplier = 3 + ((resistance > 0) ? Math.floor(Math.log10(resistance)) - limit : 0);
 
     color = multipliers[multiplier];
 
