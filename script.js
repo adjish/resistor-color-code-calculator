@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toleranceBackup,
     toleranceMode,
     modeBackup,
+    minInput = 0.01,
     sameUnit = false,
     resistanceFromTextInput = false,
     bands = 4;
@@ -59,11 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tcr').style.display = values[5];
     document.getElementById('resistance_input').value = '';
 
+
+    document.getElementById('resistance_input').min = minInput = (bands >= 5 ? 0.1 : 0.01);
+
     if (bands >= 5) {
-      document.getElementById('resistance_input').min = 0.1;
       document.getElementById('resistance_input').max = 999000000000;
     } else {
-      document.getElementById('resistance_input').min = 0.01;
       document.getElementById('resistance_input').max = 99000000000;
     }
 
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let index = element.selectedIndex;
     let color = element.options[index].text;
 
-    multiplier = index - 1;
+    multiplier = index - 4;
 
     document.getElementById('band_3').style.backgroundColor = color;
 
@@ -154,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.getElementById('copy_button').style.display = 'unset';
 
-      number = resistance * 10 ** (multiplier - 3);
+      number = resistance * 10 ** multiplier;
 
       result = format(number);
 
@@ -198,15 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
 
-      document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
-      document.getElementById('resistance_input').step = 10 ** (multiplier - 3);
+      document.getElementById('resistance_input').min = minInput;
+      document.getElementById('resistance_input').step = 10 ** multiplier;
 
-      if (10 ** (multiplier - 3) > document.getElementById('resistance_input').min) {
-        document.getElementById('resistance_input').min = 10 ** (multiplier - 3);
+      if (10 ** multiplier > document.getElementById('resistance_input').min) {
+        document.getElementById('resistance_input').min = 10 ** multiplier;
       }
 
       if (number === 0) {
-        document.getElementById('resistance_input').step = document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+        document.getElementById('resistance_input').step = document.getElementById('resistance_input').min = minInput;
       }
     } else {
       text.style.fontStyle = 'italic';
@@ -218,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('confirm_copy').style.display = 'none';
 
     if (multiplier !== undefined) {
-      document.getElementById('exponent').value = multiplier - 3;
+      document.getElementById('exponent').value = multiplier;
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
       document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
@@ -291,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
     document.getElementById('resistance_input').step = 0.001;
-    document.getElementById('resistance_input').min = (bands >= 5 ? 0.1 : 0.01);
+    document.getElementById('resistance_input').min = minInput;
 
     if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
         (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
@@ -314,9 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
-    multiplier = 3 + ((resistance > 0) ? Math.floor(Math.log10(resistance)) - limit : 0);
+    multiplier = (resistance > 0) ? Math.floor(Math.log10(resistance)) - limit : 0;
 
-    color = multipliers[multiplier];
+    color = multipliers[3 + multiplier];
 
     if (color === undefined) {
       document.getElementById('error').style.display = 'unset';
@@ -347,9 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
 
     if (document.getElementById('exponent').checkValidity()) {
-      multiplier = Number(exponent) + 3;
+      multiplier = Number(exponent);
       element = document.getElementById('multiplier');
-      element.selectedIndex = multiplier + 1;
+      element.selectedIndex = multiplier + 4;
       color = element.value;
 
       document.getElementById('error_exponent').style.display = 'none';
