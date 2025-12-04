@@ -62,12 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.getElementById('resistance_input').min = minInput = (bands >= 5 ? 0.1 : 0.01);
-
-    if (bands >= 5) {
-      document.getElementById('resistance_input').max = 999000000000;
-    } else {
-      document.getElementById('resistance_input').max = 99000000000;
-    }
+    document.getElementById('resistance_input').max = (bands >= 5 ? 999000000000 : 99000000000);
 
     resistanceFromTextInput = false;
   });
