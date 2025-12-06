@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
         (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
       document.getElementById('error').style.display = 'unset';
-      document.getElementById('resistance_input').style.borderColor = 'red';
+      document.getElementById('resistance_input').style.borderColor = '#a00';
       return;
     }
 
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (color === undefined) {
       document.getElementById('error').style.display = 'unset';
-      document.getElementById('resistance_input').style.borderColor = 'red';
+      document.getElementById('resistance_input').style.borderColor = '#a00';
       return;
     }
 
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateResult();
     } else {
       document.getElementById('error_exponent').style.display = 'unset';
-      document.getElementById('exponent').style.border = '1px solid red';
+      document.getElementById('exponent').style.border = '1px solid #a00';
     }
   });
 

@@ -16,7 +16,7 @@ input[type="text"],
 }
 
 .asterisk {
-  color: red;
+  color: #a00;
 }
 
 select,
@@ -74,7 +74,7 @@ noscript {
 }
 
 .mandatory {
-  border-color: red;
+  border-color: #a00;
 }
 
 .hidden {
