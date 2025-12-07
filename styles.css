@@ -15,7 +15,8 @@ input[type="text"],
   box-sizing: border-box;
 }
 
-.asterisk {
+.asterisk,
+.invalid {
   color: #a00;
 }
 
