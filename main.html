@@ -101,7 +101,7 @@
       <p style="display: inline;">×10</p>
       <sup style="display: inline;"><input id="exponent" type="number" min="-3" max="9" placeholder="?" title="This field is optional">
         <span id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
-          <i class="invalid">Invalid input</i>
+          <b><i class="invalid">Invalid input</i></b>
         </span>
       </sup>
       <br>
@@ -157,7 +157,7 @@
       <label for="resistance_input">Resistance (Ω):</label>
       <br>
       <input type="number" min="0.01" max="99000000000" step="0.001" id="resistance_input" title="This field is optional">
-      <i id="error" class="hidden message invalid">Invalid input</i>
+      <b><i id="error" class="hidden message invalid">Invalid input</i></b>
 
       <div class="spacer"></div>
       <button type="button" id="reset_button">Reset all</button>
