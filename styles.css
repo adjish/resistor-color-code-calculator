@@ -45,7 +45,7 @@ noscript {
 .short_band,
 .long_band {
   display: inline-block;
-  width: 8px;
+  width: 2.67%;
   border-left: 0.05em solid black;
   border-right: 0.05em solid black;
   position: absolute;
