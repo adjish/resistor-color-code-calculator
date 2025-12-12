@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tcr').style.display = values[5];
     document.getElementById('resistance_input').value = '';
 
-
     document.getElementById('resistance_input').min = minInput = (bands >= 5 ? 0.1 : 0.01);
     document.getElementById('resistance_input').max = (bands >= 5 ? 999000000000 : 99000000000);
 
@@ -198,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resistance_input').min = minInput;
       document.getElementById('resistance_input').step = 10 ** multiplier;
 
-      if (10 ** multiplier > document.getElementById('resistance_input').min) {
+      if (10 ** multiplier > minInput) {
         document.getElementById('resistance_input').min = 10 ** multiplier;
       }
 
@@ -284,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('resistance_input').addEventListener('input', () => {
     let element, color, limit = (bands >= 5 ? 2 : 1);
     let resistance = document.getElementById('resistance_input').value.trim();
-    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(1 + limit, "0");
+    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(1 + limit, '0');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
     document.getElementById('resistance_input').step = 0.001;
