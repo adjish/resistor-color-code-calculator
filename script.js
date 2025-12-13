@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tolerance').style.backgroundColor = color;
 
     changeColor(element, color);
+
+    document.getElementById('tolerance_display').innerHTML = `${tolerance * 100}%`;
   }
 
   document.getElementById('tolerance').addEventListener('change',
