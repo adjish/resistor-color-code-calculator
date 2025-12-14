@@ -134,6 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tcr').style.backgroundColor = color;
 
     changeColor(element, color);
+
+    document.getElementById('tcr_display').innerHTML = `${tcr}ppm/K`;
   });
 
   function updateResult() {
