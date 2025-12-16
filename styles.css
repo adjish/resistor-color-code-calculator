@@ -119,6 +119,13 @@ noscript {
   #text {
     text-align: center;
   }
+
+  #tolerance_display,
+  #tcr_display {
+    display: block !important;
+    margin: 0 0;
+    text-align: center;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
