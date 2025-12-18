@@ -121,7 +121,8 @@ noscript {
   }
 
   #tolerance_display,
-  #tcr_display {
+  #tcr_display,
+  #exponent_display {
     display: block !important;
     margin: 0 0;
     text-align: center;

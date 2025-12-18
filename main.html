@@ -94,12 +94,14 @@
         <option>Grey</option>
         <option>White</option>
       </select>
-      <p style="display: inline;">×10</p>
-      <sup style="display: inline;"><input id="exponent" type="number" min="-3" max="9" placeholder="?" title="This field is optional">
-        <span id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
-          <b><i class="invalid">Invalid input</i></b>
-        </span>
-      </sup>
+      <div id="exponent_display">
+        <p style="display: inline;">×10</p>
+        <sup style="display: inline;"><input id="exponent" type="number" min="-3" max="9" placeholder="?" title="This field is optional">
+          <span id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
+            <b><i class="invalid">Invalid input</i></b>
+          </span>
+        </sup>
+      </div>
       <div class="spacer"></div>
 
       <div id="tolerance_band">
