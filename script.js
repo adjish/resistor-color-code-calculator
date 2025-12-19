@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .addEventListener('change', () => {
         let element = document.getElementById(`digit_${n}`);
         let index = element.selectedIndex;
-        let color = element.options[index].text;
+        let color = element.options[index].value;
 
         digits[n] = index - 1;
 
