@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('multiplier').addEventListener('change', () => {
     let element = document.getElementById('multiplier');
     let index = element.selectedIndex;
-    let color = element.options[index].text;
+    let color = element.options[index].value;
 
     multiplier = index - 4;
 
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let element = document.getElementById('tolerance');
     let index = element.selectedIndex;
-    let color = element.options[index].text;
+    let color = element.options[index].value;
 
     tolerance = values[index - 1];
 
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let element = document.getElementById('tcr');
     let index = element.selectedIndex;
-    let color = element.options[index].text;
+    let color = element.options[index].value;
 
     tcr = values[index - 1];
 
