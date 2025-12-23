@@ -63,7 +63,7 @@ noscript {
 
 .graphics {
   width: 300px;
-  height: 200px;
+  aspect-ratio: 3 / 2;
   background-image: url("images/resistor.svg");
   background-size: cover;
   user-select: none;
