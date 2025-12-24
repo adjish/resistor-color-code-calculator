@@ -42,6 +42,10 @@ noscript {
   bottom: 0;
 }
 
+label {
+  user-select: none;
+}
+
 .short_band,
 .long_band {
   display: inline-block;
