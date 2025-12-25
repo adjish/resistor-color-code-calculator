@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false,
     bands = 4;
 
+  document.getElementById('js-enabled').style.display = "unset";
+
   document.getElementById('reset_button').addEventListener('click', () => {
     window.location.assign(window.location.href);
   });

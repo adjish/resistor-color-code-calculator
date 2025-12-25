@@ -37,9 +37,8 @@ noscript {
   color: #a00;
   border: 1px solid #a00;
   padding: 1em;
-  margin-bottom: 0.4em;
   position: fixed;
-  bottom: 0;
+  top: 0.5em;
 }
 
 label {
