@@ -200,11 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('error_exponent').style.display = 'none';
       document.getElementById('exponent').style.borderStyle = 'none';
 
-      document.getElementById('resistance_input').min = minInput;
       document.getElementById('resistance_input').step = 10 ** multiplier;
 
       if (10 ** multiplier > minInput) {
         document.getElementById('resistance_input').min = 10 ** multiplier;
+      }
+      else {
+        document.getElementById('resistance_input').min = minInput;
       }
 
       if (number === 0) {
@@ -296,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('resistance_input').min = minInput;
 
     if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
-        (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
+      (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
       document.getElementById('error').style.display = 'unset';
       document.getElementById('resistance_input').style.borderColor = '#a00';
       return;
