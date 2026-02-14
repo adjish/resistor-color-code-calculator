@@ -18,6 +18,7 @@ input[type="text"],
 .asterisk,
 .invalid {
   color: #a00;
+  font-style: italic;
 }
 
 select,
