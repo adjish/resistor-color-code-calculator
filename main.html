@@ -113,14 +113,10 @@
           <label for="tolerance">Tolerance band:</label>
 
           <form id="tolerance_mode">
-            <label>
-              <input type="radio" name="mode" value="Legacy" checked>
-              Legacy
-            </label>
-            <label>
-              <input type="radio" name="mode" value="New">
-              New
-            </label>
+            <input type="radio" name="mode" value="Legacy" id="Legacy" checked>
+            <label for="Legacy">Legacy</label>
+            <input type="radio" name="mode" value="New" id="New">
+            <label for="New">New</label>
           </form>
           <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
             <option hidden selected>Select a colour</option>
@@ -169,10 +165,8 @@
         <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
 
         <div id="checkbox" class="hidden">
-          <label>
-            <input type="checkbox" id="same_unit_checkbox">
-            Consistent units
-          </label>
+          <input type="checkbox" id="same_unit_checkbox">
+          <label for="same_unit_checkbox">Consistent units</label>
           <div class="spacer"></div>
         </div>
 
