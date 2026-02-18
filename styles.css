@@ -17,7 +17,7 @@ input[type="text"],
 
 .asterisk,
 .invalid {
-  color: #a00;
+  color: #f00;
   font-style: italic;
 }
 
@@ -35,8 +35,8 @@ input {
 noscript {
   display: block;
   background-color: #ffdddd;
-  color: #a00;
-  border: 1px solid #a00;
+  color: #f00;
+  border: 1px solid #f00;
   padding: 1em;
   position: fixed;
   top: 0.5em;
@@ -79,7 +79,7 @@ label {
 }
 
 .mandatory {
-  border-color: #a00;
+  border-color: #f00;
 }
 
 .hidden {
