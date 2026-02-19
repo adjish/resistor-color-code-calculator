@@ -15,12 +15,6 @@ input[type="text"],
   box-sizing: border-box;
 }
 
-.asterisk,
-.invalid {
-  color: #f00;
-  font-style: italic;
-}
-
 select,
 button {
   background-color: white;
@@ -99,12 +93,26 @@ label {
   flex: 1;
 }
 
+.asterisk,
+.invalid {
+  color: #f00;
+  font-style: italic;
+}
+
+.display-inline {
+  display: inline;
+}
+
 #exponent {
   font-size: 0.8em;
   vertical-align: super;
   border: none;
   width: 4ch;
   margin-left: -0.4em;
+}
+
+#js-enabled {
+  display: none;
 }
 
 @media (max-width: 550px) {

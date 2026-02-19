@@ -14,7 +14,7 @@
     <strong>Error</strong>: this application requires JavaScript to function properly.
     Please enable JavaScript in your browser settings and reload the page.
   </noscript>
-  <div id="js-enabled" style="display: none;">
+  <div id="js-enabled">
     <h1>Resistor Color Code Calculator</h1>
 
     <div class="container">
@@ -99,9 +99,9 @@
           <option>Grey</option>
           <option>White</option>
         </select>
-        <div id="exponent_display" style="display: inline;">
-          <p style="display: inline;">×10</p>
-          <sup style="display: inline;"><input id="exponent" type="number" min="-3" max="9" placeholder="?" title="This field is optional">
+        <div id="exponent_display" class="display-inline">
+          <p class="display-inline">×10</p>
+          <sup class="display-inline"><input id="exponent" type="number" min="-3" max="9" placeholder="?" title="This field is optional">
             <span id="error_exponent" class="hidden" style="margin-left: 1ch; vertical-align: super;">
               <strong class="invalid">Invalid input</strong>
             </span>
@@ -129,7 +129,7 @@
             <option>Violet</option>
             <option>Grey</option>
           </select>
-          <p style="display: inline;" id="tolerance_display"></p>
+          <p class="display-inline" id="tolerance_display"></p>
           <div class="spacer"></div>
         </div>
 
@@ -148,7 +148,7 @@
             <option>Violet</option>
             <option>Grey</option>
           </select>
-          <p style="display: inline;" id="tcr_display"></p>
+          <p class="display-inline" id="tcr_display"></p>
           <div class="spacer"></div>
         </div>
 
@@ -162,7 +162,7 @@
       </div>
 
       <div class="box">
-        <p id="text" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
+        <p id="text" role="status" aria-live="polite" style="white-space: pre-line; font-style: italic;">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
 
         <div id="checkbox" class="hidden">
           <input type="checkbox" id="same_unit_checkbox">
@@ -171,7 +171,7 @@
         </div>
 
         <div id="copy_button" class="hidden">
-          <button id="copy_result">Copy Result</button>
+          <button type="button" id="copy_result" aria-label="Copy calculated resistance">Copy Result</button>
           <em id="confirm_copy" class="hidden message">Copied!</em>
           <div class="spacer"></div>
         </div>

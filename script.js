@@ -7,12 +7,11 @@ function format(number, index) {
 
   const suffixes = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
-  if (index === undefined) {
-    index = Math.floor(Math.log10(number) / 3);
-  }
+  index ??= Math.floor(Math.log10(number) / 3);
+  number /=  10 ** (3 * index);
 
   return (
-    `${Math.round(number / 10 ** (3 * index - 6)) / 1000000} ${suffixes[index + 2]}Ω`
+    `${parseFloat(number.toFixed(6))} ${suffixes[index + 2]}Ω`
   );
 }
 
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
     }
 
-    let values = visibilities[bands];
+    const values = visibilities[bands];
 
     document.getElementById('third_band').style.display = values[0];
     document.getElementById('tcr_band').style.display = values[1];
@@ -141,27 +140,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateResult() {
-    let resistance, result, result2, error, number, index;
+    let result, result2, error, number, index;
     let text = document.getElementById('text');
 
     text.style.fontStyle = 'normal';
 
     if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined &&
       (bands < 5 || digits[2] !== undefined)) {
-      resistance = `${digits[0]}${digits[1]}`;
-
-      if (bands >= 5) {
-        resistance += `${digits[2]}`;
-      }
-
       document.getElementById('copy_button').style.display = 'unset';
 
-      number = resistance * 10 ** multiplier;
+      number = Number(digits.join('')) * 10 ** multiplier;
 
       result = format(number);
 
       if (!resistanceFromTextInput) {
-        document.getElementById('resistance_input').value = Math.round(number * 1000000) / 1000000;
+        document.getElementById('resistance_input').value = parseFloat(number.toFixed(6));
         document.getElementById('resistance_input').style.borderColor = '';
         document.getElementById('error').style.display = 'none';
       }
