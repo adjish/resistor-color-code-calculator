@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     text.style.fontStyle = 'normal';
 
-    if (digits[0] !== undefined && digits[1] !== undefined && multiplier !== undefined &&
+    if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
       document.getElementById('copy_button').style.display = 'unset';
 
