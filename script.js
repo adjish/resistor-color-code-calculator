@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       (bands < 5 || digits[2] !== undefined)) {
       document.getElementById('copy_button').style.display = 'unset';
 
-      number = Number(digits.join('')) * 10 ** multiplier;
+      number = Number(digits.slice(0, bands >= 5 ? 3 : 2).join('')) * 10 ** multiplier;
 
       result = format(number);
 
