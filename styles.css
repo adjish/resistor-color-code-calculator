@@ -103,16 +103,16 @@ label {
   display: inline;
 }
 
+.no-js #js-enabled {
+  display: none;
+}
+
 #exponent {
   font-size: 0.8em;
   vertical-align: super;
   border: none;
   width: 4ch;
   margin-left: -0.4em;
-}
-
-#js-enabled {
-  display: none;
 }
 
 @media (max-width: 550px) {
