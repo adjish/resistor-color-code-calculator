@@ -76,7 +76,7 @@ label {
   border-color: #f00;
 }
 
-.hidden {
+.hidden, .no-js #js-enabled {
   display: none;
 }
 
@@ -101,10 +101,6 @@ label {
 
 .display-inline {
   display: inline;
-}
-
-.no-js #js-enabled {
-  display: none;
 }
 
 #exponent {

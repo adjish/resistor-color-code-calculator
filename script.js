@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
-      document.getElementById('copy_button').style.display = 'unset';
+      document.getElementById('copy_button').classList.remove('hidden');
 
       number = Number(digits.slice(0, bands >= 5 ? 3 : 2).join('')) * 10 ** multiplier;
 
@@ -155,8 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!resistanceFromTextInput) {
         document.getElementById('resistance_input').value = parseFloat(number.toFixed(6));
-        document.getElementById('resistance_input').style.borderColor = '';
-        document.getElementById('error').style.display = 'none';
+        document.getElementById('resistance_input').classList.remove('mandatory');
+        document.getElementById('error').classList.add('hidden');
       }
 
       toleranceBackup = tolerance;
@@ -170,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (tolerance !== undefined && number) {
-        document.getElementById('checkbox').style.display = 'unset';
+        document.getElementById('checkbox').classList.remove('hidden');
         error = tolerance * number;
         result2 = `${format(number, index)} ± ${format(error, index)}`;
         result += ` ± ${tolerance * 100}%`;
       } else {
-        document.getElementById('checkbox').style.display = 'none';
+        document.getElementById('checkbox').classList.add('hidden');
       }
 
       if (bands === 6 && tcr !== undefined) {
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       tolerance = toleranceBackup;
 
-      document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('error_exponent').classList.add('hidden');
       document.getElementById('exponent').style.borderStyle = 'none';
 
       document.getElementById('resistance_input').step = 10 ** multiplier;
@@ -208,15 +208,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       text.style.fontStyle = 'italic';
       text.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
-      document.getElementById('copy_button').style.display = 'none';
-      document.getElementById('checkbox').style.display = 'none';
+      document.getElementById('copy_button').classList.add('hidden');
+      document.getElementById('checkbox').classList.add('hidden');
     }
 
-    document.getElementById('confirm_copy').style.display = 'none';
+    document.getElementById('confirm_copy').classList.add('hidden');
 
     if (multiplier !== undefined) {
       document.getElementById('exponent').value = multiplier;
-      document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('error_exponent').classList.add('hidden');
       document.getElementById('exponent').style.borderStyle = 'none';
       document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
     }
@@ -292,8 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
       (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
-      document.getElementById('error').style.display = 'unset';
-      document.getElementById('resistance_input').style.borderColor = '#f00';
+      document.getElementById('error').classList.remove('hidden');
+      document.getElementById('resistance_input').classList.add('mandatory');
       return;
     }
 
@@ -316,13 +316,13 @@ document.addEventListener('DOMContentLoaded', () => {
     color = multipliers[3 + multiplier];
 
     if (color === undefined) {
-      document.getElementById('error').style.display = 'unset';
-      document.getElementById('resistance_input').style.borderColor = '#f00';
+      document.getElementById('error').classList.remove('hidden');
+      document.getElementById('resistance_input').classList.add('mandatory');
       return;
     }
 
-    document.getElementById('error').style.display = 'none';
-    document.getElementById('resistance_input').style.borderColor = '';
+    document.getElementById('error').classList.add('hidden');
+    document.getElementById('resistance_input').classList.remove('mandatory');
 
     element = document.getElementById('multiplier');
     element.value = color;
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
       element.selectedIndex = multiplier + 4;
       color = element.value;
 
-      document.getElementById('error_exponent').style.display = 'none';
+      document.getElementById('error_exponent').classList.add('hidden');
       document.getElementById('exponent').style.borderStyle = 'none';
       document.getElementById('band_3').style.backgroundColor = color;
 
@@ -359,13 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       updateResult();
     } else {
-      document.getElementById('error_exponent').style.display = 'unset';
+      document.getElementById('error_exponent').classList.remove('hidden');
       document.getElementById('exponent').style.border = '1px solid #f00';
     }
   });
 
   document.getElementById('copy_result').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('text').textContent);
-    document.getElementById('confirm_copy').style.display = 'unset';
+    document.getElementById('confirm_copy').classList.remove('hidden');
   });
 });
