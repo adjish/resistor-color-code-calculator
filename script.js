@@ -37,12 +37,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.body.classList.remove('no-js');
 
+  let resistance_input_element = document.getElementById('resistance_input');
+  let exponent_element = document.getElementById('exponent');
+  let multiplier_element = document.getElementById('multiplier');
+  let tolerance_element = document.getElementById('tolerance');
+  let error_exponent_element = document.getElementById('error_exponent');
+  let same_unit_checkbox_element = document.getElementById('same_unit_checkbox');
+  let error_element = document.getElementById('error');
+  let tcr_element = document.getElementById('tcr');
+  let text_element = document.getElementById('text');
+  let bands_element = document.getElementById('bands');
+
   document.getElementById('reset_button').addEventListener('click', () => {
     window.location.assign(window.location.href);
   });
 
-  document.getElementById('bands').addEventListener('change', () => {
-    bands = parseInt(document.getElementById('bands').value, 10);
+  bands_element.addEventListener('change', () => {
+    bands = parseInt(bands_element.value, 10);
 
     const visibilities = {
       3: ['none', 'none', 'none', 'none', 'none', 'none'],
@@ -59,42 +70,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_2').style.display = values[3];
     document.getElementById('band_tolerance').style.display = values[4];
     document.getElementById('band_tcr').style.display = values[5];
-    document.getElementById('resistance_input').value = '';
+    resistance_input_element.value = '';
 
-    document.getElementById('resistance_input').min = minInput = (bands >= 5 ? 0.1 : 0.01);
-    document.getElementById('resistance_input').max = (bands >= 5 ? 999000000000 : 99000000000);
+    resistance_input_element.min = minInput = (bands >= 5 ? 0.1 : 0.01);
+    resistance_input_element.max = (bands >= 5 ? 999000000000 : 99000000000);
 
     resistanceFromTextInput = false;
   });
 
   [0, 1, 2].forEach(function(n) {
-    document
-      .getElementById(`digit_${n}`)
-      .addEventListener('change', () => {
-        let element = document.getElementById(`digit_${n}`);
-        let index = element.selectedIndex;
-        let color = element.options[index].value;
+    let element = document.getElementById(`digit_${n}`);
 
-        digits[n] = index - 1;
+    element.addEventListener('change', () => {
+      let index = element.selectedIndex;
+      let color = element.options[index].value;
 
-        document.getElementById(`band_${n}`).style.backgroundColor = color;
+      digits[n] = index - 1;
 
-        changeColor(element, color);
+      document.getElementById(`band_${n}`).style.backgroundColor = color;
 
-        resistanceFromTextInput = false;
-      });
+      changeColor(element, color);
+
+      resistanceFromTextInput = false;
+    });
   });
 
-  document.getElementById('multiplier').addEventListener('change', () => {
-    let element = document.getElementById('multiplier');
-    let index = element.selectedIndex;
-    let color = element.options[index].value;
+  multiplier_element.addEventListener('change', () => {
+    let index = multiplier_element.selectedIndex;
+    let color = multiplier_element.options[index].value;
 
     multiplier = index - 4;
 
     document.getElementById('band_3').style.backgroundColor = color;
 
-    changeColor(element, color);
+    changeColor(multiplier_element, color);
 
     resistanceFromTextInput = false;
   });
@@ -106,44 +115,41 @@ document.addEventListener('DOMContentLoaded', () => {
       values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
     }
 
-    let element = document.getElementById('tolerance');
-    let index = element.selectedIndex;
-    let color = element.options[index].value;
+    let index = tolerance_element.selectedIndex;
+    let color = tolerance_element.options[index].value;
 
     tolerance = values[index - 1];
 
     document.getElementById('band_tolerance').style.backgroundColor = color;
 
-    changeColor(element, color);
+    changeColor(tolerance_element, color);
 
     document.getElementById('tolerance_display').innerHTML = `${tolerance * 100}%`;
   }
 
-  document.getElementById('tolerance').addEventListener('change',
+  tolerance_element.addEventListener('change',
     updateTolerance
   );
 
-  document.getElementById('tcr').addEventListener('change', () => {
+  tcr_element.addEventListener('change', () => {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    let element = document.getElementById('tcr');
-    let index = element.selectedIndex;
-    let color = element.options[index].value;
+    let index = tcr_element.selectedIndex;
+    let color = tcr_element.options[index].value;
 
     tcr = values[index - 1];
 
     document.getElementById('band_tcr').style.backgroundColor = color;
 
-    changeColor(element, color);
+    changeColor(tcr_element, color);
 
     document.getElementById('tcr_display').innerHTML = `${tcr}ppm/K`;
   });
 
   function updateResult() {
     let result, result2, error, number, index;
-    let text = document.getElementById('text');
 
-    text.style.fontStyle = 'normal';
+    text_element.style.fontStyle = 'normal';
 
     if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
@@ -154,9 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
       result = format(number);
 
       if (!resistanceFromTextInput) {
-        document.getElementById('resistance_input').value = parseFloat(number.toFixed(6));
-        document.getElementById('resistance_input').classList.remove('mandatory');
-        document.getElementById('error').classList.add('hidden');
+        resistance_input_element.value = parseFloat(number.toFixed(6));
+        resistance_input_element.classList.remove('mandatory');
+        error_element.classList.add('hidden');
       }
 
       toleranceBackup = tolerance;
@@ -186,28 +192,22 @@ document.addEventListener('DOMContentLoaded', () => {
         result += `\n${result2}\n${format(number - error, index)} – ${format(number + error, index)}`;
       }
 
-      text.textContent = result;
+      text_element.textContent = result;
 
       tolerance = toleranceBackup;
 
-      document.getElementById('error_exponent').classList.add('hidden');
-      document.getElementById('exponent').style.borderStyle = 'none';
+      error_exponent_element.classList.add('hidden');
+      exponent_element.style.borderStyle = 'none';
 
-      document.getElementById('resistance_input').step = 10 ** multiplier;
-
-      if (10 ** multiplier > minInput) {
-        document.getElementById('resistance_input').min = 10 ** multiplier;
-      }
-      else {
-        document.getElementById('resistance_input').min = minInput;
-      }
+      resistance_input_element.step = 10 ** multiplier;
+      resistance_input_element.min = Math.max(10 ** multiplier, minInput);
 
       if (number === 0) {
-        document.getElementById('resistance_input').step = document.getElementById('resistance_input').min = minInput;
+        resistance_input_element.min = minInput;
       }
     } else {
-      text.style.fontStyle = 'italic';
-      text.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
+      text_element.style.fontStyle = 'italic';
+      text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
       document.getElementById('copy_button').classList.add('hidden');
       document.getElementById('checkbox').classList.add('hidden');
     }
@@ -215,30 +215,29 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('confirm_copy').classList.add('hidden');
 
     if (multiplier !== undefined) {
-      document.getElementById('exponent').value = multiplier;
-      document.getElementById('error_exponent').classList.add('hidden');
-      document.getElementById('exponent').style.borderStyle = 'none';
-      document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
+      exponent_element.value = multiplier;
+      error_exponent_element.classList.add('hidden');
+      exponent_element.style.borderStyle = 'none';
+      exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
     }
   }
 
   document.getElementById('tolerance_mode').addEventListener('change', () => {
     let optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
-    let element = document.getElementById('tolerance');
     let index;
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
-    const select = document.getElementById('tolerance');
+    const select = tolerance_element;
 
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
-    index = optionsList.indexOf(element.value) + 1;
+    index = optionsList.indexOf(tolerance_element.value) + 1;
 
-    if (index === 0 && element.selectedIndex !== 0 && modeBackup === undefined) {
-      modeBackup = element.selectedIndex;
+    if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
+      modeBackup = tolerance_element.selectedIndex;
     }
 
     select.innerHTML = '';
@@ -254,11 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
       select.appendChild(option);
     });
 
-    element.selectedIndex = index;
+    tolerance_element.selectedIndex = index;
 
     if (index === 0) {
       if (toleranceMode === 'New' && modeBackup !== undefined) {
-        element.selectedIndex = modeBackup;
+        tolerance_element.selectedIndex = modeBackup;
         modeBackup = undefined;
         updateTolerance();
         updateResult();
@@ -266,8 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       tolerance = undefined;
-      element.style.backgroundColor = '';
-      element.style.color = '';
+      tolerance_element.style.backgroundColor = '';
+      tolerance_element.style.color = '';
     } else {
       updateTolerance();
     }
@@ -281,19 +280,19 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
-  document.getElementById('resistance_input').addEventListener('input', () => {
-    let element, color, limit = (bands >= 5 ? 2 : 1);
-    let resistance = document.getElementById('resistance_input').value.trim();
-    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(1 + limit, '0');
+  resistance_input_element.addEventListener('input', () => {
+    let color, limit = (bands >= 5 ? 3 : 2);
+    let resistance = resistance_input_element.value.trim();
+    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(limit, '0');
     let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
-    document.getElementById('resistance_input').step = 0.001;
-    document.getElementById('resistance_input').min = minInput;
+    resistance_input_element.step = 0.001;
+    resistance_input_element.min = minInput;
 
-    if (!resistance.length || ((!document.getElementById('resistance_input').checkValidity() ||
-      (resistanceLength > (1 + limit))) && Number(resistance) !== 0)) {
-      document.getElementById('error').classList.remove('hidden');
-      document.getElementById('resistance_input').classList.add('mandatory');
+    if (!resistance.length || ((!resistance_input_element.checkValidity() ||
+      (resistanceLength > limit)) && Number(resistance) !== 0)) {
+      error_element.classList.remove('hidden');
+      resistance_input_element.classList.add('mandatory');
       return;
     }
 
@@ -302,7 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
     const multipliers = ['Pink', 'Silver', 'Gold'].concat(colours);
 
-    for (let i = 0; i <= limit; ++i) {
+    let element;
+
+    for (let i = 0; i < limit; ++i) {
       element = document.getElementById(`digit_${i}`);
       digits[i] = resistanceString[i];
       color = colours[digits[i]];
@@ -311,61 +312,59 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
-    multiplier = (resistance > 0) ? Math.floor(Math.log10(resistance)) - limit : 0;
+    multiplier = (resistance > 0) ? Math.floor(Math.log10(resistance)) - limit + 1 : 0;
 
     color = multipliers[3 + multiplier];
 
     if (color === undefined) {
-      document.getElementById('error').classList.remove('hidden');
-      document.getElementById('resistance_input').classList.add('mandatory');
+      error_element.classList.remove('hidden');
+      resistance_input_element.classList.add('mandatory');
       return;
     }
 
-    document.getElementById('error').classList.add('hidden');
-    document.getElementById('resistance_input').classList.remove('mandatory');
+    error_element.classList.add('hidden');
+    resistance_input_element.classList.remove('mandatory');
 
-    element = document.getElementById('multiplier');
-    element.value = color;
+    multiplier_element.value = color;
     document.getElementById('band_3').style.backgroundColor = color;
 
-    changeColor(element, color);
+    changeColor(multiplier_element, color);
 
     updateResult();
   });
 
-  document.getElementById('same_unit_checkbox').addEventListener('change', () => {
-    sameUnit = document.getElementById('same_unit_checkbox').checked;
+  same_unit_checkbox_element.addEventListener('change', () => {
+    sameUnit = same_unit_checkbox_element.checked;
     updateResult();
   });
 
-  document.getElementById('exponent').addEventListener('input', () => {
-    let element, color, exponent = Number(document.getElementById('exponent').value);
+  exponent_element.addEventListener('input', () => {
+    let color, exponent = Number(exponent_element.value);
 
-    document.getElementById('exponent').style.width = `${document.getElementById('exponent').value.length ? document.getElementById('exponent').value.length + 3 : 4}ch`;
+    exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
 
-    if (document.getElementById('exponent').checkValidity()) {
+    if (exponent_element.checkValidity()) {
       multiplier = Number(exponent);
-      element = document.getElementById('multiplier');
-      element.selectedIndex = multiplier + 4;
-      color = element.value;
+      multiplier_element.selectedIndex = multiplier + 4;
+      color = multiplier_element.value;
 
-      document.getElementById('error_exponent').classList.add('hidden');
-      document.getElementById('exponent').style.borderStyle = 'none';
+      error_exponent_element.classList.add('hidden');
+      exponent_element.style.borderStyle = 'none';
       document.getElementById('band_3').style.backgroundColor = color;
 
-      changeColor(element, color);
+      changeColor(multiplier_element, color);
 
       resistanceFromTextInput = false;
 
       updateResult();
     } else {
-      document.getElementById('error_exponent').classList.remove('hidden');
-      document.getElementById('exponent').style.border = '1px solid #f00';
+      error_exponent_element.classList.remove('hidden');
+      exponent_element.style.border = '1px solid #f00';
     }
   });
 
   document.getElementById('copy_result').addEventListener('click', () => {
-    navigator.clipboard.writeText(document.getElementById('text').textContent);
+    navigator.clipboard.writeText(text_element.textContent);
     document.getElementById('confirm_copy').classList.remove('hidden');
   });
 });
