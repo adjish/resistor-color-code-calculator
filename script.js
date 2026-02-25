@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let index = tolerance_element.selectedIndex;
     let color = tolerance_element.options[index].value;
 
+    document.getElementById('tolerance_display').style.display = 'inline';
+
     tolerance = values[index - 1];
 
     document.getElementById('band_tolerance').style.backgroundColor = color;
@@ -263,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateResult();
         return;
       }
+
+      document.getElementById('tolerance_display').style.display = 'none';
 
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
