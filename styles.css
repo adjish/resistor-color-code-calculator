@@ -33,7 +33,7 @@ noscript {
   border: 1px solid #f00;
   padding: 1em;
   position: fixed;
-  top: 0.5em;
+  margin-right: 0.5em;
 }
 
 label {
