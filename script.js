@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tolerance = toleranceBackup;
 
       error_exponent_element.classList.add('hidden');
-      exponent_element.style.borderStyle = 'none';
+      exponent_element.classList.remove('mandatory');
 
       resistance_input_element.step = 10 ** multiplier;
       resistance_input_element.min = Math.max(10 ** multiplier, minInput);
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (multiplier !== undefined) {
       exponent_element.value = multiplier;
       error_exponent_element.classList.add('hidden');
-      exponent_element.style.borderStyle = 'none';
+      exponent_element.classList.remove('mandatory');
       exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
     }
   }
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
       color = multiplier_element.value;
 
       error_exponent_element.classList.add('hidden');
-      exponent_element.style.borderStyle = 'none';
+      exponent_element.classList.remove('mandatory');
       document.getElementById('band_3').style.backgroundColor = color;
 
       changeColor(multiplier_element, color);
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
       updateResult();
     } else {
       error_exponent_element.classList.remove('hidden');
-      exponent_element.style.border = '1px solid #f00';
+      exponent_element.classList.add('mandatory');
     }
   });
 

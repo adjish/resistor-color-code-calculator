@@ -77,7 +77,7 @@ label {
 }
 
 .mandatory {
-  border-color: var(--error-color);
+  border: 1px solid var(--error-color) !important;
 }
 
 .hidden, .no-js #js-enabled {
