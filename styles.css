@@ -21,13 +21,13 @@ input[type="text"],
 
 select,
 button {
-  background-color: white;
+  background-color: #fff;
 }
 
 select,
 button,
 input {
-  border: 1px solid black;
+  border: 1px solid #000;
 }
 
 noscript {
@@ -48,8 +48,8 @@ label {
 .long_band {
   display: inline-block;
   width: 2.67%;
-  border-left: 0.05em solid black;
-  border-right: 0.05em solid black;
+  border-left: 0.05em solid #000;
+  border-right: 0.05em solid #000;
   position: absolute;
 }
 
@@ -146,14 +146,14 @@ label {
   select,
   button,
   input {
-    color: white;
-    background-color: black;
+    color: #fff;
+    background-color: #000;
   }
 
   select,
   button,
   input {
-    border-color: white;
+    border-color: #fff;
   }
 }
 
