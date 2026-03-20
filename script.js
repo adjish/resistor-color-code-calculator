@@ -288,13 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let color, limit = (bands >= 5 ? 3 : 2);
     let resistance = resistance_input_element.value.trim();
     let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(limit, '0');
-    let resistanceLength = resistanceString.replace(/0+$/, '').length;
 
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
     if (!resistance.length || ((!resistance_input_element.checkValidity() ||
-      (resistanceLength > limit)) && Number(resistance) !== 0)) {
+      (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0)) {
       error_element.classList.remove('hidden');
       resistance_input_element.classList.add('mandatory');
       return;
