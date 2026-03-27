@@ -115,6 +115,16 @@ label {
   margin-left: -0.4em;
 }
 
+#error_exponent {
+  margin-left: 1ch;
+  vertical-align: super;
+}
+
+#text {
+  white-space: pre-line;
+  font-style: italic;
+}
+
 @media (max-width: 550px) {
   select,
   button,
