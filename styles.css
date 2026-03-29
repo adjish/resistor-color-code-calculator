@@ -125,6 +125,13 @@ label {
   font-style: italic;
 }
 
+#band_0 { left: 27%; }
+#band_1 { left: 34%; }
+#band_2 { left: 39%; }
+#band_3 { left: 44%; }
+#band_tolerance { left: 62%; }
+#band_tcr { left: 68%; }
+
 @media (max-width: 550px) {
   select,
   button,

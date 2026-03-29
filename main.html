@@ -18,7 +18,7 @@
     <h1>Resistor Color Code Calculator</h1>
 
     <div class="container">
-      <div class="box">
+      <section class="box">
         <label for="bands">Number of bands:</label>
         <br>
         <select name="bands" id="bands">
@@ -158,9 +158,9 @@
 
         <div class="spacer"></div>
         <button type="button" id="reset_button">Reset All</button>
-      </div>
+      </section>
 
-      <div class="box">
+      <section class="box">
         <p id="text" role="status" aria-live="polite" aria-atomic="true">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
 
         <div id="checkbox" class="hidden">
@@ -176,14 +176,14 @@
         </div>
 
         <div class="graphics">
-          <div class="long_band" id="band_0" style="left: 27%;"></div>
-          <div class="short_band" id="band_1" style="left: 34%;"></div>
-          <div class="short_band hidden" id="band_2" style="left: 39%;"></div>
-          <div class="short_band" id="band_3" style="left: 44%;"></div>
-          <div class="short_band" id="band_tolerance" style="left: 62%;"></div>
-          <div class="long_band hidden" id="band_tcr" style="left: 68%;"></div>
+          <div class="long_band" id="band_0"></div>
+          <div class="short_band" id="band_1"></div>
+          <div class="short_band hidden" id="band_2"></div>
+          <div class="short_band" id="band_3"></div>
+          <div class="short_band" id="band_tolerance"></div>
+          <div class="long_band hidden" id="band_tcr"></div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </body>
