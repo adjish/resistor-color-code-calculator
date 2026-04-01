@@ -1,10 +1,15 @@
 :root {
+  --text-color: #000;
+  --background-color: #fff;
+  --border-color: #000;
   --error-color: #f00;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 h1 {
@@ -21,13 +26,13 @@ input[type="text"],
 
 select,
 button {
-  background-color: #fff;
+  background-color: var(--background-color);
 }
 
 select,
 button,
 input {
-  border: 1px solid #000;
+  border: 1px solid var(--border-color);
 }
 
 noscript {
@@ -48,8 +53,8 @@ label {
 .long_band {
   display: inline-block;
   width: 2.67%;
-  border-left: 0.05rem solid #000;
-  border-right: 0.05rem solid #000;
+  border-left: 0.05rem solid var(--border-color);
+  border-right: 0.05rem solid var(--border-color);
   position: absolute;
 }
 
@@ -159,18 +164,24 @@ label {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #fff;
+    --background-color: #000;
+    --border-color: #fff;
+  }
+
   body,
   select,
   button,
   input {
-    color: #fff;
-    background-color: #000;
+    color: var(--text-color);
+    background-color: var(--background-color);
   }
 
   select,
   button,
   input {
-    border-color: #fff;
+    border-color: var(--border-color);
   }
 }
 
