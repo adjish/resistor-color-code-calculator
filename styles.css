@@ -53,8 +53,8 @@ label {
 .long_band {
   display: inline-block;
   width: 2.67%;
-  border-left: 0.05rem solid var(--border-color);
-  border-right: 0.05rem solid var(--border-color);
+  border-left: 0.05rem solid #000;
+  border-right: 0.05rem solid #000;
   position: absolute;
 }
 
