@@ -48,6 +48,11 @@ label {
   user-select: none;
 }
 
+select,
+button {
+  cursor: pointer;
+}
+
 .short_band,
 .long_band {
   display: inline-block;
