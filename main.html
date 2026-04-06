@@ -18,21 +18,55 @@
     <h1>Resistor Color Code Calculator</h1>
 
     <div class="container">
-      <section class="box">
-        <form>
-          <label for="bands">Number of bands:</label>
-          <br>
-          <select name="bands" id="bands">
-            <option>3</option>
-            <option selected>4</option>
-            <option>5</option>
-            <option>6</option>
-          </select>
-          <div class="spacer"></div>
+      <form class="box">
+        <label for="bands">Number of bands:</label>
+        <br>
+        <select name="bands" id="bands">
+          <option>3</option>
+          <option selected>4</option>
+          <option>5</option>
+          <option>6</option>
+        </select>
+        <div class="spacer"></div>
 
-          <label for="digit_0">1<sup>st</sup> band: <span class="asterisk">*</span></label>
+        <label for="digit_0">1<sup>st</sup> band: <span class="asterisk">*</span></label>
+        <br>
+        <select name="digit_0" id="digit_0" class="mandatory" title="This field is mandatory" aria-label="Select first resistor color band">
+          <option value="" disabled hidden selected>Select a colour</option>
+          <option value="Black">Black (0)</option>
+          <option value="Brown">Brown (1)</option>
+          <option value="Red">Red (2)</option>
+          <option value="Orange">Orange (3)</option>
+          <option value="Yellow">Yellow (4)</option>
+          <option value="Green">Green (5)</option>
+          <option value="Blue">Blue (6)</option>
+          <option value="Violet">Violet (7)</option>
+          <option value="Grey">Grey (8)</option>
+          <option value="White">White (9)</option>
+        </select>
+        <div class="spacer"></div>
+
+        <label for="digit_1">2<sup>nd</sup> band: <span class="asterisk">*</span></label>
+        <br>
+        <select name="digit_1" id="digit_1" class="mandatory" title="This field is mandatory" aria-label="Select second resistor color band">
+          <option value="" disabled hidden selected>Select a colour</option>
+          <option value="Black">Black (0)</option>
+          <option value="Brown">Brown (1)</option>
+          <option value="Red">Red (2)</option>
+          <option value="Orange">Orange (3)</option>
+          <option value="Yellow">Yellow (4)</option>
+          <option value="Green">Green (5)</option>
+          <option value="Blue">Blue (6)</option>
+          <option value="Violet">Violet (7)</option>
+          <option value="Grey">Grey (8)</option>
+          <option value="White">White (9)</option>
+        </select>
+        <div class="spacer"></div>
+
+        <div id="third_band" class="hidden">
+          <label for="digit_2">3<sup>rd</sup> band: <span class="asterisk">*</span></label>
           <br>
-          <select name="digit_0" id="digit_0" class="mandatory" title="This field is mandatory" aria-label="Select first resistor color band">
+          <select name="digit_2" id="digit_2" class="mandatory" title="This field is mandatory" aria-label="Select third resistor color band">
             <option value="" disabled hidden selected>Select a colour</option>
             <option value="Black">Black (0)</option>
             <option value="Brown">Brown (1)</option>
@@ -46,49 +80,63 @@
             <option value="White">White (9)</option>
           </select>
           <div class="spacer"></div>
+        </div>
+        <label for="multiplier">Multiplier band: <span class="asterisk">*</span></label>
+        <br>
+        <select name="multiplier" id="multiplier" class="mandatory" title="This field is mandatory" aria-label="Select multiplier color band">
+          <option value="" disabled hidden selected>Select a colour</option>
+          <option>Pink</option>
+          <option>Silver</option>
+          <option>Gold</option>
+          <option>Black</option>
+          <option>Brown</option>
+          <option>Red</option>
+          <option>Orange</option>
+          <option>Yellow</option>
+          <option>Green</option>
+          <option>Blue</option>
+          <option>Violet</option>
+          <option>Grey</option>
+          <option>White</option>
+        </select>
+        <div id="exponent_display" class="display-inline">
+          <p class="display-inline">×10</p>
+          <input id="exponent" type="number" min="-3" max="9" placeholder="–" title="This field is optional">
+          <span id="error_exponent" class="hidden">
+            <strong class="invalid">Invalid input</strong>
+          </span>
+        </div>
+        <div class="spacer"></div>
 
-          <label for="digit_1">2<sup>nd</sup> band: <span class="asterisk">*</span></label>
-          <br>
-          <select name="digit_1" id="digit_1" class="mandatory" title="This field is mandatory" aria-label="Select second resistor color band">
-            <option value="" disabled hidden selected>Select a colour</option>
-            <option value="Black">Black (0)</option>
-            <option value="Brown">Brown (1)</option>
-            <option value="Red">Red (2)</option>
-            <option value="Orange">Orange (3)</option>
-            <option value="Yellow">Yellow (4)</option>
-            <option value="Green">Green (5)</option>
-            <option value="Blue">Blue (6)</option>
-            <option value="Violet">Violet (7)</option>
-            <option value="Grey">Grey (8)</option>
-            <option value="White">White (9)</option>
-          </select>
-          <div class="spacer"></div>
+        <div id="tolerance_band">
+          <label for="tolerance">Tolerance band:</label>
 
-          <div id="third_band" class="hidden">
-            <label for="digit_2">3<sup>rd</sup> band: <span class="asterisk">*</span></label>
-            <br>
-            <select name="digit_2" id="digit_2" class="mandatory" title="This field is mandatory" aria-label="Select third resistor color band">
-              <option value="" disabled hidden selected>Select a colour</option>
-              <option value="Black">Black (0)</option>
-              <option value="Brown">Brown (1)</option>
-              <option value="Red">Red (2)</option>
-              <option value="Orange">Orange (3)</option>
-              <option value="Yellow">Yellow (4)</option>
-              <option value="Green">Green (5)</option>
-              <option value="Blue">Blue (6)</option>
-              <option value="Violet">Violet (7)</option>
-              <option value="Grey">Grey (8)</option>
-              <option value="White">White (9)</option>
-            </select>
-            <div class="spacer"></div>
+          <div id="tolerance_mode">
+            <input type="radio" name="mode" value="Legacy" id="legacy" checked>
+            <label for="legacy">Legacy</label>
+            <input type="radio" name="mode" value="New" id="new">
+            <label for="new">New (IEC 60062:2016)</label>
           </div>
-          <label for="multiplier">Multiplier band: <span class="asterisk">*</span></label>
-          <br>
-          <select name="multiplier" id="multiplier" class="mandatory" title="This field is mandatory" aria-label="Select multiplier color band">
+          <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
             <option value="" disabled hidden selected>Select a colour</option>
-            <option>Pink</option>
             <option>Silver</option>
             <option>Gold</option>
+            <option>Brown</option>
+            <option>Red</option>
+            <option>Green</option>
+            <option>Blue</option>
+            <option>Violet</option>
+            <option>Grey</option>
+          </select>
+          <p class="display-inline" id="tolerance_display"></p>
+          <div class="spacer"></div>
+        </div>
+
+        <div id="tcr_band" class="hidden">
+          <label for="tcr">TCR:</label>
+          <br>
+          <select name="tcr" id="tcr" title="This field is optional" aria-label="Select temperature coefficient band">
+            <option value="" disabled hidden selected>Select a colour</option>
             <option>Black</option>
             <option>Brown</option>
             <option>Red</option>
@@ -98,71 +146,21 @@
             <option>Blue</option>
             <option>Violet</option>
             <option>Grey</option>
-            <option>White</option>
           </select>
-          <div id="exponent_display" class="display-inline">
-            <p class="display-inline">×10</p>
-            <input id="exponent" type="number" min="-3" max="9" placeholder="–" title="This field is optional">
-            <span id="error_exponent" class="hidden">
-              <strong class="invalid">Invalid input</strong>
-            </span>
-          </div>
+          <p class="display-inline" id="tcr_display"></p>
           <div class="spacer"></div>
+        </div>
 
-          <div id="tolerance_band">
-            <label for="tolerance">Tolerance band:</label>
+        <label for="resistance_input">Resistance (Ω):</label>
+        <br>
+        <input type="number" min="0.01" max="99000000000" step="0.001" id="resistance_input" title="This field is optional">
+        <strong class="hidden message invalid" id="error">Invalid input</strong>
 
-            <div id="tolerance_mode">
-              <input type="radio" name="mode" value="Legacy" id="legacy" checked>
-              <label for="legacy">Legacy</label>
-              <input type="radio" name="mode" value="New" id="new">
-              <label for="new">New (IEC 60062:2016)</label>
-            </div>
-            <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
-              <option value="" disabled hidden selected>Select a colour</option>
-              <option>Silver</option>
-              <option>Gold</option>
-              <option>Brown</option>
-              <option>Red</option>
-              <option>Green</option>
-              <option>Blue</option>
-              <option>Violet</option>
-              <option>Grey</option>
-            </select>
-            <p class="display-inline" id="tolerance_display"></p>
-            <div class="spacer"></div>
-          </div>
+        <div class="spacer"></div>
+        <button type="button" id="reset_button">Reset All</button>
+      </form>
 
-          <div id="tcr_band" class="hidden">
-            <label for="tcr">TCR:</label>
-            <br>
-            <select name="tcr" id="tcr" title="This field is optional" aria-label="Select temperature coefficient band">
-              <option value="" disabled hidden selected>Select a colour</option>
-              <option>Black</option>
-              <option>Brown</option>
-              <option>Red</option>
-              <option>Orange</option>
-              <option>Yellow</option>
-              <option>Green</option>
-              <option>Blue</option>
-              <option>Violet</option>
-              <option>Grey</option>
-            </select>
-            <p class="display-inline" id="tcr_display"></p>
-            <div class="spacer"></div>
-          </div>
-
-          <label for="resistance_input">Resistance (Ω):</label>
-          <br>
-          <input type="number" min="0.01" max="99000000000" step="0.001" id="resistance_input" title="This field is optional">
-          <strong class="hidden message invalid" id="error">Invalid input</strong>
-
-          <div class="spacer"></div>
-          <button type="button" id="reset_button">Reset All</button>
-        </form>
-      </section>
-
-      <section class="box">
+      <div class="box">
         <p id="text" role="status" aria-live="polite" aria-atomic="true">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</p>
 
         <div id="checkbox" class="hidden">
@@ -185,7 +183,7 @@
           <div class="short_band" id="band_tolerance"></div>
           <div class="long_band hidden" id="band_tcr"></div>
         </div>
-      </section>
+      </div>
     </div>
   </div>
 </body>
