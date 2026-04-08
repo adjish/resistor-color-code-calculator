@@ -194,7 +194,7 @@ button {
   }
 }
 
-@media (max-height: 500px) and (min-width: 551px) {
+@media (max-height: 600px) and (min-width: 551px) {
   .container {
     flex-direction: row;
   }
