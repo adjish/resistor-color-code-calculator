@@ -73,7 +73,7 @@ button {
 }
 
 .graphics {
-  width: 300px;
+  max-width: 340px;
   aspect-ratio: 3 / 2;
   background-image: url("images/resistor.svg");
   background-size: cover;
