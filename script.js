@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (let i = 0; i < limit; ++i) {
       element = document.getElementById(`digit_${i}`);
-      digits[i] = resistanceString[i];
+      digits[i] = +resistanceString[i];
       color = colours[digits[i]];
       element.value = color;
       changeColor(element, color);
