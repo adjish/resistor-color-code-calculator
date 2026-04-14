@@ -49,7 +49,78 @@ document.addEventListener('DOMContentLoaded', () => {
   let bands_element = document.getElementById('bands');
 
   document.getElementById('reset_button').addEventListener('click', () => {
-    window.location.assign(window.location.href);
+    document.getElementById("main_form").reset();
+
+    digits = [];
+    multiplier = undefined;
+    tolerance = undefined;
+    tcr = undefined;
+    toleranceBackup = undefined;
+    toleranceMode = 'Legacy';
+    modeBackup = undefined;
+    minInput = 0.01;
+    resistanceFromTextInput = false;
+    sameUnit = false;
+
+    const selectIds = [
+      'bands',
+      'digit_0',
+      'digit_1',
+      'digit_2',
+      'multiplier',
+      'tolerance',
+      'tcr'
+    ];
+
+    selectIds.forEach(id => {
+      const el = document.getElementById(id);
+
+      el.style.backgroundColor = '';
+      el.style.color = '';
+    });
+
+    const mandatoryIds = [
+      'digit_0',
+      'digit_1',
+      'digit_2',
+      'multiplier'
+    ];
+
+    mandatoryIds.forEach(id => {
+      document.getElementById(id).classList.add('mandatory');
+    });
+
+    resistance_input_element.classList.remove('mandatory');
+    exponent_element.classList.remove('mandatory');
+
+    const bandIds = [
+      'band_0',
+      'band_1',
+      'band_2',
+      'band_3',
+      'band_tolerance',
+      'band_tcr'
+    ];
+
+    bandIds.forEach(id => {
+      document.getElementById(id).style.backgroundColor = '';
+    });
+
+    document.getElementById('checkbox').classList.add('hidden');
+    document.getElementById('copy_button').classList.add('hidden');
+    document.getElementById('confirm_copy').classList.add('hidden');
+    document.getElementById('error').classList.add('hidden');
+    document.getElementById('error_exponent').classList.add('hidden');
+
+    document.getElementById('tolerance_display').textContent = '';
+    document.getElementById('tcr_display').textContent = '';
+
+    text_element.style.fontStyle = 'italic';
+    text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
+
+    exponent_element.style.width = '4ch';
+
+    bands_element.dispatchEvent(new Event('change'));
   });
 
   bands_element.addEventListener('change', () => {
