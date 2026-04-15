@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let bands_element = document.getElementById('bands');
 
   document.getElementById('reset_button').addEventListener('click', () => {
-    document.getElementById("main_form").reset();
+    document.getElementById('main_form').reset();
 
     digits = [];
     multiplier = undefined;
