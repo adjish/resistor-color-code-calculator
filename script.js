@@ -11,7 +11,7 @@ function format(number, index) {
   number /=  10 ** (3 * index);
 
   return (
-    `${parseFloat(number.toFixed(6))} ${suffixes[index + 2]}Ω`
+    `${+number.toFixed(6)} ${suffixes[index + 2]}Ω`
   );
 }
 
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       result = format(number);
 
       if (!resistanceFromTextInput) {
-        resistance_input_element.value = parseFloat(number.toFixed(6));
+        resistance_input_element.value = +number.toFixed(6);
         resistance_input_element.classList.remove('mandatory');
         error_element.classList.add('hidden');
       }
