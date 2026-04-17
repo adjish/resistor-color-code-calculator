@@ -437,8 +437,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('copy_result').addEventListener('click', () => {
-    navigator.clipboard.writeText(text_element.textContent);
-    document.getElementById('confirm_copy').classList.remove('hidden');
-  });
+  document.getElementById('copy_result').addEventListener("click", () => writeClipboardText());
+
+  async function writeClipboardText(text) {
+    try {
+      await navigator.clipboard.writeText(text_element.textContent);
+      document.getElementById('confirm_copy').classList.remove('hidden');
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 });
