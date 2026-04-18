@@ -108,15 +108,19 @@
         </div>
         <div class="spacer"></div>
 
+        <fieldset id="tolerance_mode">
+          <legend>Tolerance mode:</legend>
+          <input type="radio" name="mode" value="Legacy" id="legacy" checked>
+          <label for="legacy">Legacy</label>
+          <input type="radio" name="mode" value="New" id="new">
+          <label for="new">New (IEC 60062:2016)</label>
+        </fieldset>
+
+        <div class="spacer"></div>
+
         <div id="tolerance_band">
           <label for="tolerance">Tolerance band:</label>
-
-          <div id="tolerance_mode">
-            <input type="radio" name="mode" value="Legacy" id="legacy" checked>
-            <label for="legacy">Legacy</label>
-            <input type="radio" name="mode" value="New" id="new">
-            <label for="new">New (IEC 60062:2016)</label>
-          </div>
+          <br>
           <select name="tolerance" id="tolerance" title="This field is optional" aria-label="Select tolerance color band">
             <option value="" disabled hidden selected>Select a colour</option>
             <option>Silver</option>

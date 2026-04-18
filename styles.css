@@ -49,6 +49,12 @@ button {
   cursor: pointer;
 }
 
+fieldset, legend {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
 .short_band,
 .long_band {
   display: inline-block;
