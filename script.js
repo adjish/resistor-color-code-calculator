@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('reset_button').addEventListener('click', () => {
     document.getElementById('main_form').reset();
 
-    digits = [];
+    digits = [undefined, undefined, undefined];
     multiplier = undefined;
     tolerance = undefined;
     tcr = undefined;
