@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColor(tcr_element, color);
 
-    document.getElementById('tcr_display').innerHTML = `${tcr}ppm/K`;
+    document.getElementById('tcr_display').innerHTML = `${tcr} ppm/K`;
   });
 
   function updateResult() {
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (bands === 6 && tcr !== undefined) {
-        result += ` ${tcr}ppm/K`;
+        result += ` ${tcr} ppm/K`;
       }
 
       if (result2 !== undefined) {
