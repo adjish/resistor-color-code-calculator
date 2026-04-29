@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
   resistance_input_element.addEventListener('input', () => {
     let color, limit = (bands >= 5 ? 3 : 2);
     let resistance = resistance_input_element.value.trim();
-    let resistanceString = String(resistance).replace(/\./g, '').replace(/^0+/, '').padEnd(limit, '0');
+    let resistanceString = String(resistance).replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
 
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
