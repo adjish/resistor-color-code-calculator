@@ -365,6 +365,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!resistance.length || ((!resistance_input_element.checkValidity() ||
       (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0)) {
+      if (resistance.length) {
+        error_element.textContent = 'Invalid resistance value';
+      }
+      else {
+        error_element.textContent = 'Invalid input';
+      }
+
       error_element.classList.remove('hidden');
       resistance_input_element.classList.add('mandatory');
       return;
