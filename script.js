@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('band_tolerance').style.display = values[4];
     document.getElementById('band_tcr').style.display = values[5];
     resistance_input_element.value = '';
+    resistance_input_element.classList.remove('mandatory');
+    error_element.classList.add('hidden');
 
     resistance_input_element.min = minInput = (bands >= 5 ? 0.1 : 0.01);
     resistance_input_element.max = (bands >= 5 ? 999000000000 : 99000000000);
