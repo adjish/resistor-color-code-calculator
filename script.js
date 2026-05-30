@@ -454,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('confirm_copy').classList.remove('hidden');
     } catch (error) {
       console.error(error.message);
+      alert(error.message);
     }
   }
 });
