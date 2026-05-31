@@ -155,8 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let element = document.getElementById(`digit_${n}`);
 
     element.addEventListener('change', () => {
-      let index = element.selectedIndex;
-      let color = element.options[index].value;
+      const index = element.selectedIndex;
+      const color = element.options[index].value;
 
       digits[n] = index - 1;
 
@@ -169,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   multiplier_element.addEventListener('change', () => {
-    let index = multiplier_element.selectedIndex;
-    let color = multiplier_element.options[index].value;
+    const index = multiplier_element.selectedIndex;
+    const color = multiplier_element.options[index].value;
 
     multiplier = index - 4;
 
@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
       values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
     }
 
-    let index = tolerance_element.selectedIndex;
-    let color = tolerance_element.options[index].value;
+    const index = tolerance_element.selectedIndex;
+    const color = tolerance_element.options[index].value;
 
     document.getElementById('tolerance_display').style.display = 'inline';
 
@@ -209,8 +209,8 @@ document.addEventListener('DOMContentLoaded', () => {
   tcr_element.addEventListener('change', () => {
     const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
-    let index = tcr_element.selectedIndex;
-    let color = tcr_element.options[index].value;
+    const index = tcr_element.selectedIndex;
+    const color = tcr_element.options[index].value;
 
     tcr = values[index - 1];
 
@@ -299,7 +299,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('tolerance_mode').addEventListener('change', () => {
     let optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
-    let index;
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
@@ -309,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
-    index = optionsList.indexOf(tolerance_element.value) + 1;
+    const index = optionsList.indexOf(tolerance_element.value) + 1;
 
     if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
       modeBackup = tolerance_element.selectedIndex;
