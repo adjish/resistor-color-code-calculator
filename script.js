@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     multiplier,
     tolerance,
     tcr,
-    toleranceBackup,
     toleranceMode,
     modeBackup,
     minInput = 0.01,
@@ -37,25 +36,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.body.classList.remove('no-js');
 
-  let resistance_input_element = document.getElementById('resistance_input');
-  let exponent_element = document.getElementById('exponent');
-  let multiplier_element = document.getElementById('multiplier');
-  let tolerance_element = document.getElementById('tolerance');
-  let error_exponent_element = document.getElementById('error_exponent');
-  let same_unit_checkbox_element = document.getElementById('same_unit_checkbox');
-  let error_element = document.getElementById('error');
-  let tcr_element = document.getElementById('tcr');
-  let text_element = document.getElementById('text');
-  let bands_element = document.getElementById('bands');
+  const resistance_input_element = document.getElementById('resistance_input');
+  const exponent_element = document.getElementById('exponent');
+  const multiplier_element = document.getElementById('multiplier');
+  const tolerance_element = document.getElementById('tolerance');
+  const error_exponent_element = document.getElementById('error_exponent');
+  const same_unit_checkbox_element = document.getElementById('same_unit_checkbox');
+  const error_element = document.getElementById('error');
+  const tcr_element = document.getElementById('tcr');
+  const text_element = document.getElementById('text');
+  const bands_element = document.getElementById('bands');
 
   document.getElementById('reset_button').addEventListener('click', () => {
     document.getElementById('main_form').reset();
 
-    digits = [undefined, undefined, undefined];
+    digits.fill(undefined);
     multiplier = undefined;
     tolerance = undefined;
     tcr = undefined;
-    toleranceBackup = undefined;
     toleranceMode = 'Legacy';
     modeBackup = undefined;
     minInput = 0.01;
@@ -131,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       4: ['none', 'none', 'unset', 'none', 'inline-block', 'none'],
       5: ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'],
       6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
-    }
+    };
 
     const values = visibilities[bands];
 
@@ -151,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false;
   });
 
-  [0, 1, 2].forEach(function(n) {
-    let element = document.getElementById(`digit_${n}`);
+  [0, 1, 2].forEach(n => {
+    const element = document.getElementById(`digit_${n}`);
 
     element.addEventListener('change', () => {
       const index = element.selectedIndex;
@@ -240,21 +238,17 @@ document.addEventListener('DOMContentLoaded', () => {
         error_element.classList.add('hidden');
       }
 
-      toleranceBackup = tolerance;
-
       if (sameUnit) {
         index = Math.floor(Math.log10(number) / 3);
       }
 
-      if (bands === 3) {
-        tolerance = 0.2;
-      }
+      const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
-      if (tolerance !== undefined && number) {
+      if (actualTolerance !== undefined && number) {
         document.getElementById('checkbox').classList.remove('hidden');
-        error = tolerance * number;
+        error = actualTolerance * number;
         result2 = `${format(number, index)} ± ${format(error, index)}`;
-        result += ` ± ${tolerance * 100}%`;
+        result += ` ± ${actualTolerance * 100}%`;
       } else {
         document.getElementById('checkbox').classList.add('hidden');
       }
@@ -268,8 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       text_element.textContent = result;
-
-      tolerance = toleranceBackup;
 
       error_exponent_element.classList.add('hidden');
       exponent_element.classList.remove('mandatory');
@@ -357,14 +349,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resistance_input_element.addEventListener('input', () => {
-    let color, limit = (bands >= 5 ? 3 : 2);
-    let resistance = resistance_input_element.value.trim();
-    let resistanceString = String(resistance).replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
+    const limit = (bands >= 5 ? 3 : 2);
+    const resistance = resistance_input_element.value.trim();
+    const resistanceString = String(resistance).replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
+    let color;
 
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
-    if (!resistance.length || ((!resistance_input_element.checkValidity() ||
+    if (resistance.length === 0 || ((!resistance_input_element.checkValidity() ||
       (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0)) {
       if (resistance.length) {
         error_element.textContent = 'Invalid resistance value';
@@ -421,12 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   exponent_element.addEventListener('input', () => {
-    let color, exponent = Number(exponent_element.value);
+    const exponent = Number(exponent_element.value);
+    let color;
 
     exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
 
     if (exponent_element.checkValidity()) {
-      multiplier = Number(exponent);
+      multiplier = exponent;
       multiplier_element.selectedIndex = multiplier + 4;
       color = multiplier_element.value;
 
@@ -445,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('copy_result').addEventListener("click", () => writeClipboardText());
+  document.getElementById('copy_result').addEventListener("click", writeClipboardText);
 
   async function writeClipboardText() {
     try {
