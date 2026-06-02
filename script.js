@@ -23,7 +23,7 @@ function changeColor(element, color) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let digits = new Array(3),
+  let digits = new Array(3).fill(undefined),
     multiplier,
     tolerance,
     tcr,
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
-      if (actualTolerance !== undefined && number) {
+      if (actualTolerance !== undefined && number !== 0) {
         document.getElementById('checkbox').classList.remove('hidden');
         error = actualTolerance * number;
         result2 = `${format(number, index)} ± ${format(error, index)}`;
