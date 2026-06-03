@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = true;
 
     const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
-    const multipliers = ['Pink', 'Silver', 'Gold'].concat(colours);
+    const multipliers = ['Pink', 'Silver', 'Gold', ...colours];
 
     let element;
 
