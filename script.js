@@ -47,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const text_element = document.getElementById('text');
   const bands_element = document.getElementById('bands');
 
+  const COLOURS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
+  const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLOURS];
+  const TCR_VALUES = [250, 100, 50, 15, 25, 20, 10, 5, 1];
+  const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
+  const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
+
   document.getElementById('reset_button').addEventListener('click', () => {
     document.getElementById('main_form').reset();
 
@@ -180,11 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateTolerance() {
-    let values = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
-
-    if (toleranceMode === 'New') {
-      values = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
-    }
+    const values = toleranceMode === 'New'
+      ? NEW_TOLERANCES
+      : LEGACY_TOLERANCES;
 
     const index = tolerance_element.selectedIndex;
     const color = tolerance_element.options[index].value;
@@ -205,12 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   tcr_element.addEventListener('change', () => {
-    const values = [250, 100, 50, 15, 25, 20, 10, 5, 1];
 
     const index = tcr_element.selectedIndex;
     const color = tcr_element.options[index].value;
 
-    tcr = values[index - 1];
+    tcr = TCR_VALUES[index - 1];
 
     document.getElementById('band_tcr').style.backgroundColor = color;
 
@@ -373,15 +376,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resistanceFromTextInput = true;
 
-    const colours = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
-    const multipliers = ['Pink', 'Silver', 'Gold', ...colours];
 
     let element;
 
     for (let i = 0; i < limit; ++i) {
       element = document.getElementById(`digit_${i}`);
       digits[i] = +resistanceString[i];
-      color = colours[digits[i]];
+      color = COLOURS[digits[i]];
       element.value = color;
       changeColor(element, color);
       document.getElementById(`band_${i}`).style.backgroundColor = color;
@@ -389,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     multiplier = (resistance > 0) ? Math.floor(Math.log10(resistance)) - limit + 1 : 0;
 
-    color = multipliers[3 + multiplier];
+    color = MULTIPLIERS[3 + multiplier];
 
     if (color === undefined) {
       error_element.classList.remove('hidden');
