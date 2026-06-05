@@ -1,17 +1,17 @@
 'use strict';
 
+const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
+
 function format(number, index) {
   if (number === 0) {
     return '0 Ω';
   }
 
-  const suffixes = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
-
   index ??= Math.floor(Math.log10(number) / 3);
   number /=  10 ** (3 * index);
 
   return (
-    `${+number.toFixed(6)} ${suffixes[index + 2]}Ω`
+    `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`
   );
 }
 
@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const TCR_VALUES = [250, 100, 50, 15, 25, 20, 10, 5, 1];
   const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
   const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
+  const VISIBILITIES = {
+    3: ['none', 'none', 'none', 'none', 'none', 'none'],
+    4: ['none', 'none', 'unset', 'none', 'inline-block', 'none'],
+    5: ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'],
+    6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
+  };
 
   document.getElementById('reset_button').addEventListener('click', () => {
     document.getElementById('main_form').reset();
@@ -130,14 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bands_element.addEventListener('change', () => {
     bands = parseInt(bands_element.value, 10);
 
-    const visibilities = {
-      3: ['none', 'none', 'none', 'none', 'none', 'none'],
-      4: ['none', 'none', 'unset', 'none', 'inline-block', 'none'],
-      5: ['unset', 'none', 'unset', 'inline-block', 'inline-block', 'none'],
-      6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
-    };
-
-    const values = visibilities[bands];
+    const values = VISIBILITIES[bands];
 
     document.getElementById('third_band').style.display = values[0];
     document.getElementById('tcr_band').style.display = values[1];
