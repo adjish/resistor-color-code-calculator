@@ -165,7 +165,6 @@ fieldset, legend {
   #tcr_display,
   #exponent_display {
     display: block !important;
-    margin: 0;
     text-align: center;
   }
 }
@@ -174,12 +173,6 @@ fieldset, legend {
   :root {
     --main-color: #fff;
     --background-color: #000;
-  }
-
-  select,
-  button,
-  input {
-    border-color: var(--main-color);
   }
 }
 
