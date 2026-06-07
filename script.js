@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exponent_element.value = multiplier;
       error_exponent_element.classList.add('hidden');
       exponent_element.classList.remove('mandatory');
-      exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
+      exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
     }
   }
 
@@ -417,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const exponent = Number(exponent_element.value);
     let color;
 
-    exponent_element.style.width = `${exponent_element.value.length ? exponent_element.value.length + 3 : 4}ch`;
+    exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
 
     if (exponent_element.checkValidity()) {
       multiplier = exponent;
