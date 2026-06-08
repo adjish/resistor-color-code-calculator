@@ -115,7 +115,7 @@ fieldset, legend {
   font-style: italic;
 }
 
-.display-inline {
+#exponent_display {
   display: inline;
 }
 
