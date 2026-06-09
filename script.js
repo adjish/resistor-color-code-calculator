@@ -15,10 +15,11 @@ function format(number, index) {
   );
 }
 
+const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
+
 function changeColor(element, color) {
   element.style.backgroundColor = color;
-  element.style.color = ['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey'].includes(color) ?
-    'white' : 'black';
+  element.style.color = DARK_COLORS.has(color) ? 'white' : 'black';
   element.classList.remove('mandatory');
 }
 
