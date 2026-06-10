@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColor(tolerance_element, color);
 
-    document.getElementById('tolerance_display').innerHTML = `${tolerance * 100}%`;
+    document.getElementById('tolerance_display').textContent = `${tolerance * 100}%`;
   }
 
   tolerance_element.addEventListener('change',
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColor(tcr_element, color);
 
-    document.getElementById('tcr_display').innerHTML = `${tcr} ppm/K`;
+    document.getElementById('tcr_display').textContent = `${tcr} ppm/K`;
   });
 
   function updateResult() {
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modeBackup = tolerance_element.selectedIndex;
     }
 
-    select.innerHTML = '';
+    select.textContent = '';
 
     const defaultOption = document.createElement('option');
     defaultOption.text = 'Select a colour';
