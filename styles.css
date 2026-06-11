@@ -18,7 +18,6 @@ h1 {
 }
 
 select,
-input[type="text"],
 #resistance_input {
   width: 15ch;
   box-sizing: border-box;
