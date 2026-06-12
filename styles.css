@@ -146,7 +146,6 @@ fieldset, legend {
 @media (max-width: 550px) {
   select,
   button,
-  input[type="text"],
   #resistance_input {
     width: 100%;
   }
