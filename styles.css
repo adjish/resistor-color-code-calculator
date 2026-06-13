@@ -114,10 +114,6 @@ fieldset, legend {
   font-style: italic;
 }
 
-#exponent_display {
-  display: inline;
-}
-
 #exponent {
   font-size: 0.7rem;
   vertical-align: super;
@@ -162,7 +158,7 @@ fieldset, legend {
   #tolerance_display,
   #tcr_display,
   #exponent_display {
-    display: block !important;
+    display: block;
     text-align: center;
   }
 }

@@ -99,13 +99,13 @@
           <option>Grey</option>
           <option>White</option>
         </select>
-        <div id="exponent_display">
+        <span id="exponent_display">
           <span>×10</span>
           <input id="exponent" type="number" min="-3" max="9" placeholder="–" title="This field is optional">
           <span id="error_exponent" class="hidden">
             <strong class="invalid">Invalid input</strong>
           </span>
-        </div>
+        </span>
         <div class="spacer"></div>
 
         <fieldset id="tolerance_mode">
@@ -175,11 +175,11 @@
           <div class="spacer"></div>
         </div>
 
-        <span id="copy_button" class="hidden">
+        <div id="copy_button" class="hidden">
           <button type="button" id="copy_result" aria-label="Copy calculated resistance">Copy Result</button>
           <em id="confirm_copy" class="hidden message">Copied!</em>
           <div class="spacer"></div>
-        </span>
+        </div>
 
         <div class="graphics" aria-hidden="true">
           <div class="long_band" id="band_0"></div>
