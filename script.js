@@ -61,8 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.getElementById('reset_button').addEventListener('click', () => {
-    document.getElementById('main_form').reset();
-
     digits.fill(undefined);
     multiplier = undefined;
     tolerance = undefined;
