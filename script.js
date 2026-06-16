@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     6: ['unset', 'unset', 'unset', 'inline-block', 'inline-block', 'inline-block']
   };
 
-  document.getElementById('reset_button').addEventListener('click', () => {
+  document.getElementById('main_form').addEventListener('reset', () => {
     digits.fill(undefined);
     multiplier = undefined;
     tolerance = undefined;
@@ -130,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     exponent_element.style.width = '4ch';
 
     bands_element.dispatchEvent(new Event('change'));
+
+    setTimeout(() => bands_element.dispatchEvent(new Event('change')), 0);
   });
 
   bands_element.addEventListener('change', () => {
