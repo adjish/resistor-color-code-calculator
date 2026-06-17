@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     multiplier,
     tolerance,
     tcr,
-    toleranceMode,
+    toleranceMode = 'Legacy',
     modeBackup,
     minInput = 0.01,
     sameUnit = false,
@@ -129,9 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     exponent_element.style.width = '4ch';
 
-    bands_element.dispatchEvent(new Event('change'));
-
-    setTimeout(() => bands_element.dispatchEvent(new Event('change')), 0);
+    setTimeout(() => {
+      document.getElementById('tolerance_mode').dispatchEvent(new Event('change'));
+      bands_element.dispatchEvent(new Event('change'));
+    }, 0);
   });
 
   bands_element.addEventListener('change', () => {
