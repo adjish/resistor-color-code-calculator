@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColor(tolerance_element, color);
 
-    document.getElementById('tolerance_display').textContent = `${tolerance * 100}%`;
+    document.getElementById('tolerance_display').textContent = `±${tolerance * 100}%`;
   }
 
   tolerance_element.addEventListener('change',
