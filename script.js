@@ -210,11 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   tcr_element.addEventListener('change', () => {
+    const color = tcr_element.value;
 
-    const index = tcr_element.selectedIndex;
-    const color = tcr_element.options[index].value;
-
-    tcr = TCR_VALUES[index - 1];
+    tcr = TCR_VALUES[tcr_element.selectedIndex - 1];
 
     document.getElementById('band_tcr').style.backgroundColor = color;
 
