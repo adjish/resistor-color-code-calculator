@@ -1,28 +1,5 @@
 'use strict';
 
-const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
-
-function format(number, index) {
-  if (number === 0) {
-    return '0 Ω';
-  }
-
-  index ??= Math.floor(Math.log10(number) / 3);
-  number /=  10 ** (3 * index);
-
-  return (
-    `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`
-  );
-}
-
-const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
-
-function changeColor(element, color) {
-  element.style.backgroundColor = color;
-  element.style.color = DARK_COLORS.has(color) ? 'white' : 'black';
-  element.classList.remove('mandatory');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   let digits = new Array(3).fill(undefined),
     multiplier,
@@ -59,6 +36,29 @@ document.addEventListener('DOMContentLoaded', () => {
     5: ['initial', 'none', 'initial', 'inline-block', 'inline-block', 'none'],
     6: ['initial', 'initial', 'initial', 'inline-block', 'inline-block', 'inline-block']
   };
+
+  const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
+
+  function format(number, index) {
+    if (number === 0) {
+      return '0 Ω';
+    }
+
+    index ??= Math.floor(Math.log10(number) / 3);
+    number /=  10 ** (3 * index);
+
+    return (
+      `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`
+    );
+  }
+
+  const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
+
+  function changeColor(element, color) {
+    element.style.backgroundColor = color;
+    element.style.color = DARK_COLORS.has(color) ? 'white' : 'black';
+    element.classList.remove('mandatory');
+  }
 
   document.getElementById('main_form').addEventListener('reset', () => {
     digits.fill(undefined);
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modeBackup = tolerance_element.selectedIndex;
     }
 
-    select.textContent = '';
+    select.replaceChildren();
 
     const defaultOption = document.createElement('option');
     defaultOption.text = 'Select a colour';
