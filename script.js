@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('checkbox').classList.add('hidden');
     document.getElementById('copy_button').classList.add('hidden');
     document.getElementById('confirm_copy').classList.add('hidden');
-    document.getElementById('error').classList.add('hidden');
-    document.getElementById('error_exponent').classList.add('hidden');
+    error_element.classList.add('hidden');
+    error_exponent_element.classList.add('hidden');
 
     document.getElementById('tolerance_display').textContent = '';
     document.getElementById('tcr_display').textContent = '';
@@ -375,11 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resistanceFromTextInput = true;
 
-
-    let element;
-
     for (let i = 0; i < limit; ++i) {
-      element = document.getElementById(`digit_${i}`);
+      const element = document.getElementById(`digit_${i}`);
       digits[i] = +resistanceString[i];
       color = COLOURS[digits[i]];
       element.value = color;
