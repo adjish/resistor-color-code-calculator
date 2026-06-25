@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
   resistance_input_element.addEventListener('input', () => {
     const limit = (bands >= 5 ? 3 : 2);
     const resistance = resistance_input_element.value;
-    const resistanceString = String(resistance).replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
+    const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
     let color;
 
     resistance_input_element.step = 0.001;
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(`band_${i}`).style.backgroundColor = color;
     }
 
-    multiplier = (resistance > 0) ? Math.floor(Math.log10(resistance)) - limit + 1 : 0;
+    multiplier = (Number(resistance) > 0) ? Math.floor(Math.log10(Number(resistance))) - limit + 1 : 0;
 
     color = MULTIPLIERS[3 + multiplier];
 
