@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
   const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
   const VISIBILITIES = {
-    3: ['none', 'none', 'none', 'none', 'none', 'none'],
-    4: ['none', 'none', 'initial', 'none', 'inline-block', 'none'],
-    5: ['initial', 'none', 'initial', 'inline-block', 'inline-block', 'none'],
-    6: ['initial', 'initial', 'initial', 'inline-block', 'inline-block', 'inline-block']
+    3: ['none',  'none',  'none', 'none',         'none',         'none'        ],
+    4: ['none',  'none',  '',     'none',         'inline-block', 'none'        ],
+    5: ['block', 'none',  '',     'inline-block', 'inline-block', 'none'        ],
+    6: ['block', 'block', '',     'inline-block', 'inline-block', 'inline-block']
   };
 
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
