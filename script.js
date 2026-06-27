@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const index = optionsList.indexOf(tolerance_element.value) + 1;
 
     if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
-      modeBackup = tolerance_element.selectedIndex;
+      modeBackup = tolerance_element.value;
     }
 
     select.replaceChildren();
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (index === 0) {
       if (toleranceMode === 'New' && modeBackup !== undefined) {
-        tolerance_element.selectedIndex = modeBackup;
+        tolerance_element.value = modeBackup;
         modeBackup = undefined;
         updateTolerance();
         updateResult();
