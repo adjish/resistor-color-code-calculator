@@ -311,13 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
     select.replaceChildren();
 
     const defaultOption = document.createElement('option');
-    defaultOption.text = 'Select a colour';
+    defaultOption.value = '';
+    defaultOption.disabled = true;
     defaultOption.hidden = true;
+    defaultOption.text = 'Select a color';
     select.appendChild(defaultOption);
 
-    optionsList.forEach(text => {
+    optionsList.forEach(color => {
       const option = document.createElement('option');
-      option.text = text;
+      option.value = color;
+      option.text = color;
       select.appendChild(option);
     });
 
@@ -411,15 +414,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   exponent_element.addEventListener('input', () => {
-    const exponent = Number(exponent_element.value);
-    let color;
-
     exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
 
     if (exponent_element.checkValidity()) {
-      multiplier = exponent;
+      multiplier = Number(exponent_element.value);
       multiplier_element.selectedIndex = multiplier + 4;
-      color = multiplier_element.value;
+      const color = multiplier_element.value;
 
       error_exponent_element.classList.add('hidden');
       exponent_element.classList.remove('mandatory');
@@ -436,8 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('copy_result').addEventListener("click", writeClipboardText);
-
   async function writeClipboardText() {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
@@ -447,4 +445,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(error.message);
     }
   }
+
+  document.getElementById('copy_result').addEventListener('click', writeClipboardText);
 });
