@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const text_element = document.getElementById('text');
   const bands_element = document.getElementById('bands');
 
-  const COLOURS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
-  const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLOURS];
+  const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
+  const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
   const TCR_VALUES = [250, 100, 50, 15, 25, 20, 10, 5, 1];
   const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
   const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
@@ -296,8 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
-    const select = tolerance_element;
-
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
@@ -308,20 +306,20 @@ document.addEventListener('DOMContentLoaded', () => {
       modeBackup = tolerance_element.value;
     }
 
-    select.replaceChildren();
+    tolerance_element.replaceChildren();
 
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.disabled = true;
     defaultOption.hidden = true;
     defaultOption.text = 'Select a color';
-    select.appendChild(defaultOption);
+    tolerance_element.appendChild(defaultOption);
 
     optionsList.forEach(color => {
       const option = document.createElement('option');
       option.value = color;
       option.text = color;
-      select.appendChild(option);
+      tolerance_element.appendChild(option);
     });
 
     tolerance_element.selectedIndex = index;
@@ -381,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < limit; ++i) {
       const element = document.getElementById(`digit_${i}`);
       digits[i] = +resistanceString[i];
-      color = COLOURS[digits[i]];
+      color = COLORS[digits[i]];
       element.value = color;
       changeColor(element, color);
       document.getElementById(`band_${i}`).style.backgroundColor = color;
