@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateResult() {
-    let result, result2, error, number, index;
+    let result, result2, delta, number, index;
 
     text_element.style.fontStyle = 'normal';
 
@@ -248,8 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (actualTolerance !== undefined && number !== 0) {
         document.getElementById('checkbox').classList.remove('hidden');
-        error = actualTolerance * number;
-        result2 = `${format(number, index)} ± ${format(error, index)}`;
+        delta = actualTolerance * number;
+        result2 = `${format(number, index)} ± ${format(delta, index)}`;
         result += ` ± ${actualTolerance * 100}%`;
       } else {
         document.getElementById('checkbox').classList.add('hidden');
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (result2 !== undefined) {
-        result += `\n${result2}\n${format(number - error, index)} – ${format(number + error, index)}`;
+        result += `\n${result2}\n${format(number - delta, index)} – ${format(number + delta, index)}`;
       }
 
       text_element.textContent = result;
@@ -438,9 +438,9 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
       document.getElementById('confirm_copy').classList.remove('hidden');
-    } catch (error) {
-      console.error(error.message);
-      alert(error.message);
+    } catch (err) {
+      console.error(err.message);
+      alert(err.message);
     }
   }
 
