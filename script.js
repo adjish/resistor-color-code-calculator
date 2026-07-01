@@ -1,8 +1,9 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let digits = new Array(3).fill(undefined),
-    multiplier,
+  const digits = new Array(3).fill(undefined);
+
+  let multiplier,
     tolerance,
     tcr,
     toleranceMode = 'Legacy',
@@ -292,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('tolerance_mode').addEventListener('change', () => {
-    let optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
+    const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
