@@ -157,7 +157,8 @@ fieldset, legend {
 
   #tolerance_display,
   #tcr_display,
-  #exponent_display {
+  #exponent_display,
+  #text {
     display: block;
     text-align: center;
   }
