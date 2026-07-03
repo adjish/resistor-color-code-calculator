@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const index = tolerance_element.selectedIndex;
     const color = tolerance_element.options[index].value;
 
-    document.getElementById('tolerance_display').style.display = 'inline';
+    document.getElementById('tolerance_display').classList.remove('hidden');
 
     tolerance = values[index - 1];
 
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      document.getElementById('tolerance_display').style.display = 'none';
+      document.getElementById('tolerance_display').classList.add('hidden');
 
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
