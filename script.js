@@ -356,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const limit = (bands >= 5 ? 3 : 2);
     const resistance = resistance_input_element.value;
     const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
-    let color;
 
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
@@ -380,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < limit; ++i) {
       const element = document.getElementById(`digit_${i}`);
       digits[i] = +resistanceString[i];
-      color = COLORS[digits[i]];
+      const color = COLORS[digits[i]];
       element.value = color;
       changeColor(element, color);
       document.getElementById(`band_${i}`).style.backgroundColor = color;
@@ -388,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     multiplier = (Number(resistance) > 0) ? Math.floor(Math.log10(Number(resistance))) - limit + 1 : 0;
 
-    color = MULTIPLIERS[3 + multiplier];
+    const color = MULTIPLIERS[3 + multiplier];
 
     if (color === undefined) {
       error_element.classList.remove('hidden');
