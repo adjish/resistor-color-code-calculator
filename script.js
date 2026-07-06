@@ -161,10 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const element = document.getElementById(`digit_${n}`);
 
     element.addEventListener('change', () => {
-      const index = element.selectedIndex;
-      const color = element.options[index].value;
+      const color = element.value;
 
-      digits[n] = index - 1;
+      digits[n] = element.selectedIndex - 1;
 
       document.getElementById(`band_${n}`).style.backgroundColor = color;
 
@@ -175,10 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   multiplier_element.addEventListener('change', () => {
-    const index = multiplier_element.selectedIndex;
-    const color = multiplier_element.options[index].value;
+    const color = multiplier_element.value;
 
-    multiplier = index - 4;
+    multiplier = multiplier_element.selectedIndex - 4;
 
     document.getElementById('band_3').style.backgroundColor = color;
 
@@ -192,12 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ? NEW_TOLERANCES
       : LEGACY_TOLERANCES;
 
-    const index = tolerance_element.selectedIndex;
-    const color = tolerance_element.options[index].value;
+    const color = tolerance_element.value;
 
     document.getElementById('tolerance_display').classList.remove('hidden');
 
-    tolerance = values[index - 1];
+    tolerance = values[tolerance_element.selectedIndex - 1];
 
     document.getElementById('band_tolerance').style.backgroundColor = color;
 
