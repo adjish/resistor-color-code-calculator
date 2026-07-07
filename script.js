@@ -159,13 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   [0, 1, 2].forEach(n => {
     const element = document.getElementById(`digit_${n}`);
+    const band_element = document.getElementById(`band_${n}`);
 
     element.addEventListener('change', () => {
       const color = element.value;
 
       digits[n] = element.selectedIndex - 1;
 
-      document.getElementById(`band_${n}`).style.backgroundColor = color;
+      band_element.style.backgroundColor = color;
 
       changeColor(element, color);
 
