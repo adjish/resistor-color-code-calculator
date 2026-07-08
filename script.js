@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const tcr_element = document.getElementById('tcr');
   const text_element = document.getElementById('text');
   const bands_element = document.getElementById('bands');
+  const band_3_element = document.getElementById('band_3');
+  const digit_elements = [0, 1, 2].map(n => document.getElementById(`digit_${n}`));
+  const band_elements  = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('third_band').style.display = values[0];
     document.getElementById('tcr_band').style.display = values[1];
     document.getElementById('tolerance_band').style.display = values[2];
-    document.getElementById('band_2').style.display = values[3];
+    band_elements[2].style.display = values[3];
     document.getElementById('band_tolerance').style.display = values[4];
     document.getElementById('band_tcr').style.display = values[5];
     resistance_input_element.value = '';
@@ -157,19 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false;
   });
 
-  [0, 1, 2].forEach(n => {
-    const element = document.getElementById(`digit_${n}`);
-    const band_element = document.getElementById(`band_${n}`);
-
+  digit_elements.forEach((element, n) => {
     element.addEventListener('change', () => {
       const color = element.value;
-
       digits[n] = element.selectedIndex - 1;
-
-      band_element.style.backgroundColor = color;
-
+      band_elements[n].style.backgroundColor = color;
       changeColor(element, color);
-
       resistanceFromTextInput = false;
     });
   });
@@ -179,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     multiplier = multiplier_element.selectedIndex - 4;
 
-    document.getElementById('band_3').style.backgroundColor = color;
+    band_3_element.style.backgroundColor = color;
 
     changeColor(multiplier_element, color);
 
@@ -375,12 +371,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = true;
 
     for (let i = 0; i < limit; ++i) {
-      const element = document.getElementById(`digit_${i}`);
       digits[i] = +resistanceString[i];
       const color = COLORS[digits[i]];
-      element.value = color;
-      changeColor(element, color);
-      document.getElementById(`band_${i}`).style.backgroundColor = color;
+      digit_elements[i].value = color;
+      changeColor(digit_elements[i], color);
+      band_elements[i].style.backgroundColor = color;
     }
 
     multiplier = (Number(resistance) > 0) ? Math.floor(Math.log10(Number(resistance))) - limit + 1 : 0;
@@ -397,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.classList.remove('mandatory');
 
     multiplier_element.value = color;
-    document.getElementById('band_3').style.backgroundColor = color;
+    band_3_element.style.backgroundColor = color;
 
     changeColor(multiplier_element, color);
 
@@ -419,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       error_exponent_element.classList.add('hidden');
       exponent_element.classList.remove('mandatory');
-      document.getElementById('band_3').style.backgroundColor = color;
+      band_3_element.style.backgroundColor = color;
 
       changeColor(multiplier_element, color);
 
