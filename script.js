@@ -26,8 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const text_element = document.getElementById('text');
   const bands_element = document.getElementById('bands');
   const band_3_element = document.getElementById('band_3');
+  const third_band_element = document.getElementById('third_band');
+  const tcr_band_element = document.getElementById('tcr_band');
+  const tolerance_band_element = document.getElementById('tolerance_band');
+  const band_tolerance_element = document.getElementById('band_tolerance');
+  const band_tcr_element = document.getElementById('band_tcr');
+  const tolerance_display_element = document.getElementById('tolerance_display');
   const digit_elements = [0, 1, 2].map(n => document.getElementById(`digit_${n}`));
-  const band_elements  = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
+  const band_elements = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -125,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     error_element.classList.add('hidden');
     error_exponent_element.classList.add('hidden');
 
-    document.getElementById('tolerance_display').textContent = '';
+    tolerance_display_element.textContent = '';
     document.getElementById('tcr_display').textContent = '';
 
     text_element.style.fontStyle = 'italic';
@@ -144,12 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const values = VISIBILITIES[bands];
 
-    document.getElementById('third_band').style.display = values[0];
-    document.getElementById('tcr_band').style.display = values[1];
-    document.getElementById('tolerance_band').style.display = values[2];
+    third_band_element.style.display = values[0];
+    tcr_band_element.style.display = values[1];
+    tolerance_band_element.style.display = values[2];
     band_elements[2].style.display = values[3];
-    document.getElementById('band_tolerance').style.display = values[4];
-    document.getElementById('band_tcr').style.display = values[5];
+    band_tolerance_element.style.display = values[4];
+    band_tcr_element.style.display = values[5];
     resistance_input_element.value = '';
     resistance_input_element.classList.remove('mandatory');
     error_element.classList.add('hidden');
@@ -189,15 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const color = tolerance_element.value;
 
-    document.getElementById('tolerance_display').classList.remove('hidden');
+    tolerance_display_element.classList.remove('hidden');
 
     tolerance = values[tolerance_element.selectedIndex - 1];
 
-    document.getElementById('band_tolerance').style.backgroundColor = color;
+    band_tolerance_element.style.backgroundColor = color;
 
     changeColor(tolerance_element, color);
 
-    document.getElementById('tolerance_display').textContent = `±${tolerance * 100}%`;
+    tolerance_display_element.textContent = `±${tolerance * 100}%`;
   }
 
   tolerance_element.addEventListener('change',
@@ -209,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tcr = TCR_VALUES[tcr_element.selectedIndex - 1];
 
-    document.getElementById('band_tcr').style.backgroundColor = color;
+    band_tcr_element.style.backgroundColor = color;
 
     changeColor(tcr_element, color);
 
@@ -328,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      document.getElementById('tolerance_display').classList.add('hidden');
+      tolerance_display_element.classList.add('hidden');
 
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
