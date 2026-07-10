@@ -81,48 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false;
     sameUnit = false;
 
-    const selectIds = [
-      'bands',
-      'digit_0',
-      'digit_1',
-      'digit_2',
-      'multiplier',
-      'tolerance',
-      'tcr'
-    ];
-
-    selectIds.forEach(id => {
-      const el = document.getElementById(id);
-
+    [bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element].forEach(el => {
       el.style.backgroundColor = '';
       el.style.color = '';
     });
 
-    const mandatoryIds = [
-      'digit_0',
-      'digit_1',
-      'digit_2',
-      'multiplier'
-    ];
+    [...digit_elements, multiplier_element].forEach(el => el.classList.add('mandatory'));
 
-    mandatoryIds.forEach(id => {
-      document.getElementById(id).classList.add('mandatory');
-    });
-
-    resistance_input_element.classList.remove('mandatory');
-    exponent_element.classList.remove('mandatory');
-
-    const bandIds = [
-      'band_0',
-      'band_1',
-      'band_2',
-      'band_3',
-      'band_tolerance',
-      'band_tcr'
-    ];
-
-    bandIds.forEach(id => {
-      document.getElementById(id).style.backgroundColor = '';
+    [...band_elements, band_3_element, band_tolerance_element, band_tcr_element].forEach(el => {
+      el.style.backgroundColor = '';
     });
 
     document.getElementById('checkbox').classList.add('hidden');
