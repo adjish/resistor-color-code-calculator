@@ -63,7 +63,7 @@
         </select>
         <div class="spacer"></div>
 
-        <div id="third_band" class="hidden">
+        <div id="third_band" hidden>
           <label for="digit_2">3<sup>rd</sup> band: <span class="asterisk">*</span></label>
           <br>
           <select name="digit_2" id="digit_2" class="mandatory" title="This field is mandatory" aria-label="Select third resistor color band">
@@ -102,7 +102,7 @@
         <span id="exponent_display">
           <span>×10</span>
           <input id="exponent" type="number" min="-3" max="9" placeholder="–" title="This field is optional">
-          <span id="error_exponent" class="hidden" role="alert">
+          <span id="error_exponent" role="alert" hidden>
             <strong class="invalid">Invalid input</strong>
           </span>
         </span>
@@ -132,11 +132,11 @@
             <option>Violet</option>
             <option>Grey</option>
           </select>
-          <span id="tolerance_display" class="hidden"></span>
+          <span id="tolerance_display" hidden></span>
           <div class="spacer"></div>
         </div>
 
-        <div id="tcr_band" class="hidden">
+        <div id="tcr_band" hidden>
           <label for="tcr">TCR:</label>
           <br>
           <select name="tcr" id="tcr" title="This field is optional" aria-label="Select temperature coefficient color band">
@@ -158,7 +158,7 @@
         <label for="resistance_input">Resistance (Ω):</label>
         <br>
         <input type="number" min="0.01" max="99000000000" step="0.001" id="resistance_input" title="This field is optional">
-        <strong class="hidden message invalid" id="error" role="alert">Invalid input</strong>
+        <strong class="message invalid" id="error" role="alert" hidden>Invalid input</strong>
 
         <div class="spacer"></div>
         <button type="reset" id="reset_button">Reset All</button>
@@ -169,25 +169,25 @@
         <output id="text" aria-atomic="true" for="digit_0 digit_1 digit_2 multiplier tolerance tcr exponent resistance_input">Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.</output>
         <div class="spacer"></div>
 
-        <div id="checkbox" class="hidden">
+        <div id="checkbox" hidden>
           <input type="checkbox" id="same_unit_checkbox">
           <label for="same_unit_checkbox">Consistent units</label>
           <div class="spacer"></div>
         </div>
 
-        <div id="copy_button" class="hidden">
+        <div id="copy_button" hidden>
           <button type="button" id="copy_result" aria-label="Copy calculated resistance">Copy Result</button>
-          <em id="confirm_copy" class="hidden message">Copied!</em>
+          <em id="confirm_copy" class="message" hidden>Copied!</em>
           <div class="spacer"></div>
         </div>
 
         <div class="graphics" aria-hidden="true">
           <div class="long_band" id="band_0"></div>
           <div class="short_band" id="band_1"></div>
-          <div class="short_band hidden" id="band_2"></div>
+          <div class="short_band" id="band_2" hidden></div>
           <div class="short_band" id="band_3"></div>
           <div class="short_band" id="band_tolerance"></div>
-          <div class="long_band hidden" id="band_tcr"></div>
+          <div class="long_band" id="band_tcr" hidden></div>
         </div>
       </div>
     </div>

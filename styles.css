@@ -91,7 +91,11 @@ fieldset, legend {
   border: 1px solid var(--error-color) !important;
 }
 
-.hidden, .no-js #js-enabled {
+[hidden] {
+  display: none;
+}
+
+.no-js #js-enabled {
   display: none;
 }
 

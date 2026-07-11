@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
   const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
   const VISIBILITIES = {
-    3: ['none',  'none',  'none', 'none',         'none',         'none'        ],
-    4: ['none',  'none',  '',     'none',         'inline-block', 'none'        ],
-    5: ['block', 'none',  '',     'inline-block', 'inline-block', 'none'        ],
-    6: ['block', 'block', '',     'inline-block', 'inline-block', 'inline-block']
+    3: [false, false, false, false, false, false],
+    4: [false, false, true,  false, true,  false],
+    5: [true,  false, true,  true,  true,  false],
+    6: [true,  true,  true,  true,  true,  true]
   };
 
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
@@ -92,11 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.backgroundColor = '';
     });
 
-    document.getElementById('checkbox').classList.add('hidden');
-    document.getElementById('copy_button').classList.add('hidden');
-    document.getElementById('confirm_copy').classList.add('hidden');
-    error_element.classList.add('hidden');
-    error_exponent_element.classList.add('hidden');
+    document.getElementById('checkbox').hidden = true;
+    document.getElementById('copy_button').hidden = true;
+    document.getElementById('confirm_copy').hidden = true;
+    error_element.hidden = true;
+    error_exponent_element.hidden = true;
 
     tolerance_display_element.textContent = '';
     document.getElementById('tcr_display').textContent = '';
@@ -117,15 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const values = VISIBILITIES[bands];
 
-    third_band_element.style.display = values[0];
-    tcr_band_element.style.display = values[1];
-    tolerance_band_element.style.display = values[2];
-    band_elements[2].style.display = values[3];
-    band_tolerance_element.style.display = values[4];
-    band_tcr_element.style.display = values[5];
+    third_band_element.hidden = !values[0];
+    tcr_band_element.hidden = !values[1];
+    tolerance_band_element.hidden = !values[2];
+    band_elements[2].hidden = !values[3];
+    band_tolerance_element.hidden = !values[4];
+    band_tcr_element.hidden = !values[5];
     resistance_input_element.value = '';
     resistance_input_element.classList.remove('mandatory');
-    error_element.classList.add('hidden');
+    error_element.hidden = true;
 
     resistance_input_element.min = minInput = (bands >= 5 ? 0.1 : 0.01);
     resistance_input_element.max = (bands >= 5 ? 999000000000 : 99000000000);
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const color = tolerance_element.value;
 
-    tolerance_display_element.classList.remove('hidden');
+    tolerance_display_element.hidden = false;
 
     tolerance = values[tolerance_element.selectedIndex - 1];
 
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
-      document.getElementById('copy_button').classList.remove('hidden');
+      document.getElementById('copy_button').hidden = false;
 
       number = Number(digits.slice(0, bands >= 5 ? 3 : 2).join('')) * 10 ** multiplier;
 
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!resistanceFromTextInput) {
         resistance_input_element.value = +number.toFixed(6);
         resistance_input_element.classList.remove('mandatory');
-        error_element.classList.add('hidden');
+        error_element.hidden = true;
       }
 
       if (sameUnit) {
@@ -215,12 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
       if (actualTolerance !== undefined && number !== 0) {
-        document.getElementById('checkbox').classList.remove('hidden');
+        document.getElementById('checkbox').hidden = false;
         delta = actualTolerance * number;
         result2 = `${format(number, index)} ± ${format(delta, index)}`;
         result += ` ± ${actualTolerance * 100}%`;
       } else {
-        document.getElementById('checkbox').classList.add('hidden');
+        document.getElementById('checkbox').hidden = true;
       }
 
       if (bands === 6 && tcr !== undefined) {
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       text_element.textContent = result;
 
-      error_exponent_element.classList.add('hidden');
+      error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
 
       resistance_input_element.step = 10 ** multiplier;
@@ -245,15 +245,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       text_element.style.fontStyle = 'italic';
       text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
-      document.getElementById('copy_button').classList.add('hidden');
-      document.getElementById('checkbox').classList.add('hidden');
+      document.getElementById('copy_button').hidden = true;
+      document.getElementById('checkbox').hidden = true;
     }
 
-    document.getElementById('confirm_copy').classList.add('hidden');
+    document.getElementById('confirm_copy').hidden = true;
 
     if (multiplier !== undefined) {
       exponent_element.value = multiplier;
-      error_exponent_element.classList.add('hidden');
+      error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
       exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
     }
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      tolerance_display_element.classList.add('hidden');
+      tolerance_display_element.hidden = true;
 
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
         error_element.textContent = 'Invalid input';
       }
 
-      error_element.classList.remove('hidden');
+      error_element.hidden = false;
       resistance_input_element.classList.add('mandatory');
       return;
     }
@@ -356,12 +356,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const color = MULTIPLIERS[3 + multiplier];
 
     if (color === undefined) {
-      error_element.classList.remove('hidden');
+      error_element.hidden = false;
       resistance_input_element.classList.add('mandatory');
       return;
     }
 
-    error_element.classList.add('hidden');
+    error_element.hidden = true;
     resistance_input_element.classList.remove('mandatory');
 
     multiplier_element.value = color;
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
 
-      error_exponent_element.classList.add('hidden');
+      error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
       band_3_element.style.backgroundColor = color;
 
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       updateResult();
     } else {
-      error_exponent_element.classList.remove('hidden');
+      error_exponent_element.hidden = false;
       exponent_element.classList.add('mandatory');
     }
   });
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function writeClipboardText() {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
-      document.getElementById('confirm_copy').classList.remove('hidden');
+      document.getElementById('confirm_copy').hidden = false;
     } catch (err) {
       console.error(err.message);
       alert(err.message);
