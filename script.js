@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tcr,
     toleranceMode = 'Legacy',
     modeBackup,
+    resetting = false,
     minInput = 0.01,
     sameUnit = false,
     resistanceFromTextInput = false,
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('main_form').addEventListener('reset', () => {
+    resetting = true;
     digits.fill(undefined);
     multiplier = undefined;
     tolerance = undefined;
@@ -107,8 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
     exponent_element.style.width = '4ch';
 
     setTimeout(() => {
+      document.querySelector('input[name="mode"][value="Legacy"]').checked = true;
       document.getElementById('tolerance_mode').dispatchEvent(new Event('change'));
       bands_element.dispatchEvent(new Event('change'));
+      resetting = false;
     }, 0);
   });
 
@@ -260,9 +264,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('tolerance_mode').addEventListener('change', () => {
-    const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
-
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
+
+    if (resetting) {
+      tolerance_element.selectedIndex = 0;
+      tolerance = undefined;
+      modeBackup = undefined;
+
+      tolerance_display_element.hidden = true;
+      tolerance_display_element.textContent = '';
+
+      return;
+    }
+
+    const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
