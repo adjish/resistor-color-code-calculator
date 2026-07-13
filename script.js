@@ -58,9 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     index ??= Math.floor(Math.log10(number) / 3);
     number /=  10 ** (3 * index);
 
-    return (
-      `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`
-    );
+    return `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`;
   }
 
   const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
@@ -177,9 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_display_element.textContent = `±${tolerance * 100}%`;
   }
 
-  tolerance_element.addEventListener('change',
-    updateTolerance
-  );
+  tolerance_element.addEventListener('change', updateTolerance);
 
   tcr_element.addEventListener('change', () => {
     const color = tcr_element.value;
@@ -329,9 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelectorAll('select').forEach((element) => {
-    element.addEventListener(
-      'change', updateResult
-    );
+    element.addEventListener('change', updateResult);
   });
 
   resistance_input_element.addEventListener('input', () => {
