@@ -69,6 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.remove('mandatory');
   }
 
+  function buildToleranceOptions(list) {
+    tolerance_element.replaceChildren();
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.disabled = true;
+    defaultOption.hidden = true;
+    defaultOption.text = 'Select a color';
+    tolerance_element.appendChild(defaultOption);
+
+    list.forEach(color => {
+      const option = document.createElement('option');
+      option.value = color;
+      option.text = color;
+      tolerance_element.appendChild(option);
+    });
+  }
+
   document.getElementById('main_form').addEventListener('reset', () => {
     resetting = true;
     digits.fill(undefined);
@@ -107,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     exponent_element.style.width = '4ch';
 
     setTimeout(() => {
-      document.querySelector('input[name="mode"][value="Legacy"]').checked = true;
+      document.getElementById('legacy').checked = true;
       document.getElementById('tolerance_mode').dispatchEvent(new Event('change'));
       bands_element.dispatchEvent(new Event('change'));
       resetting = false;
@@ -263,13 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
     if (resetting) {
+      buildToleranceOptions(['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey']);
+
       tolerance_element.selectedIndex = 0;
       tolerance = undefined;
       modeBackup = undefined;
-
       tolerance_display_element.hidden = true;
       tolerance_display_element.textContent = '';
-
       return;
     }
 
@@ -285,21 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modeBackup = tolerance_element.value;
     }
 
-    tolerance_element.replaceChildren();
-
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.disabled = true;
-    defaultOption.hidden = true;
-    defaultOption.text = 'Select a color';
-    tolerance_element.appendChild(defaultOption);
-
-    optionsList.forEach(color => {
-      const option = document.createElement('option');
-      option.value = color;
-      option.text = color;
-      tolerance_element.appendChild(option);
-    });
+    buildToleranceOptions(optionsList);
 
     tolerance_element.selectedIndex = index;
 
