@@ -277,10 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('tolerance_mode').addEventListener('change', () => {
+    const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
+
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
     if (resetting) {
-      buildToleranceOptions(['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey']);
+      buildToleranceOptions(optionsList);
 
       tolerance_element.selectedIndex = 0;
       tolerance = undefined;
@@ -289,8 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
       tolerance_display_element.textContent = '';
       return;
     }
-
-    const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
