@@ -334,20 +334,29 @@ document.addEventListener('DOMContentLoaded', () => {
   resistance_input_element.addEventListener('input', () => {
     const limit = (bands >= 5 ? 3 : 2);
     const resistance = resistance_input_element.value;
-    const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
 
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
-    if (resistance.length === 0 || ((!resistance_input_element.checkValidity() ||
-      (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0)) {
-      if (resistance.length) {
+    if (resistance.length === 0) {
+      if (resistance_input_element.validity.badInput) {
         error_element.textContent = 'Invalid resistance value';
-      }
-      else {
-        error_element.textContent = 'Invalid input';
+        error_element.hidden = false;
+        resistance_input_element.classList.add('mandatory');
+        return;
       }
 
+      error_element.hidden = true;
+      resistance_input_element.classList.remove('mandatory');
+      resistanceFromTextInput = false;
+      return;
+    }
+
+    const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
+
+    if ((!resistance_input_element.checkValidity() ||
+      (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0) {
+      error_element.textContent = 'Invalid resistance value';
       error_element.hidden = false;
       resistance_input_element.classList.add('mandatory');
       return;
