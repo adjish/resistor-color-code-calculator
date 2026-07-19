@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tolerance_display_element = document.getElementById('tolerance_display');
   const digit_elements = [0, 1, 2].map(n => document.getElementById(`digit_${n}`));
   const band_elements = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
+  const checkbox_element = document.getElementById('checkbox');
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -109,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.backgroundColor = '';
     });
 
-    document.getElementById('checkbox').hidden = true;
+    checkbox_element.hidden = true;
     document.getElementById('copy_button').hidden = true;
     document.getElementById('confirm_copy').hidden = true;
     error_element.hidden = true;
@@ -232,12 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
       if (actualTolerance !== undefined && number !== 0) {
-        document.getElementById('checkbox').hidden = false;
+        checkbox_element.hidden = false;
         delta = actualTolerance * number;
         result2 = `${format(number, index)} ± ${format(delta, index)}`;
         result += ` ± ${actualTolerance * 100}%`;
       } else {
-        document.getElementById('checkbox').hidden = true;
+        checkbox_element.hidden = true;
       }
 
       if (bands === 6 && tcr !== undefined) {
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
       text_element.style.fontStyle = 'italic';
       text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
       document.getElementById('copy_button').hidden = true;
-      document.getElementById('checkbox').hidden = true;
+      checkbox_element.hidden = true;
     }
 
     document.getElementById('confirm_copy').hidden = true;
