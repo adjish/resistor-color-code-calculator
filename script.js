@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const digit_elements = [0, 1, 2].map(n => document.getElementById(`digit_${n}`));
   const band_elements = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
   const checkbox_element = document.getElementById('checkbox');
+  const copy_button_element = document.getElementById('copy_button');
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     checkbox_element.hidden = true;
-    document.getElementById('copy_button').hidden = true;
+    copy_button_element.hidden = true;
     document.getElementById('confirm_copy').hidden = true;
     error_element.hidden = true;
     error_exponent_element.hidden = true;
@@ -214,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
-      document.getElementById('copy_button').hidden = false;
+      copy_button_element.hidden = false;
 
       number = Number(digits.slice(0, bands >= 5 ? 3 : 2).join('')) * 10 ** multiplier;
 
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       text_element.style.fontStyle = 'italic';
       text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
-      document.getElementById('copy_button').hidden = true;
+      copy_button_element.hidden = true;
       checkbox_element.hidden = true;
     }
 
