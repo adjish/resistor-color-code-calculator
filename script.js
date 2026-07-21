@@ -395,6 +395,13 @@ document.addEventListener('DOMContentLoaded', () => {
     updateResult();
   });
 
+  resistance_input_element.addEventListener('blur', () => {
+    if (resistance_input_element.value === '') {
+      resistanceFromTextInput = false;
+      updateResult();
+    }
+  });
+
   same_unit_checkbox_element.addEventListener('change', () => {
     sameUnit = same_unit_checkbox_element.checked;
     updateResult();
@@ -403,23 +410,34 @@ document.addEventListener('DOMContentLoaded', () => {
   exponent_element.addEventListener('input', () => {
     exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
 
+    if (exponent_element.value === '') {
+      error_exponent_element.hidden = true;
+      exponent_element.classList.remove('mandatory');
+      return;
+    }
+
     if (exponent_element.checkValidity()) {
       multiplier = Number(exponent_element.value);
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
-
       error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
       band_3_element.style.backgroundColor = color;
-
       changeColor(multiplier_element, color);
-
       resistanceFromTextInput = false;
-
       updateResult();
     } else {
       error_exponent_element.hidden = false;
       exponent_element.classList.add('mandatory');
+    }
+  });
+
+  exponent_element.addEventListener('blur', () => {
+    if (exponent_element.value === '') {
+      multiplier = multiplier_element.selectedIndex > 0
+        ? multiplier_element.selectedIndex - 4
+        : undefined;
+      updateResult();
     }
   });
 
