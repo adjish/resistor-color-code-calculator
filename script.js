@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     defaultOption.value = '';
     defaultOption.disabled = true;
     defaultOption.hidden = true;
+    defaultOption.defaultSelected = true;
     defaultOption.text = 'Select a color';
     tolerance_element.appendChild(defaultOption);
 
@@ -283,24 +284,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
 
-    if (resetting) {
-      buildToleranceOptions(optionsList);
-
-      tolerance_element.selectedIndex = 0;
-      tolerance = undefined;
-      modeBackup = undefined;
-      tolerance_display_element.hidden = true;
-      tolerance_display_element.textContent = '';
-      return;
-    }
-
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
     const index = optionsList.indexOf(tolerance_element.value) + 1;
 
-    if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
+    if (resetting) {
+      modeBackup = undefined;
+    } else if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
       modeBackup = tolerance_element.value;
     }
 
@@ -309,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_element.selectedIndex = index;
 
     if (index === 0) {
-      if (toleranceMode === 'New' && modeBackup !== undefined) {
+      if (!resetting && toleranceMode === 'New' && modeBackup !== undefined) {
         tolerance_element.value = modeBackup;
         modeBackup = undefined;
         updateTolerance();
@@ -318,7 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       tolerance_display_element.hidden = true;
-
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
       tolerance_element.style.color = '';
