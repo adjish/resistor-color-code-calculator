@@ -89,8 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.getElementById('main_form').addEventListener('reset', () => {
+  document.getElementById('reset_button').addEventListener('mousedown', () => {
     resetting = true;
+  });
+
+  window.addEventListener('mouseup', () => {
+    setTimeout(() => { resetting = false; }, 0);
+  }, { once: false });
+
+  document.getElementById('main_form').addEventListener('reset', () => {
     digits.fill(undefined);
     multiplier = undefined;
     tolerance = undefined;
@@ -290,9 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const index = optionsList.indexOf(tolerance_element.value) + 1;
 
-    if (resetting) {
-      modeBackup = undefined;
-    } else if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
+    if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
       modeBackup = tolerance_element.value;
     }
 
@@ -301,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_element.selectedIndex = index;
 
     if (index === 0) {
-      if (!resetting && toleranceMode === 'New' && modeBackup !== undefined) {
+      if (toleranceMode === 'New' && modeBackup !== undefined) {
         tolerance_element.value = modeBackup;
         modeBackup = undefined;
         updateTolerance();
@@ -387,6 +392,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resistance_input_element.addEventListener('blur', () => {
+    if (resetting) return;
+
     if (resistance_input_element.value === '') {
       resistanceFromTextInput = false;
       updateResult();
@@ -424,6 +431,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   exponent_element.addEventListener('blur', () => {
+    if (resetting) return;
+
     if (exponent_element.value === '') {
       multiplier = multiplier_element.selectedIndex > 0
         ? multiplier_element.selectedIndex - 4
