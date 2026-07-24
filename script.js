@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const band_elements = [0, 1, 2].map(n => document.getElementById(`band_${n}`));
   const checkbox_element = document.getElementById('checkbox');
   const copy_button_element = document.getElementById('copy_button');
+  const confirm_copy_element = document.getElementById('confirm_copy');
+  const tcr_display_element = document.getElementById('tcr_display');
+  const tolerance_mode_element = document.getElementById('tolerance_mode');
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -121,12 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkbox_element.hidden = true;
     copy_button_element.hidden = true;
-    document.getElementById('confirm_copy').hidden = true;
+    confirm_copy_element.hidden = true;
     error_element.hidden = true;
     error_exponent_element.hidden = true;
 
     tolerance_display_element.textContent = '';
-    document.getElementById('tcr_display').textContent = '';
+    tcr_display_element.textContent = '';
 
     text_element.style.fontStyle = 'italic';
     text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
@@ -135,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       document.getElementById('legacy').checked = true;
-      document.getElementById('tolerance_mode').dispatchEvent(new Event('change'));
+      tolerance_mode_element.dispatchEvent(new Event('change'));
       bands_element.dispatchEvent(new Event('change'));
       resetting = false;
     }, 0);
@@ -213,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeColor(tcr_element, color);
 
-    document.getElementById('tcr_display').textContent = `${tcr} ppm/K`;
+    tcr_display_element.textContent = `${tcr} ppm/K`;
   });
 
   function updateResult() {
@@ -263,8 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
       error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
 
-      resistance_input_element.step = 10 ** multiplier;
-      resistance_input_element.min = Math.max(10 ** multiplier, minInput);
+      const step = 10 ** multiplier;
+      resistance_input_element.step = step;
+      resistance_input_element.min = Math.max(step, minInput);
 
       if (number === 0) {
         resistance_input_element.min = minInput;
@@ -276,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
       checkbox_element.hidden = true;
     }
 
-    document.getElementById('confirm_copy').hidden = true;
+    confirm_copy_element.hidden = true;
 
     if (multiplier !== undefined) {
       exponent_element.value = multiplier;
@@ -286,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.getElementById('tolerance_mode').addEventListener('change', () => {
+  tolerance_mode_element.addEventListener('change', () => {
     const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
     toleranceMode = document.querySelector('input[name="mode"]:checked').value;
@@ -370,7 +374,8 @@ document.addEventListener('DOMContentLoaded', () => {
       band_elements[i].style.backgroundColor = color;
     }
 
-    multiplier = (Number(resistance) > 0) ? Math.floor(Math.log10(Number(resistance))) - limit + 1 : 0;
+    const resistanceValue = Number(resistance);
+    multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
 
     const color = MULTIPLIERS[3 + multiplier];
 
@@ -444,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function writeClipboardText() {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
-      document.getElementById('confirm_copy').hidden = false;
+      confirm_copy_element.hidden = false;
     } catch (err) {
       console.error(err.message);
       alert(err.message);
