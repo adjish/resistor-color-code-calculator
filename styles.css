@@ -154,8 +154,7 @@ fieldset, legend {
     margin: 1rem auto;
   }
 
-  h1,
-  #text {
+  h1 {
     text-align: center;
   }
 
