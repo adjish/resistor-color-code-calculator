@@ -414,8 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
     exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
 
     if (exponent_element.value === '') {
-      error_exponent_element.hidden = true;
-      exponent_element.classList.remove('mandatory');
+      const badInput = exponent_element.validity.badInput;
+
+      error_exponent_element.hidden = !badInput;
+      exponent_element.classList.toggle('mandatory', badInput);
       return;
     }
 
