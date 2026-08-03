@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   bands_element.addEventListener('change', () => {
-    bands = parseInt(bands_element.value, 10);
+    bands = +bands_element.value;
 
     const values = VISIBILITIES[bands];
 
