@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     minInput = 0.01,
     sameUnit = false,
     resistanceFromTextInput = false,
-    bands = 4;
+    bands = 4,
+    limit = 2;
 
   document.body.classList.remove('no-js');
 
@@ -110,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     minInput = 0.01;
     resistanceFromTextInput = false;
     sameUnit = false;
+    limit = 2;
 
     [bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element].forEach(el => {
       el.style.backgroundColor = '';
@@ -163,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.max = (bands >= 5 ? 999000000000 : 99000000000);
 
     resistanceFromTextInput = false;
+    limit = (bands >= 5 ? 3 : 2);
   });
 
   digit_elements.forEach((element, n) => {
@@ -228,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       (bands < 5 || digits[2] !== undefined)) {
       copy_button_element.hidden = false;
 
-      number = Number(digits.slice(0, bands >= 5 ? 3 : 2).join('')) * 10 ** multiplier;
+      number = Number(digits.slice(0, limit).join('')) * 10 ** multiplier;
 
       result = format(number);
 
@@ -334,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resistance_input_element.addEventListener('input', () => {
-    const limit = (bands >= 5 ? 3 : 2);
     const resistance = resistance_input_element.value;
 
     resistance_input_element.step = 0.001;
