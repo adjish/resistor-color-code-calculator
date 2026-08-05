@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('mouseup', () => {
     setTimeout(() => { resetting = false; }, 0);
-  }, { once: false });
+  });
 
   document.getElementById('main_form').addEventListener('reset', () => {
     digits.fill(undefined);
