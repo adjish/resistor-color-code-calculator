@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     minInput = 0.01;
     resistanceFromTextInput = false;
     sameUnit = false;
-    limit = 2;
 
     [bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element].forEach(el => {
       el.style.backgroundColor = '';
