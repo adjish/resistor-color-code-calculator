@@ -355,10 +355,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const resistanceValue = Number(resistance);
     const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
 
     if ((!resistance_input_element.checkValidity() ||
-      (resistanceString.replace(/0+$/, '').length > limit)) && Number(resistance) !== 0) {
+      (resistanceString.replace(/0+$/, '').length > limit)) && !Object.is(resistanceValue, 0)) {
       error_element.textContent = 'Invalid resistance value';
       error_element.hidden = false;
       resistance_input_element.classList.add('mandatory');
@@ -375,7 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
       band_elements[i].style.backgroundColor = color;
     }
 
-    const resistanceValue = Number(resistance);
     multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
 
     const color = MULTIPLIERS[3 + multiplier];
