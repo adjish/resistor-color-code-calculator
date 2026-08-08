@@ -356,10 +356,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const resistanceValue = Number(resistance);
-    const resistanceString = resistance.replaceAll('.', '').replace(/^0+/, '').padEnd(limit, '0');
 
     if ((!resistance_input_element.checkValidity() ||
-      (resistanceString.replace(/0+$/, '').length > limit)) && !Object.is(resistanceValue, 0)) {
+      (resistance.replace('.', '').replace(/e.*/i, '').replace(/^0+/, '').replace(/0+$/, '').length > limit)) &&
+      !Object.is(resistanceValue, 0)) {
       error_element.textContent = 'Invalid resistance value';
       error_element.hidden = false;
       resistance_input_element.classList.add('mandatory');
@@ -367,6 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     resistanceFromTextInput = true;
+
+    const resistanceString = resistanceValue.toExponential(limit - 1).split('e')[0].replace('.', '');
 
     for (let i = 0; i < limit; ++i) {
       digits[i] = +resistanceString[i];
