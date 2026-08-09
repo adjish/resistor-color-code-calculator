@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
+  const OPTIONAL_BANDS = [
+    third_band_element, tcr_band_element, tolerance_band_element, 
+    band_elements[2], band_tolerance_element, band_tcr_element
+  ];
 
   function format(number, index) {
     if (number === 0) {
@@ -76,21 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function buildToleranceOptions(list) {
-    tolerance_element.replaceChildren();
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.disabled = true;
-    defaultOption.hidden = true;
-    defaultOption.defaultSelected = true;
-    defaultOption.text = 'Select a color';
-    tolerance_element.appendChild(defaultOption);
-
-    list.forEach(color => {
-      const option = document.createElement('option');
-      option.value = color;
-      option.text = color;
-      tolerance_element.appendChild(option);
-    });
+    tolerance_element.replaceChildren(Object.assign(new Option('Select a color', ''), { disabled: true, hidden: true, defaultSelected: true }), ...list.map(color => new Option(color, color)));
   }
 
   document.getElementById('reset_button').addEventListener('mousedown', () => {
@@ -148,14 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
   bands_element.addEventListener('change', () => {
     bands = +bands_element.value;
 
-    const values = VISIBILITIES[bands];
+    VISIBILITIES[bands].forEach((isVisible, i) => OPTIONAL_BANDS[i].hidden = !isVisible);
 
-    third_band_element.hidden = !values[0];
-    tcr_band_element.hidden = !values[1];
-    tolerance_band_element.hidden = !values[2];
-    band_elements[2].hidden = !values[3];
-    band_tolerance_element.hidden = !values[4];
-    band_tcr_element.hidden = !values[5];
     resistance_input_element.value = '';
     resistance_input_element.classList.remove('mandatory');
     error_element.hidden = true;
