@@ -144,11 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.classList.remove('mandatory');
     error_element.hidden = true;
 
-    resistance_input_element.min = minInput = (bands >= 5 ? 0.1 : 0.01);
-    resistance_input_element.max = (bands >= 5 ? 999000000000 : 99000000000);
+    const isHighPrecision = bands >= 5;
+
+    resistance_input_element.min = minInput = isHighPrecision ? 0.1 : 0.01;
+    resistance_input_element.max = isHighPrecision ? 999_000_000_000 : 99_000_000_000;
+    limit = isHighPrecision ? 3 : 2;
 
     resistanceFromTextInput = false;
-    limit = (bands >= 5 ? 3 : 2);
   });
 
   digit_elements.forEach((element, n) => {
