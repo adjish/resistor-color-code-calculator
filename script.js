@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     index ??= Math.floor(Math.log10(number) / 3);
-    number /=  10 ** (3 * index);
+    index = Math.max(-2, Math.min(index, SUFFIXES.length - 3));
+    number /= 10 ** (3 * index);
 
     return `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`;
   }
