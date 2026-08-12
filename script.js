@@ -120,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
     error_element.hidden = true;
     error_exponent_element.hidden = true;
 
+    exponent_element.classList.remove('mandatory');
+
     tolerance_display_element.textContent = '';
     tcr_display_element.textContent = '';
 
