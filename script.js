@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirm_copy_element = document.getElementById('confirm_copy');
   const tcr_display_element = document.getElementById('tcr_display');
   const tolerance_mode_element = document.getElementById('tolerance_mode');
+  const reset_button_element = document.getElementById('reset_button');
 
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
@@ -84,11 +85,25 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_element.replaceChildren(Object.assign(new Option('Select a color', ''), { disabled: true, hidden: true, defaultSelected: true }), ...list.map(color => new Option(color, color)));
   }
 
-  document.getElementById('reset_button').addEventListener('mousedown', () => {
+  reset_button_element.addEventListener('pointerdown', () => {
     resetting = true;
   });
 
-  window.addEventListener('mouseup', () => {
+  window.addEventListener('pointerup', () => {
+    setTimeout(() => { resetting = false; }, 0);
+  });
+
+  reset_button_element.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      resetting = true;
+    }
+  });
+
+  window.addEventListener('pointercancel', () => {
+    setTimeout(() => { resetting = false; }, 0);
+  });
+
+  reset_button_element.addEventListener('keyup', () => {
     setTimeout(() => { resetting = false; }, 0);
   });
 
