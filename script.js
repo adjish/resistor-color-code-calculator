@@ -43,6 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const tolerance_mode_element = document.getElementById('tolerance_mode');
   const reset_button_element = document.getElementById('reset_button');
 
+  const OPTIONAL_BANDS = [
+    third_band_element, tcr_band_element, tolerance_band_element,
+    band_elements[2], band_tolerance_element, band_tcr_element
+  ];
+
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
   const TCR_VALUES = [250, 100, 50, 15, 25, 20, 10, 5, 1];
@@ -56,10 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
-  const OPTIONAL_BANDS = [
-    third_band_element, tcr_band_element, tolerance_band_element, 
-    band_elements[2], band_tolerance_element, band_tcr_element
-  ];
 
   function format(number, index) {
     if (number === 0) {
@@ -93,17 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { resetting = false; }, 0);
   });
 
-  reset_button_element.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      resetting = true;
-    }
-  });
-
   window.addEventListener('pointercancel', () => {
-    setTimeout(() => { resetting = false; }, 0);
-  });
-
-  reset_button_element.addEventListener('keyup', () => {
     setTimeout(() => { resetting = false; }, 0);
   });
 
@@ -404,9 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   resistance_input_element.addEventListener('blur', () => {
-    if (resetting) return;
-
-    if (resistance_input_element.value === '') {
+    if (!resetting && resistance_input_element.value === '') {
       resistanceFromTextInput = false;
       updateResult();
     }
@@ -445,9 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   exponent_element.addEventListener('blur', () => {
-    if (resetting) return;
-
-    if (exponent_element.value === '') {
+    if (!resetting && exponent_element.value === '') {
       multiplier = multiplier_element.selectedIndex > 0
         ? multiplier_element.selectedIndex - 4
         : undefined;
