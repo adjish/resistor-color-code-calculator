@@ -2,6 +2,7 @@
   --main-color: #000;
   --background-color: #fff;
   --error-color: #f00;
+  color-scheme: light dark;
 }
 
 body {
