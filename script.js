@@ -223,9 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
       (bands < 5 || digits[2] !== undefined)) {
+      const step = 10 ** multiplier;
+
       copy_button_element.hidden = false;
 
-      number = Number(digits.slice(0, limit).join('')) * 10 ** multiplier;
+      number = Number(digits.slice(0, limit).join('')) * step;
 
       result = format(number);
 
@@ -263,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
       error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
 
-      const step = 10 ** multiplier;
       resistance_input_element.step = step;
       resistance_input_element.min = Math.max(step, minInput);
 
