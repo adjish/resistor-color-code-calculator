@@ -229,8 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       number = Number(digits.slice(0, limit).join('')) * step;
 
-      result = format(number);
-
       if (!resistanceFromTextInput) {
         resistance_input_element.value = +number.toFixed(6);
         resistance_input_element.classList.remove('mandatory');
@@ -241,12 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
         index = Math.floor(Math.log10(number) / 3);
       }
 
+      result = format(number, index);
+
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
       if (actualTolerance !== undefined && number !== 0) {
         checkbox_element.hidden = false;
         delta = actualTolerance * number;
-        result2 = `${format(number, index)} ± ${format(delta, index)}`;
+        result2 = `${result} ± ${format(delta, index)}`;
         result += ` ± ${actualTolerance * 100}%`;
       } else {
         checkbox_element.hidden = true;
