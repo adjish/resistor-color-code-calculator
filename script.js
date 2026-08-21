@@ -63,15 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
   function format(number, index) {
-    if (number === 0) {
-      return '0 Ω';
-    }
+    index ??= Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
 
-    index ??= Math.floor(Math.log10(number) / 3);
-    index = Math.max(-2, Math.min(index, SUFFIXES.length - 3));
-    number /= 10 ** (3 * index);
-
-    return `${+number.toFixed(6)} ${SUFFIXES[index + 2]}Ω`;
+    return `${+(number / 10 ** (3 * index)).toFixed(6)} ${SUFFIXES[index + 2]}Ω`;
   }
 
   const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
@@ -236,10 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (sameUnit) {
-        index = Math.floor(Math.log10(number) / 3);
+        index = Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
       }
 
-      result = format(number, index);
+      result = (number === 0) ? '0 Ω' : format(number, index);
 
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
 
