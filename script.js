@@ -332,15 +332,14 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.min = minInput;
 
     if (resistance.length === 0) {
-      if (resistance_input_element.validity.badInput) {
+      const badInput = resistance_input_element.validity.badInput;
+
+      if (badInput) {
         error_element.textContent = 'Invalid resistance value';
-        error_element.hidden = false;
-        resistance_input_element.classList.add('mandatory');
-        return;
       }
 
-      error_element.hidden = true;
-      resistance_input_element.classList.remove('mandatory');
+      error_element.hidden = !badInput;
+      resistance_input_element.classList.toggle('mandatory', badInput);
       resistanceFromTextInput = false;
       return;
     }
