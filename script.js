@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const badInput = resistance_input_element.validity.badInput;
 
       if (badInput) {
-        error_element.textContent = 'Invalid resistance value';
+        error_element.textContent = 'Invalid input';
       }
 
       error_element.hidden = !badInput;
