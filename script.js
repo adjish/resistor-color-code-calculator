@@ -411,19 +411,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    if (exponent_element.checkValidity()) {
+    const isValid = exponent_element.checkValidity();
+
+    error_exponent_element.hidden = isValid;
+    exponent_element.classList.toggle('mandatory', !isValid);
+
+    if (isValid) {
       multiplier = Number(exponent_element.value);
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
-      error_exponent_element.hidden = true;
-      exponent_element.classList.remove('mandatory');
       band_3_element.style.backgroundColor = color;
       changeColor(multiplier_element, color);
       resistanceFromTextInput = false;
       updateResult();
-    } else {
-      error_exponent_element.hidden = false;
-      exponent_element.classList.add('mandatory');
     }
   });
 
