@@ -371,12 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const color = MULTIPLIERS[3 + multiplier];
 
-    if (color === undefined) {
-      error_element.hidden = false;
-      resistance_input_element.classList.add('mandatory');
-      return;
-    }
-
     error_element.hidden = true;
     resistance_input_element.classList.remove('mandatory');
 
