@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  async function writeClipboardText() {
+  document.getElementById('copy_result').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
       confirm_copy_element.hidden = false;
@@ -438,7 +438,5 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err.message);
       alert(err.message);
     }
-  }
-
-  document.getElementById('copy_result').addEventListener('click', writeClipboardText);
+  });
 });
