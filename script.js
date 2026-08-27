@@ -84,12 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resetting = true;
   });
 
-  window.addEventListener('pointerup', () => {
-    setTimeout(() => { resetting = false; }, 0);
-  });
-
-  window.addEventListener('pointercancel', () => {
-    setTimeout(() => { resetting = false; }, 0);
+  ['pointerup', 'pointercancel'].forEach(event => {
+    window.addEventListener(event, () => setTimeout(() => { resetting = false; }, 0));
   });
 
   document.getElementById('main_form').addEventListener('reset', () => {
