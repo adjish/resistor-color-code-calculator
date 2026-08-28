@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resistanceValue = Number(resistance);
 
     if ((!resistance_input_element.checkValidity() ||
-      (resistance.replace('.', '').replace(/e.*/i, '').replace(/^0+/, '').replace(/0+$/, '').length > limit)) &&
+      (resistance.replace('.', '').replace(/e.*/i, '').replace(/^0+|0+$/g, '').length > limit)) &&
       !Object.is(resistanceValue, 0)) {
       error_element.textContent = 'Invalid resistance value';
       error_element.hidden = false;
