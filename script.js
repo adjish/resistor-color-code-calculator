@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     limit = isHighPrecision ? 3 : 2;
 
     resistanceFromTextInput = false;
+    updateResult();
   });
 
   digit_elements.forEach((element, n) => {
@@ -159,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
       band_elements[n].style.backgroundColor = color;
       changeColor(element, color);
       resistanceFromTextInput = false;
+      updateResult();
     });
   });
 
@@ -172,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeColor(multiplier_element, color);
 
     resistanceFromTextInput = false;
+    updateResult();
   });
 
   function updateTolerance() {
@@ -192,7 +195,10 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_display_element.textContent = `±${tolerance * 100}%`;
   }
 
-  tolerance_element.addEventListener('change', updateTolerance);
+  tolerance_element.addEventListener('change', () => {
+    updateTolerance();
+    updateResult();
+  });
 
   tcr_element.addEventListener('change', () => {
     const color = tcr_element.value;
@@ -204,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeColor(tcr_element, color);
 
     tcr_display_element.textContent = `${tcr} ppm/K`;
+    updateResult();
   });
 
   function updateResult() {
@@ -315,10 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateResult();
-  });
-
-  document.querySelectorAll('select').forEach((element) => {
-    element.addEventListener('change', updateResult);
   });
 
   resistance_input_element.addEventListener('input', () => {
