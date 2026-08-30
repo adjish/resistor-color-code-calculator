@@ -218,8 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     text_element.style.fontStyle = 'normal';
 
-    if (digits[0] !== undefined && digits[1] !== undefined && Number.isInteger(multiplier) &&
-      (bands < 5 || digits[2] !== undefined)) {
+    if (Number.isInteger(multiplier) && digits[0] !== undefined && digits[1] !== undefined &&
+      (limit === 2 || digits[2] !== undefined)) {
       const step = 10 ** multiplier;
 
       copy_button_element.hidden = false;
