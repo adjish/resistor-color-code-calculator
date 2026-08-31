@@ -43,23 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const tolerance_mode_element = document.getElementById('tolerance_mode');
   const reset_button_element = document.getElementById('reset_button');
 
-  const OPTIONAL_BANDS = [
-    third_band_element, tcr_band_element, tolerance_band_element,
-    band_elements[2], band_tolerance_element, band_tcr_element
-  ];
-
   const COLORS = ['Black', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Violet', 'Grey', 'White'];
   const MULTIPLIERS = ['Pink', 'Silver', 'Gold', ...COLORS];
   const TCR_VALUES = [250, 100, 50, 15, 25, 20, 10, 5, 1];
   const LEGACY_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.005, 0.0025, 0.001, 0.0005];
   const NEW_TOLERANCES = [0.1, 0.05, 0.01, 0.02, 0.0005, 0.0002, 0.005, 0.0025, 0.001, 0.0001];
-  const VISIBILITIES = {
-    3: [false, false, false, false, false, false],
-    4: [false, false, true,  false, true,  false],
-    5: [true,  false, true,  true,  true,  false],
-    6: [true,  true,  true,  true,  true,  true]
-  };
-
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
   function format(number, index) {
@@ -137,17 +125,19 @@ document.addEventListener('DOMContentLoaded', () => {
   bands_element.addEventListener('change', () => {
     bands = +bands_element.value;
 
-    VISIBILITIES[bands].forEach((isVisible, i) => OPTIONAL_BANDS[i].hidden = !isVisible);
+    const isStandardPrecision = bands < 5;
+
+    third_band_element.hidden = band_elements[2].hidden = isStandardPrecision;
+    tolerance_band_element.hidden = band_tolerance_element.hidden = bands < 4;
+    tcr_band_element.hidden = band_tcr_element.hidden = bands !== 6;
 
     resistance_input_element.value = '';
     resistance_input_element.classList.remove('mandatory');
     error_element.hidden = true;
 
-    const isHighPrecision = bands >= 5;
-
-    resistance_input_element.min = minInput = isHighPrecision ? 0.1 : 0.01;
-    resistance_input_element.max = isHighPrecision ? 999_000_000_000 : 99_000_000_000;
-    limit = isHighPrecision ? 3 : 2;
+    resistance_input_element.min = minInput = isStandardPrecision ? 0.01 : 0.1;
+    resistance_input_element.max = isStandardPrecision ? 99_000_000_000 : 999_000_000_000;
+    limit = isStandardPrecision ? 2 : 3;
 
     resistanceFromTextInput = false;
     updateResult();
