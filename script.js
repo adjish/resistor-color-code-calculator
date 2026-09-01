@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isStandardPrecision = bands < 5;
 
     third_band_element.hidden = band_elements[2].hidden = isStandardPrecision;
-    tolerance_band_element.hidden = band_tolerance_element.hidden = bands < 4;
+    tolerance_mode_element.hidden = tolerance_band_element.hidden = band_tolerance_element.hidden = bands < 4;
     tcr_band_element.hidden = band_tcr_element.hidden = bands !== 6;
 
     resistance_input_element.value = '';
