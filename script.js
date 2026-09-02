@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
-    if (resistance.length === 0) {
+    if (resistance === '') {
       const badInput = resistance_input_element.validity.badInput;
 
       if (badInput) {
@@ -384,9 +384,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   exponent_element.addEventListener('input', () => {
-    exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
+    const exponent = exponent_element.value;
 
-    if (exponent_element.value === '') {
+    exponent_element.style.width = `${Math.max(exponent.length + 3, 4)}ch`;
+
+    if (exponent === '') {
       const badInput = exponent_element.validity.badInput;
 
       error_exponent_element.hidden = !badInput;
@@ -400,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
     exponent_element.classList.toggle('mandatory', !isValid);
 
     if (isValid) {
-      multiplier = Number(exponent_element.value);
+      multiplier = Number(exponent);
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
       band_3_element.style.backgroundColor = color;
