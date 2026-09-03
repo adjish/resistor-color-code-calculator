@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       copy_button_element.hidden = false;
 
-      number = Number(digits.slice(0, limit).join('')) * step;
+      number = digits.slice(0, limit).join('') * step;
 
       if (!resistanceFromTextInput) {
         resistance_input_element.value = +number.toFixed(6);
