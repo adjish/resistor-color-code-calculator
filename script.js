@@ -275,10 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  tolerance_mode_element.addEventListener('change', () => {
+  tolerance_mode_element.addEventListener('change', (e) => {
     const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
-    toleranceMode = document.querySelector('input[name="mode"]:checked').value;
+    toleranceMode = e.target.value;
 
     if (toleranceMode === 'New') {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
