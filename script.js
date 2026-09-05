@@ -87,16 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
     resistanceFromTextInput = false;
     sameUnit = false;
 
-    [bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element].forEach(el => {
+    [
+      bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element,
+      ...band_elements, band_3_element, band_tolerance_element, band_tcr_element
+    ].forEach(el => {
       el.style.backgroundColor = '';
       el.style.color = '';
     });
 
     [...digit_elements, multiplier_element].forEach(el => el.classList.add('mandatory'));
-
-    [...band_elements, band_3_element, band_tolerance_element, band_tcr_element].forEach(el => {
-      el.style.backgroundColor = '';
-    });
 
     checkbox_element.hidden = true;
     copy_button_element.hidden = true;
