@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const multiplier_element = document.getElementById('multiplier');
   const tolerance_element = document.getElementById('tolerance');
   const error_exponent_element = document.getElementById('error_exponent');
+  const error_exponent_text_element = document.getElementById('error_exponent_text');
   const same_unit_checkbox_element = document.getElementById('same_unit_checkbox');
   const error_element = document.getElementById('error');
   const tcr_element = document.getElementById('tcr');
@@ -390,6 +391,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (exponent === '') {
       const badInput = exponent_element.validity.badInput;
 
+      if (badInput) {
+        error_exponent_text_element.textContent = 'Invalid input';
+      }
+
       error_exponent_element.hidden = !badInput;
       exponent_element.classList.toggle('mandatory', badInput);
       return;
@@ -408,6 +413,9 @@ document.addEventListener('DOMContentLoaded', () => {
       changeColor(multiplier_element, color);
       resistanceFromTextInput = false;
       updateResult();
+    }
+    else {
+      error_exponent_text_element.textContent = 'Invalid exponent value';
     }
   });
 
