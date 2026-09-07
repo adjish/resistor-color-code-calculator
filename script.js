@@ -59,10 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
 
-  function changeColor(element, color) {
-    element.style.backgroundColor = color;
-    element.style.color = DARK_COLORS.has(color) ? 'white' : 'black';
-    element.classList.remove('mandatory');
+  function changeColor(dropdownElement, bandElement, color) {
+    dropdownElement.style.backgroundColor = color;
+    dropdownElement.style.color = DARK_COLORS.has(color) ? 'white' : 'black';
+    dropdownElement.classList.remove('mandatory');
+
+    if (bandElement) {
+      bandElement.style.backgroundColor = color;
+    }
   }
 
   function buildToleranceOptions(list) {
@@ -147,8 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     element.addEventListener('change', () => {
       const color = element.value;
       digits[n] = element.selectedIndex - 1;
-      band_elements[n].style.backgroundColor = color;
-      changeColor(element, color);
+      changeColor(element, band_elements[n], color);
       resistanceFromTextInput = false;
       updateResult();
     });
@@ -159,9 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     multiplier = multiplier_element.selectedIndex - 4;
 
-    band_3_element.style.backgroundColor = color;
-
-    changeColor(multiplier_element, color);
+    changeColor(multiplier_element, band_3_element, color);
 
     resistanceFromTextInput = false;
     updateResult();
@@ -178,9 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tolerance = values[tolerance_element.selectedIndex - 1];
 
-    band_tolerance_element.style.backgroundColor = color;
-
-    changeColor(tolerance_element, color);
+    changeColor(tolerance_element, band_tolerance_element, color);
 
     tolerance_display_element.textContent = `±${tolerance * 100}%`;
   }
@@ -195,9 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tcr = TCR_VALUES[tcr_element.selectedIndex - 1];
 
-    band_tcr_element.style.backgroundColor = color;
-
-    changeColor(tcr_element, color);
+    changeColor(tcr_element, band_tcr_element, color);
 
     tcr_display_element.textContent = `${tcr} ppm/K`;
     updateResult();
@@ -352,8 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
       digits[i] = +resistanceString[i];
       const color = COLORS[digits[i]];
       digit_elements[i].value = color;
-      changeColor(digit_elements[i], color);
-      band_elements[i].style.backgroundColor = color;
+      changeColor(digit_elements[i], band_elements[i], color);
     }
 
     multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
@@ -364,9 +360,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.classList.remove('mandatory');
 
     multiplier_element.value = color;
-    band_3_element.style.backgroundColor = color;
 
-    changeColor(multiplier_element, color);
+    changeColor(multiplier_element, band_3_element, color);
 
     updateResult();
   });
@@ -409,8 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
       multiplier = Number(exponent);
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
-      band_3_element.style.backgroundColor = color;
-      changeColor(multiplier_element, color);
+      changeColor(multiplier_element, band_3_element, color);
       resistanceFromTextInput = false;
       updateResult();
     }
