@@ -311,59 +311,68 @@ document.addEventListener('DOMContentLoaded', () => {
     updateResult();
   });
 
-  resistance_input_element.addEventListener('input', () => {
-    const resistance = resistance_input_element.value;
+  function validateInput(input, errorContainer, errorText, fieldName, customValidation = () => true) {
+    if (input.value === '') {
+      const badInput = input.validity.badInput;
 
+      if (badInput) {
+        (errorText || errorContainer).textContent = 'Invalid input';
+      }
+
+      errorContainer.hidden = !badInput;
+      input.classList.toggle('mandatory', badInput);
+      return false;
+    }
+
+    const isValid = input.checkValidity() && customValidation();
+
+    errorContainer.hidden = isValid;
+    input.classList.toggle('mandatory', !isValid);
+
+    if (!isValid) {
+      (errorText || errorContainer).textContent = `Invalid ${fieldName} value`;
+    }
+
+    return isValid;
+  }
+
+  resistance_input_element.addEventListener('input', () => {
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
-    if (resistance === '') {
-      const badInput = resistance_input_element.validity.badInput;
+    const isValid = validateInput(resistance_input_element, error_element, null, 'resistance', () => {
+      const resistanceValue = Number(resistance_input_element.value);
+      return Object.is(resistanceValue, 0) || resistance_input_element.value.replace('.', '').replace(/e.*/i, '').replace(/^0+|0+$/g, '').length <= limit;
+    });
 
-      if (badInput) {
-        error_element.textContent = 'Invalid input';
-      }
-
-      error_element.hidden = !badInput;
-      resistance_input_element.classList.toggle('mandatory', badInput);
+    if (resistance_input_element.value === '') {
       resistanceFromTextInput = false;
       return;
     }
 
-    const resistanceValue = Number(resistance);
+    if (isValid) {
+      resistanceFromTextInput = true;
 
-    if ((!resistance_input_element.checkValidity() ||
-      (resistance.replace('.', '').replace(/e.*/i, '').replace(/^0+|0+$/g, '').length > limit)) &&
-      !Object.is(resistanceValue, 0)) {
-      error_element.textContent = 'Invalid resistance value';
-      error_element.hidden = false;
-      resistance_input_element.classList.add('mandatory');
-      return;
+      const resistanceValue = Number(resistance_input_element.value);
+      const resistanceString = resistanceValue.toExponential(limit - 1).split('e')[0].replace('.', '');
+
+      for (let i = 0; i < limit; ++i) {
+        digits[i] = +resistanceString[i];
+        const color = COLORS[digits[i]];
+        digit_elements[i].value = color;
+        changeColor(digit_elements[i], band_elements[i], color);
+      }
+
+      multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
+
+      const color = MULTIPLIERS[3 + multiplier];
+
+      multiplier_element.value = color;
+
+      changeColor(multiplier_element, band_3_element, color);
+
+      updateResult();
     }
-
-    resistanceFromTextInput = true;
-
-    const resistanceString = resistanceValue.toExponential(limit - 1).split('e')[0].replace('.', '');
-
-    for (let i = 0; i < limit; ++i) {
-      digits[i] = +resistanceString[i];
-      const color = COLORS[digits[i]];
-      digit_elements[i].value = color;
-      changeColor(digit_elements[i], band_elements[i], color);
-    }
-
-    multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
-
-    const color = MULTIPLIERS[3 + multiplier];
-
-    error_element.hidden = true;
-    resistance_input_element.classList.remove('mandatory');
-
-    multiplier_element.value = color;
-
-    changeColor(multiplier_element, band_3_element, color);
-
-    updateResult();
   });
 
   resistance_input_element.addEventListener('blur', () => {
@@ -383,33 +392,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     exponent_element.style.width = `${Math.max(exponent.length + 3, 4)}ch`;
 
-    if (exponent === '') {
-      const badInput = exponent_element.validity.badInput;
-
-      if (badInput) {
-        error_exponent_text_element.textContent = 'Invalid input';
-      }
-
-      error_exponent_element.hidden = !badInput;
-      exponent_element.classList.toggle('mandatory', badInput);
-      return;
-    }
-
-    const isValid = exponent_element.checkValidity();
-
-    error_exponent_element.hidden = isValid;
-    exponent_element.classList.toggle('mandatory', !isValid);
-
-    if (isValid) {
+    if (validateInput(exponent_element, error_exponent_element, error_exponent_text_element, 'exponent')) {
       multiplier = Number(exponent);
       multiplier_element.selectedIndex = multiplier + 4;
       const color = multiplier_element.value;
       changeColor(multiplier_element, band_3_element, color);
       resistanceFromTextInput = false;
       updateResult();
-    }
-    else {
-      error_exponent_text_element.textContent = 'Invalid exponent value';
     }
   });
 
