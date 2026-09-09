@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function updateResult() {
-    let result, result2, delta, number, index;
+    let result, delta, number, index;
 
     text_element.style.fontStyle = 'normal';
 
@@ -223,14 +223,15 @@ document.addEventListener('DOMContentLoaded', () => {
         index = Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
       }
 
-      result = (number === 0) ? '0 Ω' : format(number, index);
+      const formattedNumber = (number === 0) ? '0 Ω' : format(number, index);
+      result = formattedNumber;
 
       const actualTolerance = (bands === 3) ? 0.2 : tolerance;
+      const showRange = actualTolerance !== undefined && number !== 0;
 
-      if (actualTolerance !== undefined && number !== 0) {
+      if (showRange) {
         checkbox_element.hidden = false;
         delta = actualTolerance * number;
-        result2 = `${result} ± ${format(delta, index)}`;
         result += ` ± ${actualTolerance * 100}%`;
       } else {
         checkbox_element.hidden = true;
@@ -240,8 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
         result += ` ${tcr} ppm/K`;
       }
 
-      if (result2 !== undefined) {
-        result += `\n${result2}\n${format(number - delta, index)} – ${format(number + delta, index)}`;
+      if (showRange) {
+        result += `\n${formattedNumber} ± ${format(delta, index)}`
+          + `\n${format(number - delta, index)} – ${format(number + delta, index)}`;
       }
 
       text_element.textContent = result;
