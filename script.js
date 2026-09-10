@@ -252,11 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exponent_element.classList.remove('mandatory');
 
       resistance_input_element.step = step;
-      resistance_input_element.min = Math.max(step, minInput);
-
-      if (number === 0) {
-        resistance_input_element.min = minInput;
-      }
+      resistance_input_element.min = (number === 0) ? minInput : Math.max(step, minInput);
     } else {
       text_element.style.fontStyle = 'italic';
       text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
