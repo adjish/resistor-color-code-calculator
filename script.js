@@ -413,6 +413,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
       confirm_copy_element.hidden = false;
+
+      setTimeout(() => {
+        confirm_copy_element.hidden = true;
+      }, 2000);
     } catch (err) {
       console.error(err.message);
       alert(err.message);
