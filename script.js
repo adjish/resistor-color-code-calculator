@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sameUnit = false,
     resistanceFromTextInput = false,
     bands = 4,
-    limit = 2;
+    limit = 2,
+    confirmCopyTimer;
 
   document.body.classList.remove('no-js');
 
@@ -412,9 +413,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('copy_result').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(text_element.textContent);
+
       confirm_copy_element.hidden = false;
 
-      setTimeout(() => {
+      clearTimeout(confirmCopyTimer);
+
+      confirmCopyTimer = setTimeout(() => {
         confirm_copy_element.hidden = true;
       }, 2000);
     } catch (err) {
