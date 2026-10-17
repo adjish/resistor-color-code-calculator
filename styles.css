@@ -38,7 +38,7 @@ noscript {
   border: 1px solid var(--error-color);
   padding: 1rem;
   position: fixed;
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 
 label {
@@ -99,7 +99,7 @@ fieldset, legend {
 }
 
 .message {
-  margin-left: 1ch;
+  margin-inline-start: 1ch;
 }
 
 .container {
@@ -122,11 +122,11 @@ fieldset, legend {
   vertical-align: super;
   border: none;
   width: 4ch;
-  margin-left: -0.2rem;
+  margin-inline-start: -0.2rem;
 }
 
 #error_exponent {
-  margin-left: 1ch;
+  margin-inline-start: 1ch;
   vertical-align: super;
 }
 
