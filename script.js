@@ -224,10 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
         index = Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
       }
 
-      const formattedNumber = (number === 0) ? '0 Ω' : format(number, index);
+      const formattedNumber = number === 0 ? '0 Ω' : format(number, index);
       result = formattedNumber;
 
-      const actualTolerance = (bands === 3) ? 0.2 : tolerance;
+      const actualTolerance = bands === 3 ? 0.2 : tolerance;
       const showRange = actualTolerance !== undefined && number !== 0;
 
       if (showRange) {
@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exponent_element.classList.remove('mandatory');
 
       resistance_input_element.step = step;
-      resistance_input_element.min = (number === 0) ? minInput : Math.max(step, minInput);
+      resistance_input_element.min = number === 0 ? minInput : Math.max(step, minInput);
     } else {
       text_element.style.fontStyle = 'italic';
       text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         changeColor(digit_elements[i], band_elements[i], color);
       }
 
-      multiplier = (resistanceValue > 0) ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
+      multiplier = resistanceValue > 0 ? Math.floor(Math.log10(resistanceValue)) - limit + 1 : 0;
 
       const color = MULTIPLIERS[3 + multiplier];
 
