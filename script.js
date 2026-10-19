@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const index = optionsList.indexOf(tolerance_element.value) + 1;
 
-    if (index === 0 && tolerance_element.selectedIndex !== 0 && modeBackup === undefined) {
+    if (index === 0 && tolerance_element.selectedIndex !== 0) {
       modeBackup = tolerance_element.value;
     }
 
@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tolerance = undefined;
       tolerance_element.style.backgroundColor = '';
       tolerance_element.style.color = '';
+      band_tolerance_element.style.backgroundColor = '';
     } else {
       updateTolerance();
     }
@@ -310,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateResult();
   });
 
-  function validateInput(input, errorContainer, errorText, fieldName, customValidation = () => true) {
+  function validateInput(input, errorContainer, errorText, fieldName, customValidation = () => true, isException = () => false) {
     if (input.value === '') {
       const badInput = input.validity.badInput;
 
@@ -323,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
 
-    const isValid = input.checkValidity() && customValidation();
+    const isValid = isException() || (input.checkValidity() && customValidation());
 
     errorContainer.hidden = isValid;
     input.classList.toggle('mandatory', !isValid);
@@ -339,10 +340,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resistance_input_element.step = 0.001;
     resistance_input_element.min = minInput;
 
-    const isValid = validateInput(resistance_input_element, error_element, null, 'resistance', () => {
-      const resistanceValue = Number(resistance_input_element.value);
-      return Object.is(resistanceValue, 0) || resistance_input_element.value.replace('.', '').replace(/e.*/i, '').replace(/^0+|0+$/g, '').length <= limit;
-    });
+    const isValid = validateInput(
+      resistance_input_element, error_element, null, 'resistance',
+      () => resistance_input_element.value.replace('.', '').replace(/e.*/i, '').replace(/^0+|0+$/g, '').length <= limit,
+      () => Object.is(Number(resistance_input_element.value), 0)
+    );
 
     if (resistance_input_element.value === '') {
       resistanceFromTextInput = false;
