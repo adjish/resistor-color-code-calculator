@@ -33,12 +33,12 @@ input {
 }
 
 noscript {
+  position: fixed;
+  margin-inline-end: 0.5rem;
   background-color: #ffdddd;
   color: var(--error-color);
   border: 1px solid var(--error-color);
   padding: 1rem;
-  position: fixed;
-  margin-inline-end: 0.5rem;
 }
 
 label {

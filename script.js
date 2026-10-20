@@ -249,9 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       text_element.textContent = result;
 
-      error_exponent_element.hidden = true;
-      exponent_element.classList.remove('mandatory');
-
       resistance_input_element.step = step;
       resistance_input_element.min = number === 0 ? minInput : Math.max(step, minInput);
     } else {
