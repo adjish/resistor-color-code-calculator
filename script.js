@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     minInput = 0.01;
     resistanceFromTextInput = false;
     sameUnit = false;
+    same_unit_checkbox_element.checked = false;
 
     [
       bands_element, ...digit_elements, multiplier_element, tolerance_element, tcr_element,
