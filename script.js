@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let multiplier,
     tolerance,
     tcr,
-    toleranceMode = 'Legacy',
+    useNewTolerance = false,
     modeBackup,
     resetting = false,
     minInput = 0.01,
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     multiplier = undefined;
     tolerance = undefined;
     tcr = undefined;
-    toleranceMode = 'Legacy';
+    useNewTolerance = false;
     modeBackup = undefined;
     minInput = 0.01;
     resistanceFromTextInput = false;
@@ -151,37 +151,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   digit_elements.forEach((element, n) => {
     element.addEventListener('change', () => {
-      const color = element.value;
       digits[n] = element.selectedIndex - 1;
-      changeColor(element, band_elements[n], color);
+      changeColor(element, band_elements[n], element.value);
       resistanceFromTextInput = false;
       updateResult();
     });
   });
 
   multiplier_element.addEventListener('change', () => {
-    const color = multiplier_element.value;
-
     multiplier = multiplier_element.selectedIndex - 4;
 
-    changeColor(multiplier_element, band_3_element, color);
+    changeColor(multiplier_element, band_3_element, multiplier_element.value);
 
     resistanceFromTextInput = false;
     updateResult();
   });
 
   function updateTolerance() {
-    const values = toleranceMode === 'New'
+    const values = useNewTolerance
       ? NEW_TOLERANCES
       : LEGACY_TOLERANCES;
-
-    const color = tolerance_element.value;
 
     tolerance_display_element.hidden = false;
 
     tolerance = values[tolerance_element.selectedIndex - 1];
 
-    changeColor(tolerance_element, band_tolerance_element, color);
+    changeColor(tolerance_element, band_tolerance_element, tolerance_element.value);
 
     tolerance_display_element.textContent = `±${tolerance * 100}%`;
   }
@@ -192,11 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   tcr_element.addEventListener('change', () => {
-    const color = tcr_element.value;
-
     tcr = TCR_VALUES[tcr_element.selectedIndex - 1];
 
-    changeColor(tcr_element, band_tcr_element, color);
+    changeColor(tcr_element, band_tcr_element, tcr_element.value);
 
     tcr_display_element.textContent = `${tcr} ppm/K`;
     updateResult();
@@ -272,9 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
   tolerance_mode_element.addEventListener('change', (e) => {
     const optionsList = ['Silver', 'Gold', 'Brown', 'Red', 'Green', 'Blue', 'Violet', 'Grey'];
 
-    toleranceMode = e.target.value;
+    useNewTolerance = e.target.value === 'New';
 
-    if (toleranceMode === 'New') {
+    if (useNewTolerance) {
       optionsList.splice(4, 0, 'Orange', 'Yellow');
     }
 
@@ -289,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_element.selectedIndex = index;
 
     if (index === 0) {
-      if (toleranceMode === 'New' && modeBackup !== undefined) {
+      if (useNewTolerance && modeBackup !== undefined) {
         tolerance_element.value = modeBackup;
         modeBackup = undefined;
         updateTolerance();
@@ -394,8 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (validateInput(exponent_element, error_exponent_element, error_exponent_text_element, 'exponent')) {
       multiplier = Number(exponent);
       multiplier_element.selectedIndex = multiplier + 4;
-      const color = multiplier_element.value;
-      changeColor(multiplier_element, band_3_element, color);
+      changeColor(multiplier_element, band_3_element, multiplier_element.value);
       resistanceFromTextInput = false;
       updateResult();
     }
