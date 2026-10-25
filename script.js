@@ -53,9 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const SUFFIXES = ['µ', 'm', '', 'k', 'M', 'G', 'T'];
 
   function format(number, index) {
-    index ??= Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
+    index ??= suffixIndex(number);
 
     return `${+(number / 10 ** (3 * index)).toFixed(6)} ${SUFFIXES[index + 2]}Ω`;
+  }
+
+  function suffixIndex(number) {
+    return Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
+  }
+
+  function showPrompt() {
+    text_element.style.fontStyle = 'italic';
+    text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
+  }
+
+  function resizeExponent() {
+    exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
   }
 
   const DARK_COLORS = new Set(['Black', 'Brown', 'Red', 'Green', 'Blue', 'Grey']);
@@ -115,8 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tolerance_display_element.textContent = '';
     tcr_display_element.textContent = '';
 
-    text_element.style.fontStyle = 'italic';
-    text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
+    showPrompt();
 
     exponent_element.style.width = '4ch';
 
@@ -215,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (sameUnit) {
-        index = Math.max(-2, Math.min(Math.floor(Math.log10(number) / 3), SUFFIXES.length - 3));
+        index = suffixIndex(number);
       }
 
       const formattedNumber = number === 0 ? '0 Ω' : format(number, index);
@@ -246,8 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resistance_input_element.step = step;
       resistance_input_element.min = number === 0 ? minInput : Math.max(step, minInput);
     } else {
-      text_element.style.fontStyle = 'italic';
-      text_element.innerHTML = 'Fill all required (<span class="asterisk">*</span>) dropdowns to see the result.';
+      showPrompt();
       copy_button_element.hidden = true;
       checkbox_element.hidden = true;
     }
@@ -258,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       exponent_element.value = multiplier;
       error_exponent_element.hidden = true;
       exponent_element.classList.remove('mandatory');
-      exponent_element.style.width = `${Math.max(exponent_element.value.length + 3, 4)}ch`;
+      resizeExponent();
     }
   }
 
@@ -382,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
   exponent_element.addEventListener('input', () => {
     const exponent = exponent_element.value;
 
-    exponent_element.style.width = `${Math.max(exponent.length + 3, 4)}ch`;
+    resizeExponent();
 
     if (validateInput(exponent_element, error_exponent_element, error_exponent_text_element, 'exponent')) {
       multiplier = Number(exponent);
